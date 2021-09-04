@@ -1,0 +1,63 @@
+html {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  background: #cad6e9;
+  text-align: center;
+  font-family: "Manrope", "Helvetica", "sans-serif";
+  color: #1b0058;
+}
+
+.app {
+  background: #e6effd8c;
+  margin: 0;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.form h3 {
+  font-weight: 500;
+}
+
+form {
+  text-align: left;
+}
+form span {
+  display: block;
+  margin: 1.25rem 0;
+}
+form span.button {
+  text-align: center;
+}
+form span input, form span select {
+  width: 100%;
+}
+form span label {
+  color: #505050;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+button {
+  background: none;
+  padding: 0.5rem 1.5rem;
+  border: 0.03125rem #505050 solid;
+  border-radius: 2rem;
+  font-size: 1rem;
+  letter-spacing: 0.03125rem;
+  cursor: pointer;
+  transition: border-color 0.5s, color 0.5s;
+}
+button:hover {
+  border-color: #909090;
+  color: #505050;
+}
+
+/*# sourceMappingURL=main.css.map */
