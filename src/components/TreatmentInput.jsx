@@ -1,5 +1,12 @@
-import { Formik, Form, Field } from "formik";
 import { useState } from "react";
+
+import { Formik, Form, Field } from "formik";
+import * as Yup from 'yup';
+
+const treatmentSchema = Yup.object().shape({
+  cancerType: Yup.string().required('Required'),
+  treatmentType: Yup.string().required('Required')
+});
 
 export default function TreatmentInput() {
   function handleSubmit(values) {
@@ -35,45 +42,49 @@ export default function TreatmentInput() {
           treatmentType: ''
         }}
 
-        onSubmit={handleSubmit}>
-        {({ values }) => (
+        onSubmit={handleSubmit}
+        validationSchema={treatmentSchema}>
+        {({ values, errors }) => (
           <Form>
-            <span>
-              <label>Cancer Type</label>
-              <Field name='cancerType'>
-                {}
-              </Field>
-            </span>
-            <span>
+            <div>
+              <label>
+                Cancer Type
+                {<span className="error">{errors.cancerType}</span>}
+              </label>
+              <Field name='cancerType' />
+            </div>
+            <div>
               <label>Month</label>
               <Field name='month' as='select'>
                 {Object.keys(months).map(m => <option value={m} label={months[m].name} key={m} />)}
               </Field>
-            </span>
-            <span>
+            </div>
+            <div>
               <label>Day</label>
               <Field name='day' as='select'>
-                {[...Array((months[values.month].days + 1) + (values.month == 1 && values.year % 4 == 0)).keys()].slice(1).map(d => (
+                {[...Array((months[values.month].days + 1) + (values.month === '1' && values.year % 4 === 0)).keys()].slice(1).map(d => (
                   <option value={d} label={d} key={d} />
                 ))}
               </Field>
-            </span>
-            <span>
+            </div>
+            <div>
               <label>Year</label>
               <Field name='year' as='select'>
                 {[...Array(today.getFullYear() + 1 - 1960).keys()].slice(1).map(y =>{
                   const year = y + 1960;
-                  return <option value={year} label={year} />
+                  return <option value={year} label={year} key={year} />
                 })}
               </Field>
-            </span>
-            <span>
-              <label>Treatment Type</label>
+            </div>
+            <div>
+              <label>
+                Treatment Type
+                {<span className="error">{errors.treatmentType}</span>}</label>
               <Field name='treatmentType' />
-            </span>
-            <span className='button'>
+            </div>
+            <div className='button'>
               <button type='submit'>Add Treatment</button>
-            </span>
+            </div>
           </Form>
         )}
       </Formik>

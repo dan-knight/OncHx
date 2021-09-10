@@ -29,20 +29,25 @@ body {
 form {
   text-align: left;
 }
-form span {
+form div {
   display: block;
   margin: 1.25rem 0;
 }
-form span.button {
+form div.button {
   text-align: center;
 }
-form span input, form span select {
+form div input, form div select {
   width: 100%;
 }
-form span label {
+form div label {
   color: #505050;
   font-size: 0.875rem;
   font-weight: 500;
+}
+form div .error {
+  margin: 0 0.5rem;
+  color: darkred;
+  font-size: 0.75rem;
 }
 
 button {

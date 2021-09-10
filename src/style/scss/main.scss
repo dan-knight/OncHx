@@ -35,7 +35,7 @@ body {
 form {
   text-align: left;
 
-  span {
+  div {
     display: block;
     margin: 1.25rem 0;
 
@@ -51,6 +51,13 @@ form {
       color: #505050;
       font-size: 0.875rem;
       font-weight: 500;
+    }
+
+    .error {
+      margin: 0 0.5rem;
+      
+      color: darkred;
+      font-size: 0.75rem;
     }
   }
 }
