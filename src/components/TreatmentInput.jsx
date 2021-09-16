@@ -8,11 +8,7 @@ const treatmentSchema = Yup.object().shape({
   treatmentType: Yup.string().required('Required')
 });
 
-export default function TreatmentInput() {
-  function handleSubmit(values) {
-    alert(JSON.stringify(values, null, 2));
-  };
-  
+export default function TreatmentInput({ onSubmit }) {  
   const [today, setToday] = useState(new Date());
 
   const [months, setMonths] = useState([
@@ -39,10 +35,11 @@ export default function TreatmentInput() {
           month: today.getMonth(),
           day: today.getDay(),
           year: today.getFullYear(),
-          treatmentType: ''
+          treatmentType: '',
+          details: ''
         }}
 
-        onSubmit={handleSubmit}
+        onSubmit={onSubmit}
         validationSchema={treatmentSchema}>
         {({ values, errors }) => (
           <Form>
@@ -81,6 +78,12 @@ export default function TreatmentInput() {
                 Treatment Type
                 {<span className="error">{errors.treatmentType}</span>}</label>
               <Field name='treatmentType' />
+            </div>
+            <div>
+              <label>
+                Details
+                {<span className="error">{errors.details}</span>}</label>
+              <Field name='details' />
             </div>
             <div className='button'>
               <button type='submit'>Add Treatment</button>
