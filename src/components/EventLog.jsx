@@ -1,6 +1,13 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function EventLog({ events }) {
+export default function EventLog({ allEvents, user }) {
+  const [events, setEvents] = useState(allEvents);
+
+  useState(() => {
+    setEvents(allEvents.filter(e => e.user == user));
+  }, [allEvents, user]);
+
   return (
     <div>
       <Link to='/add'>

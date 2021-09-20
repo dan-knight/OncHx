@@ -14,7 +14,7 @@ export default function App() {
     
     return stored ? stored.map(e => ({...e, date: new Date(e.date)})) : [
       {
-        cancerType: 'Prostate', date: new Date(2020, 4, 15), treatmentType: 'Chemotherapy',
+        user: 'patient', cancerType: 'Prostate', date: new Date(2020, 4, 15), treatmentType: 'Chemotherapy',
         details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis ante, elementum sed ligula ac, scelerisque cursus magna.'
       }
     ];
@@ -27,6 +27,7 @@ export default function App() {
   function addEvent(e) {
     const newEvents = [
       {
+        user: user,
         cancerType: e.cancerType, 
         date: new Date(e.year, e.month, e.day),
         treatmentType: e.treatmentType,
@@ -46,10 +47,10 @@ export default function App() {
             <TreatmentInput onSubmit={addEvent} />
           </Route>
           <Route path='/' exact>
-            {user ? <EventLog events={events} /> : <Login onSubmit={login} />}
+            {user ? <EventLog allEvents={events} user={user} /> : <Login onSubmit={login} />}
           </Route>
         </Switch>
       </div>
     </Router>
   );
-}
+};
