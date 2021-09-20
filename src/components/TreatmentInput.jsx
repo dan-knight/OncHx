@@ -30,7 +30,7 @@ export default function TreatmentInput({ onSubmit }) {
   const routerHistory = useHistory();
 
   function handleSubmit(event) {
-    routerHistory.push('/patient');
+    routerHistory.push('/');
     onSubmit(event);
   };
 

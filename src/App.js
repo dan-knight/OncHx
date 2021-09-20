@@ -3,8 +3,10 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
+import Login from './components/Login';
 
 export default function App() {
+  const [user, setUser] = useState('');
   const [events, setEvents] = useState(getEvents());
 
   function getEvents() {
@@ -18,10 +20,14 @@ export default function App() {
     ];
   };
 
+  function login(event) {
+    setUser(event.username);
+  };
+
   function addEvent(e) {
     const newEvents = [
-      {cancerType: 
-        e.cancerType, 
+      {
+        cancerType: e.cancerType, 
         date: new Date(e.year, e.month, e.day),
         treatmentType: e.treatmentType,
         details: e.details
@@ -39,8 +45,8 @@ export default function App() {
           <Route path='/add'>
             <TreatmentInput onSubmit={addEvent} />
           </Route>
-          <Route path='/patient'>
-            <EventLog events={events} />
+          <Route path='/' exact>
+            {user ? <EventLog events={events} /> : <Login onSubmit={login} />}
           </Route>
         </Switch>
       </div>
