@@ -1,9 +1,16 @@
+import { Link } from "react-router-dom";
+
 export default function EventLog({ events }) {
   return (
-    <ul>
-      {events.map(e => (
-        <Event date={e.date} cancer={e.cancerType} treatment={e.treatmentType} details={e.details}/>))}
-    </ul>
+    <div>
+      <Link to='/add'>
+        <button>Add Event</button>
+      </Link>
+      <ul>
+        {events.map(e => (
+          <Event date={e.date} cancer={e.cancerType} treatment={e.treatmentType} details={e.details}/>))}
+      </ul>
+    </div>
   );
 };
 

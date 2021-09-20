@@ -2,13 +2,14 @@ import { useState } from "react";
 
 import { Formik, Form, Field } from "formik";
 import * as Yup from 'yup';
+import { useHistory } from "react-router-dom";
 
 const treatmentSchema = Yup.object().shape({
   cancerType: Yup.string().required('Required'),
   treatmentType: Yup.string().required('Required')
 });
 
-export default function TreatmentInput({ onSubmit }) {  
+export default function TreatmentInput({ onSubmit }) {
   const [today, setToday] = useState(new Date());
 
   const [months, setMonths] = useState([
@@ -25,6 +26,13 @@ export default function TreatmentInput({ onSubmit }) {
     { name: 'November', days: 30 },
     { name: 'December', days: 31 }
   ]);
+    
+  const routerHistory = useHistory();
+
+  function handleSubmit(event) {
+    routerHistory.push('/patient');
+    onSubmit(event);
+  };
 
   return (
     <div className='form'>
@@ -39,7 +47,7 @@ export default function TreatmentInput({ onSubmit }) {
           details: ''
         }}
 
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit}
         validationSchema={treatmentSchema}>
         {({ values, errors }) => (
           <Form>
