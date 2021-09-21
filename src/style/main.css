@@ -49,13 +49,28 @@ form div .error {
 .event-log h4, .event-log h5, .event-log p {
   margin: 0.25rem;
 }
-.event-log div {
+.event-log h6 span {
+  cursor: pointer;
+}
+.event-log li {
   margin: 0.5rem;
   border-bottom: 0.0125rem solid #1b0058;
   text-align: left;
 }
-.event-log div span {
+.event-log li span {
   margin-left: 0.75rem;
+  color: #505050;
+}
+.event-log li p {
+  font-size: 1rem;
+  display: none;
+}
+.event-log li p.expanded {
+  display: inherit;
+}
+.event-log li button {
+  border: none;
+  font-size: 1rem;
 }
 
 button {
@@ -75,6 +90,10 @@ button:hover {
 
 ul {
   padding: 0;
+}
+
+li {
+  list-style: none;
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -61,14 +61,35 @@ form {
     margin: 0.25rem;
   }
 
-  div {
+  h6 {
+    span {
+      cursor: pointer;
+    }
+  }
+
+  li {
     margin: 0.5rem;
     border-bottom: 0.0125rem solid #1b0058; 
-    
+
     text-align: left;
 
     span {
       margin-left: 0.75rem;
+      color: #505050; 
+    }
+
+    p {
+      font-size: 1rem;
+      display: none;
+
+      &.expanded {
+        display: inherit;
+      }
+    }
+
+    button {
+      border: none;
+      font-size: 1rem;
     }
   }
 }
@@ -95,4 +116,8 @@ button {
 
 ul {
   padding: 0;
+}
+
+li {
+  list-style: none;
 }
