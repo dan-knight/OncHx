@@ -12,14 +12,10 @@ body {
 
 .app {
   background: #e6effd8c;
-  margin: 0;
+  max-width: 30rem;
+  margin: 0 auto;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
 }
 
 .form h3 {
@@ -50,6 +46,18 @@ form div .error {
   font-size: 0.75rem;
 }
 
+.event-log h4, .event-log h5, .event-log p {
+  margin: 0.25rem;
+}
+.event-log div {
+  margin: 0.5rem;
+  border-bottom: 0.0125rem solid #1b0058;
+  text-align: left;
+}
+.event-log div span {
+  margin-left: 0.75rem;
+}
+
 button {
   background: none;
   padding: 0.5rem 1.5rem;
@@ -63,6 +71,10 @@ button {
 button:hover {
   border-color: #909090;
   color: #505050;
+}
+
+ul {
+  padding: 0;
 }
 
 /*# sourceMappingURL=main.css.map */

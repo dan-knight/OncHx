@@ -9,7 +9,7 @@ export default function EventLog({ allEvents, user }) {
   }, [allEvents, user]);
 
   return (
-    <div>
+    <div className='event-log'>
       <Link to='/add'>
         <button>Add Event</button>
       </Link>
