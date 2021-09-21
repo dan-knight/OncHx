@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
@@ -44,7 +44,7 @@ export default function App() {
       <div className='app'>
         <Switch>
           <Route path='/add'>
-            <TreatmentInput onSubmit={addEvent} />
+            {user ? <TreatmentInput onSubmit={addEvent} /> : <Redirect to='/' />}
           </Route>
           <Route path='/' exact>
             {user ? <EventLog allEvents={events} user={user} /> : <Login onSubmit={login} />}
