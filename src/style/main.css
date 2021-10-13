@@ -21,6 +21,12 @@ body {
 .form h3 {
   font-weight: 500;
 }
+.form .exit {
+  text-align: left;
+}
+.form .exit a {
+  text-decoration: none;
+}
 
 form {
   text-align: left;
