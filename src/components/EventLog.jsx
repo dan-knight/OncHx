@@ -5,8 +5,15 @@ export default function EventLog({ allEvents, user }) {
   const [events, setEvents] = useState(allEvents);
   const [expanded, setExpanded] = useState(new Set());
 
-  useEffect(() => {
-    setEvents(allEvents.filter(e => e.user == user));
+  function prepareEvents() {
+    const newEvents = [...allEvents].filter(e => e.user == user);
+    newEvents.sort((a, b) => b.date - a.date);
+
+    return newEvents;
+  };
+
+  useEffect(() => {    
+    setEvents(prepareEvents());
   }, [allEvents, user]);
 
   function showHide(eventID) {
