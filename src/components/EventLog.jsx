@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import useExpand from "../hooks/useExpand";
+
 export default function EventLog({ allEvents, user }) {
   const [events, setEvents] = useState({});
-  const [expanded, setExpanded] = useState(new Set());
+  const [expandedEvents, showHideEvent] = useExpand();
+  const [expandedYears, showHideYear] = useExpand();
 
   function prepareEvents() {
     const newEvents = {};
@@ -31,39 +34,33 @@ export default function EventLog({ allEvents, user }) {
     setEvents(prepareEvents());
   }, [allEvents, user]);
 
-  function showHide(eventID) {
-    const newExpanded = new Set(expanded);
-
-    if (newExpanded.has(eventID)) {
-      newExpanded.delete(eventID);
-    } else {
-      newExpanded.add(eventID);
-    }
-
-    setExpanded(newExpanded);
-  };
-
   return (
     <div className='event-log'>
       <Link to='/add'>
         <button>Add Event</button>
       </Link>
-      <ul>
+      <div>
         {Object.entries(events).sort((a, b) => b[0] - a[0]).map(e => (
-          <EventYear year={e[0]} events={e[1]} key={e[0]} expanded={expanded} onShow={showHide} />))}
-      </ul>
+          <EventYear year={e[0]} events={e[1]} key={e[0]} 
+            expandedEvents={expandedEvents} onShowEvent={showHideEvent} 
+            show={expandedYears.has(e[0])} onShowYear={showHideYear} />))}
+      </div>
     </div>
   );
 };
 
-function EventYear({year, events, expanded, onShow}) {
+function EventYear({year, events, expandedEvents, onShowEvent, show, onShowYear}) {
+  function handleShow() {
+    onShowYear(year);
+  };
+
   return (
     <div>
-      <h1>{year}</h1>
-      <ul>
+      <h3 onClick={handleShow}>{year}</h3>
+      <ul className={show ? 'expanded' : null}>
         {events.map((e, i) => (
           <Event date={e.date} cancer={e.cancerType} treatment={e.treatmentType} details={e.details} 
-            eventID={i} show={expanded.has(i)} onShow={onShow} />))}
+            eventID={i} show={expandedEvents.has(i)} onShow={onShowEvent} />))}
       </ul>
     </div>
   );

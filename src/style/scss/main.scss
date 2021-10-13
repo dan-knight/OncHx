@@ -61,9 +61,19 @@ form {
     margin: 0.25rem;
   }
 
-  h6 {
-    span {
-      cursor: pointer;
+  h6 span, h3 {
+    cursor: pointer;
+  }
+
+  h3 {
+    text-align: left;
+  }
+
+  ul, p {
+    display: none;
+
+    &.expanded {
+      display: inherit;
     }
   }
 
@@ -80,11 +90,6 @@ form {
 
     p {
       font-size: 1rem;
-      display: none;
-
-      &.expanded {
-        display: inherit;
-      }
     }
 
     button {

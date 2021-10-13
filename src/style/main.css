@@ -49,8 +49,17 @@ form div .error {
 .event-log h4, .event-log h5, .event-log p {
   margin: 0.25rem;
 }
-.event-log h6 span {
+.event-log h6 span, .event-log h3 {
   cursor: pointer;
+}
+.event-log h3 {
+  text-align: left;
+}
+.event-log ul, .event-log p {
+  display: none;
+}
+.event-log ul.expanded, .event-log p.expanded {
+  display: inherit;
 }
 .event-log li {
   margin: 0.5rem;
@@ -63,10 +72,6 @@ form div .error {
 }
 .event-log li p {
   font-size: 1rem;
-  display: none;
-}
-.event-log li p.expanded {
-  display: inherit;
 }
 .event-log li button {
   border: none;
