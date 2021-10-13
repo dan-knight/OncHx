@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function EventLog({ allEvents, user }) {
   const [events, setEvents] = useState(allEvents);
   const [expanded, setExpanded] = useState(new Set());
 
-  useState(() => {
+  useEffect(() => {
     setEvents(allEvents.filter(e => e.user == user));
   }, [allEvents, user]);
 
