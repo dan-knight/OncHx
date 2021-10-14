@@ -1,12 +1,16 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import useExpand from "../hooks/useExpand";
+import FilterMenu from "./FilterMenu";
 
 export default function EventLog({ allEvents, user }) {
   const [events, setEvents] = useState({});
   const [expandedEvents, showHideEvent] = useExpand();
   const [expandedYears, showHideYear] = useExpand();
+
+  const noFilter = () => true;
+  const [filter, setFilter] = useState(noFilter);
 
   function prepareEvents() {
     const newEvents = {};
@@ -35,17 +39,20 @@ export default function EventLog({ allEvents, user }) {
   }, [allEvents, user]);
 
   return (
-    <div className='event-log'>
-      <Link to='/add'>
-        <button>Add Event</button>
-      </Link>
-      <div>
-        {Object.entries(events).sort((a, b) => b[0] - a[0]).map(e => (
-          <EventYear year={e[0]} events={e[1]} key={e[0]} 
-            expandedEvents={expandedEvents} onShowEvent={showHideEvent} 
-            show={expandedYears.has(e[0])} onShowYear={showHideYear} />))}
+    <React.Fragment>
+      <FilterMenu />
+      <div className='event-log'>
+        <Link to='/add'>
+          <button>Add Event</button>
+        </Link>
+        <div>
+          {Object.entries(events).sort((a, b) => b[0] - a[0]).map(e => (
+            <EventYear year={e[0]} events={e[1]} key={e[0]} 
+              expandedEvents={expandedEvents} onShowEvent={showHideEvent} 
+              show={expandedYears.has(e[0])} onShowYear={showHideYear} />))}
+        </div>
       </div>
-    </div>
+    </React.Fragment>
   );
 };
 
