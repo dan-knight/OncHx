@@ -34,7 +34,7 @@ export default function EventLog({ allEvents, user }) {
     const newEvents = {};
     
     allEvents.forEach(e => {
-      if (e.user == user && eventInFilters(e)) {
+      if (e.user === user && eventInFilters(e)) {
         const year = e.date.getFullYear();
 
         if (newEvents[year] === undefined) {
@@ -97,7 +97,7 @@ function EventYear({year, events, expandedEvents, onShowEvent, show, onShowYear}
       <ul className={show ? 'expanded' : null}>
         {events.map((e, i) => (
           <Event date={e.date} cancer={e.cancerType} treatment={e.treatmentType} details={e.details} 
-            eventID={i} show={expandedEvents.has(i)} onShow={onShowEvent} />))}
+            eventID={i} show={expandedEvents.has(i)} onShow={onShowEvent} key={i} />))}
       </ul>
     </div>
   );

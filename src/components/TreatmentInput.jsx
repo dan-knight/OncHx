@@ -10,9 +10,9 @@ const treatmentSchema = Yup.object().shape({
 });
 
 export default function TreatmentInput({ onSubmit }) {
-  const [today, setToday] = useState(new Date());
+  const [today] = useState(new Date());
 
-  const [months, setMonths] = useState([
+  const [months] = useState([
     { name: 'January', days: 31 },
     { name: 'February', days: 28 },
     { name: 'March', days: 31 },
