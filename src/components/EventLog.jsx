@@ -9,14 +9,26 @@ export default function EventLog({ allEvents, user }) {
   const [expandedEvents, showHideEvent] = useExpand();
   const [expandedYears, showHideYear] = useExpand();
 
-  const noFilter = () => true;
-  const [filter, setFilter] = useState(noFilter);
+  const defaultFilters = {
+    cancerType: new Set(['Prostate', 'Lung'])
+  };
+  const [filters, setFilters] = useState(defaultFilters);
+
+  const eventInFilters = event => {
+    Object.entries(filters).forEach(f => {
+      if (!f[1].has(event[f[0]])) {
+        return false;
+      }
+    });
+
+    return true;
+  };
 
   function prepareEvents() {
     const newEvents = {};
     
     allEvents.forEach(e => {
-      if (e.user == user) {
+      if (e.user == user && eventInFilters(e)) {
         const year = e.date.getFullYear();
 
         if (newEvents[year] === undefined) {
@@ -38,9 +50,21 @@ export default function EventLog({ allEvents, user }) {
     setEvents(prepareEvents());
   }, [allEvents, user]);
 
+  function handleCheck(filter, value) {
+    const newSelected = new Set(filters[filter]);
+
+    if (newSelected.has(value)) {
+      newSelected.delete(value);
+    } else {
+      newSelected.add(value);
+    }
+
+    setFilters({...filters, [filter]: newSelected});
+  };
+
   return (
     <React.Fragment>
-      <FilterMenu />
+      <FilterMenu selected={filters} options={defaultFilters} onChange={handleCheck} />
       <div className='event-log'>
         <Link to='/add'>
           <button>Add Event</button>

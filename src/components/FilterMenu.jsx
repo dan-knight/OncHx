@@ -1,29 +1,24 @@
-import { useState } from "react";
+export default function FilterMenu({selected, options, onChange}) {
+  return (
+    <div className='filter'>
+      <FilterSection category='cancerType' values={selected.cancerType} options={options.cancerType} onChange={onChange} />
+    </div>
+  );
+};
 
-export default function FilterMenu() {
-  const [selected, setSelected] = useState(new Set());
-
-  function handleCheck(e) {
-    const value = e.target.value;
-    const newSelected = new Set(selected);
-
-    if (newSelected.has(value)) {
-      newSelected.delete(value);
-    } else {
-      newSelected.add(value);
-    }
-
-    setSelected(newSelected);
-  }
+function FilterSection({values, options, category, onChange}) {
+  function handleChange(event) {
+    onChange(category, event.target.value);
+  };
 
   return (
-    <ul className='filter'>
-      {['Prostate', 'Thyroid'].map(c => (
+    <ul>
+      {[...options].map(c => (
         <li>
-          <input type='checkbox' value={c} onChange={handleCheck} checked={selected.has(c)} />
+          <input type='checkbox' value={c} onChange={handleChange} checked={values.has(c)} />
           <label>{c}</label>
         </li>
       ))}
     </ul>
   );
-};
+}
