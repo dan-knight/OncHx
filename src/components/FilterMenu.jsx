@@ -9,15 +9,15 @@ export default function FilterMenu({selected, options, onChange}) {
 };
 
 function FilterSection({values, options, category, onChange}) {
-  function handleChange(event) {
-    onChange(category, event.target.value);
+  function handleChange(value) {
+    onChange(category, value);
   };
 
   return (
     <ul>
       {[...options].map(c => (
-        <li key={c}>
-          <input type='checkbox' value={c} onChange={handleChange} checked={values.has(c)} />
+        <li key={c} onClick={() => {handleChange(c)}}>
+          <input type='checkbox' value={c} checked={values.has(c)} readOnly />
           <label>{c}</label>
         </li>
       ))}
