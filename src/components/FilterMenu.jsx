@@ -1,7 +1,9 @@
 export default function FilterMenu({selected, options, onChange}) {
   return (
     <div className='filter'>
-      <FilterSection category='cancerType' values={selected.cancerType} options={options.cancerType} onChange={onChange} />
+      {Object.keys(options).map(o => (
+        <FilterSection category={o} values={selected[o]} options={options[o]} onChange={onChange} />
+      ))}
     </div>
   );
 };

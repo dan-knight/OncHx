@@ -10,18 +10,24 @@ export default function EventLog({ allEvents, user }) {
   const [expandedYears, showHideYear] = useExpand();
 
   const defaultFilters = {
-    cancerType: new Set(['Prostate', 'Lung'])
+    cancerType: new Set(['Prostate', 'Lung']),
+    treatmentType: new Set(['Chemotherapy', 'Radiation'])
   };
   const [filters, setFilters] = useState(defaultFilters);
 
   const eventInFilters = event => {
-    Object.entries(filters).forEach(f => {
-      if (!f[1].has(event[f[0]])) {
-        return false;
+    let inFilters = true;
+    const filterCategories = Object.keys(defaultFilters);
+    
+    for (let i = 0; i < filterCategories.length; i++) {
+      const category = filterCategories[i];
+      if (!filters[category].has(event[category])) {
+        inFilters = false;
+        break;
       }
-    });
+    };
 
-    return true;
+    return inFilters;
   };
 
   function prepareEvents() {
@@ -48,7 +54,7 @@ export default function EventLog({ allEvents, user }) {
 
   useEffect(() => {    
     setEvents(prepareEvents());
-  }, [allEvents, user]);
+  }, [allEvents, user, filters]);
 
   function handleCheck(filter, value) {
     const newSelected = new Set(filters[filter]);
