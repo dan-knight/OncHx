@@ -4,14 +4,16 @@ import { Link } from "react-router-dom";
 import useExpand from "../hooks/useExpand";
 import FilterMenu from "./FilterMenu";
 
+import { cancerTypes, treatmentTypes } from "../defaultData.jsx";
+
 export default function EventLog({ allEvents, user }) {
   const [events, setEvents] = useState({});
   const [expandedEvents, showHideEvent] = useExpand();
   const [expandedYears, showHideYear] = useExpand();
 
   const defaultFilters = {
-    cancerType: new Set(['Prostate', 'Lung']),
-    treatmentType: new Set(['Chemotherapy', 'Radiation'])
+    cancerType: new Set(cancerTypes()),
+    treatmentType: new Set(treatmentTypes())
   };
   const [filters, setFilters] = useState(defaultFilters);
 
