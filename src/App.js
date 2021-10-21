@@ -5,6 +5,8 @@ import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
 import Login from './components/Login';
 
+import { defaultEvents } from './defaultData';
+
 export default function App() {
   const [user, setUser] = useState('');
   const [events, setEvents] = useState(getEvents());
@@ -12,12 +14,7 @@ export default function App() {
   function getEvents() {
     const stored = JSON.parse(localStorage.getItem('events'));
     
-    return stored ? stored.map(e => ({...e, date: new Date(e.date)})) : [
-      {
-        user: 'patient', cancerType: 'Prostate', date: new Date(2020, 4, 15), treatmentType: 'Chemotherapy',
-        details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis ante, elementum sed ligula ac, scelerisque cursus magna.'
-      }
-    ];
+    return stored ? stored.map(e => ({...e, date: new Date(e.date)})) : defaultEvents();
   };
 
   function login(event) {
