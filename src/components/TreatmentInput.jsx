@@ -55,46 +55,47 @@ export default function TreatmentInput({ onSubmit }) {
         {({ values, errors }) => (
           <Form>
             <div>
-              <label>
+              <Field name='cancerType' id='cancerType' />
+              <label htmlFor='cancerType' className={values.cancerType ? 'filled' : null}>
                 Cancer Type
-                {<span className="error">{errors.cancerType}</span>}
+                <span className="error">{errors.cancerType}</span>
               </label>
-              <Field name='cancerType' />
             </div>
             <div>
-              <label>Month</label>
-              <Field name='month' as='select'>
+              <Field name='month' as='select' id='month'>
                 {Object.keys(months).map(m => <option value={m} label={months[m].name} key={m} />)}
               </Field>
+              <label htmlFor='month'>Month</label>
             </div>
             <div>
-              <label>Day</label>
-              <Field name='day' as='select'>
+              <Field name='day' as='select' id='day'>
                 {[...Array((months[values.month].days + 1) + (values.month === '1' && values.year % 4 === 0)).keys()].slice(1).map(d => (
                   <option value={d} label={d} key={d} />
                 ))}
               </Field>
+              <label htmlFor='day'>Day</label>
             </div>
             <div>
-              <label>Year</label>
-              <Field name='year' as='select'>
+              <Field name='year' as='select' id='year'>
                 {[...Array(today.getFullYear() + 1 - 1960).keys()].slice(1).map(y =>{
                   const year = y + 1960;
                   return <option value={year} label={year} key={year} />
                 })}
               </Field>
+              <label htmlFor='year'>Year</label>
             </div>
             <div>
-              <label>
+              <Field name='treatmentType' id='treatmentType' />
+              <label htmlFor='treatmentType'>
                 Treatment Type
                 {<span className="error">{errors.treatmentType}</span>}</label>
-              <Field name='treatmentType' />
             </div>
             <div>
-              <label>
+              <Field name='details' id='details' />
+              <label htmlFor='details' className={values.details ? 'filled' : null}>
                 Details
                 {<span className="error">{errors.details}</span>}</label>
-              <Field name='details' />
+              
             </div>
             <div className='button'>
               <button type='submit'>Add Treatment</button>

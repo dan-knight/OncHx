@@ -10,6 +10,10 @@ body {
   color: #1b0058;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .app {
   background: #e6effd8c;
   max-width: 30rem;
@@ -32,6 +36,7 @@ form {
   text-align: left;
 }
 form div {
+  position: relative;
   display: block;
   margin: 1.25rem 0;
 }
@@ -40,16 +45,41 @@ form div.button {
 }
 form div input, form div select {
   width: 100%;
+  padding: 1.5rem 0.625rem 0.5rem;
+  background: none;
+  border: calc(0.0625rem * 1.75) solid #A0A0A0;
+  border-radius: 0.25rem;
+  transition: border 300ms;
+}
+form div input:focus, form div select:focus {
+  outline: none;
+  border-color: #2d88ff;
+}
+form div select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 form div label {
   color: #505050;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1rem 0.75rem 0;
+  transition: all 250ms;
+  cursor: text;
+}
+form div :focus + label, form div label.filled, form div select + label {
+  font-size: 0.625rem;
+  transform: translate3d(0, -25%, 0);
+  opacity: 1;
+  cursor: default;
 }
 form div .error {
   margin: 0 0.5rem;
   color: darkred;
-  font-size: 0.75rem;
+  font-size: 0.625rem;
 }
 
 .event-log h4, .event-log h5, .event-log p {
