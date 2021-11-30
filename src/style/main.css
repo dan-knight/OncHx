@@ -43,17 +43,61 @@ form div {
 form div.button {
   text-align: center;
 }
-form div input, form div select {
+form div input, form div select, form div > div {
   width: 100%;
   padding: 1.5rem 0.625rem 0.5rem;
   background: none;
   border: calc(0.0625rem * 1.75) solid #A0A0A0;
   border-radius: 0.25rem;
   transition: border 300ms;
+  font-size: 0.8rem;
+  font-family: inherit;
 }
-form div input:focus, form div select:focus {
+form div input:focus, form div select:focus, form div > div:focus {
   outline: none;
   border-color: #2d88ff;
+}
+form div > div {
+  overflow-y: hidden;
+  cursor: pointer;
+}
+form div.select {
+  position: relative;
+}
+form div.select ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin: 0.125rem 0 0;
+  max-width: 100%;
+  z-index: 2;
+  background: #e7effd;
+  border: calc(0.0625rem * 1.75) solid #A0A0A0;
+  border-radius: 0.25rem;
+  max-height: 5.5rem;
+  overflow-y: scroll;
+  display: none;
+}
+form div.select ul li {
+  padding: 0.25rem 0.5rem;
+  padding-right: 2rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 200ms;
+}
+form div.select ul li:first-child {
+  cursor: text;
+}
+form div.select ul li:hover {
+  background: #c5d3eb;
+}
+form div.select ul li input {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+form div.select ul.open {
+  display: inherit;
 }
 form div select {
   -webkit-appearance: none;
@@ -68,6 +112,8 @@ form div label {
   left: 0;
   padding: 1rem 0.75rem 0;
   transition: all 250ms;
+}
+form div input + label, form div select + label {
   cursor: text;
 }
 form div :focus + label, form div label.filled, form div select + label {
