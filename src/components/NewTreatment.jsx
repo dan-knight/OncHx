@@ -1,16 +1,11 @@
 import React, { useMemo } from "react";
 import { Field, useFormikContext } from "formik";
 
-import FilterSelect from "./form/FilterSelect";
+import { FilterSelect, Select } from "./form/FilterSelect";
 import { cancerTypes } from "../defaultData";
 
 export default function NewTreatment() {
   const { values, errors } = useFormikContext();
-
-  const years = useMemo(() => {
-    const today = new Date();
-    return [...Array(today.getFullYear() + 1 - 1960).keys()].slice(1);
-  }, []);
 
   const months = useMemo(() => ([
     { name: 'January', days: 31 },
@@ -27,35 +22,30 @@ export default function NewTreatment() {
     { name: 'December', days: 31 }
   ]), []);
 
-  const days = useMemo(() => (
-    [...Array((months[values.month].days + 1) + (values.month === '1' && values.year % 4 === 0)).keys()].slice(1)
-  ), [values.month]);
+  const monthOptions = useMemo(() => (
+    months.reduce((o, m, i) => ({ ...o, [i]: m.name}), {})
+  ), []);
 
-  const cancerTypeOptions = useMemo(() => cancerTypes(), []);
+  const days = useMemo(() => {
+    const dayValues = [...Array((months[values.month].days + 1) + (values.month === '1' && values.year % 4 === 0)).keys()];
+    return dayValues.reduce((o, d) => ({ ...o, [d]: undefined }));
+  }, [values.month]);
+
+  const cancerTypeOptions = useMemo(() => cancerTypes().reduce(
+    (o, c) => ({ ...o, [c]: undefined }), {}
+  ), []);
 
   return (
     <React.Fragment>
       <FilterSelect name='cancerType' options={cancerTypeOptions} label='Cancer Type' />
+      <Select name='month' options={monthOptions} label='Month' />
+      <Select name='day' options={days} label='Day' />
       <div>
-        <Field name='month' as='select' id='month'>
-          {Object.keys(months).map(m => <option value={m} label={months[m].name} key={m} />)}
-        </Field>
-        <label htmlFor='month'>Month</label>
-      </div>
-      <div>
-        <Field name='day' as='select' id='day'>
-          {days.map(d => <option value={d} label={d} key={d} />)}
-        </Field>
-        <label htmlFor='day'>Day</label>
-      </div>
-      <div>
-        <Field name='year' as='select' id='year'>
-          {years.map(y =>{
-            const year = y + 1960;
-            return <option value={year} label={year} key={year} />
-          })}
-        </Field>
-        <label htmlFor='year'>Year</label>
+        <Field name='year' id='year' />
+        <label htmlFor='year' className={values.year ? 'filled' : null}>
+          Year
+          {<span className="error">{errors.year}</span>}</label>
+        
       </div>
       <div>
         <Field name='treatmentType' id='treatmentType' />

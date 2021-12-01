@@ -50,7 +50,7 @@ form {
       text-align: center;
     }
 
-    input, select, > div {
+    input, select, &.select > div {
       width: 100%;
       padding: 1.5rem 0.625rem 0.5rem;
       background: none;
@@ -87,7 +87,7 @@ form {
         border: calc(0.0625rem * 1.75) solid #A0A0A0;
         border-radius: 0.25rem;
 
-        max-height: 5.5rem;
+        max-height: 6rem;
         overflow-y: scroll;
 
         display: none;
