@@ -3,8 +3,13 @@ html {
   height: 100vh;
 }
 
+$grey-0: #ffffff;
+$grey-1: #F0F0F0;
+$grey-2: #c9c9c9;
+$grey-3: #A0A0A0;
+
 body {
-  background: #cad6e9;
+  background: $grey-1;
   text-align: center;
 
   font-family: 'Manrope', 'Helvetica', 'sans-serif';
@@ -16,7 +21,7 @@ body {
 }
 
 .app {
-  background: #e6effd8c;
+  background: $grey-0;
   
   max-width: 30rem;
   margin: 0 auto;
@@ -54,7 +59,7 @@ form {
       width: 100%;
       padding: 1.5rem 0.625rem 0.5rem;
       background: none;
-      border: calc(0.0625rem * 1.75) solid #A0A0A0;
+      border: 0.1rem solid $grey-3;
       border-radius: 0.25rem;
       transition: border 300ms;
       font-size: 0.8rem;
@@ -83,8 +88,8 @@ form {
         max-width: 100%;
         
         z-index: 2;
-        background: #e7effd;
-        border: calc(0.0625rem * 1.75) solid #A0A0A0;
+        background: $grey-0;
+        border: 0.1rem solid $grey-3;
         border-radius: 0.25rem;
 
         max-height: 6rem;
@@ -105,7 +110,7 @@ form {
           transition: background-color 200ms;
 
           &:hover {
-            background: #c5d3eb;
+            background: $grey-1;
           }
 
           input {
@@ -133,7 +138,7 @@ form {
       position: absolute;
       top: 0;
       left: 0;
-      padding: 1rem 0.75rem 0;
+      padding: 1.15rem 0.75rem 0;
       transition: all 250ms;
     }
 
