@@ -1,4 +1,6 @@
-export const cancerTypes = () => ([
+import { PatientEvent } from "./types/Event";
+
+export const cancerTypes = (): string[] => ([
   'Acute Lymphoblastic Leukemia',
   'Acute Myeloid Leukemia',
   'Anal Carcinoma',
@@ -62,7 +64,7 @@ export const cancerTypes = () => ([
   'Other'
 ]);
 
-export const treatmentTypes = () => ([
+export const treatmentTypes = (): string[] => ([
   'Chemotherapy',
   'Radiation Therapy',
   'Surgery',
@@ -72,7 +74,7 @@ export const treatmentTypes = () => ([
   'Interventional Radiology'
 ]);
 
-export const defaultEvents = () => ([
+export const defaultEvents = (): PatientEvent[] => ([
   {
     user: 'patient', cancerType: 'Prostate', date: new Date(2020, 10, 15), treatmentType: 'Chemotherapy',
     details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis ante, elementum sed ligula ac, scelerisque cursus magna.'
