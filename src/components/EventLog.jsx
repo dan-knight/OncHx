@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import useExpand from "../hooks/useExpand";
 import FilterMenu from "./FilterMenu";
 
-import { cancerTypes, treatmentTypes } from "../defaultData.jsx";
+import { cancerTypes, treatmentTypes } from "../defaultData";
 
 export default function EventLog({ allEvents, user }) {
   const [events, setEvents] = useState({});
@@ -72,7 +72,7 @@ export default function EventLog({ allEvents, user }) {
 
   return (
     <React.Fragment>
-      <FilterMenu selected={filters} options={defaultFilters} onChange={handleCheck} />
+      <FilterMenu selected={filters} filters={defaultFilters} onChange={handleCheck} />
       <div className='event-log'>
         <Link to='/add'>
           <button>Add Event</button>
