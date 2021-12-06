@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 
-import { Formik, Form } from "formik";
+import { Formik, Form, FormikValues } from "formik";
 import * as Yup from 'yup';
 import { Link, useHistory } from "react-router-dom";
 
@@ -11,14 +11,18 @@ const treatmentSchema = Yup.object().shape({
   treatmentType: Yup.string().required('Required')
 });
 
-export default function TreatmentInput({ onSubmit }) {
+interface TreatmentInputProps {
+  onSubmit: (values: FormikValues) => void
+}
+
+export default function TreatmentInput(props: TreatmentInputProps) {
   const today = useMemo(() => new Date(), []);
     
   const routerHistory = useHistory();
 
-  function handleSubmit(event) {
+  function handleSubmit(values: FormikValues) {
     routerHistory.push('/');
-    onSubmit(event);
+    props.onSubmit(values);
   };
 
   return (
