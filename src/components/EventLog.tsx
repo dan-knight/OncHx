@@ -1,0 +1,145 @@
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+
+import useExpand from "../hooks/useExpand";
+import FilterMenu from "./FilterMenu";
+
+import { cancerTypes, treatmentTypes } from "../defaultData";
+import Event from "../types/Event/Event";
+import { FilterOptions, FilterSelected } from "../types/Filter";
+
+interface EventLogProps {
+  allEvents: Event[],
+  user: string
+}
+
+export default function EventLog(props: EventLogProps) {
+  const [events, setEvents] = useState<{ [key: number]: Event[] }>({});
+  const [expandedEvents, showHideEvent] = useExpand();
+  const [expandedYears, showHideYear] = useExpand();
+
+  const defaultFilters: { [key: string]: FilterOptions } = {
+    cancerType: cancerTypes(),
+    treatmentType: treatmentTypes()
+  };
+  const [filters, setFilters] = useState<{ [key: string]: FilterSelected }>(Object.keys(defaultFilters).reduce(
+    (a: { [key: string]: FilterSelected }, b: string): { [key: string]: FilterSelected } => (
+      { ...a, [b]: new Set<string>(defaultFilters[b])}
+    ), {}));
+
+  const eventInFilters = (event: Event) => {
+    let inFilters = true;
+    const filterCategories: string[] = Object.keys(defaultFilters);
+    
+    for (let i = 0; i < filterCategories.length; i++) {
+      const category: string = filterCategories[i];
+      if (!filters[category].has(event[category])) {
+        inFilters = false;
+        break;
+      }
+    };
+
+    return inFilters;
+  };
+
+  function prepareEvents() {
+    const newEvents: { [key: number]: Event[] } = {};
+    
+    props.allEvents.forEach((e: Event) => {
+      if (e.user === props.user && eventInFilters(e)) {
+        const year: number = e.date.getFullYear();
+
+        if (newEvents[year] === undefined) {
+          newEvents[year] = [e];
+        } else {
+          newEvents[year].push(e);
+        }
+      }
+    });
+
+    Object.keys(newEvents).forEach((k: string) => { 
+      newEvents[parseInt(k)].sort((a: Event, b: Event) => b.date.getUTCDate() - a.date.getUTCDate());
+    });
+
+    return newEvents;
+  };
+
+  useEffect(() => {    
+    setEvents(prepareEvents());
+  }, [props.allEvents, props.user, filters]);
+
+  function handleCheck(filter: string, value: string) {
+    const newSelected = new Set(filters[filter]);
+
+    if (newSelected.has(value)) {
+      newSelected.delete(value);
+    } else {
+      newSelected.add(value);
+    }
+
+    setFilters({...filters, [filter]: newSelected});
+  };
+
+  return (
+    <React.Fragment>
+      <FilterMenu selected={filters} filters={defaultFilters} onChange={handleCheck} />
+      <div className='event-log'>
+        <Link to='/add'>
+          <button>Add Event</button>
+        </Link>
+        <div>
+          {Object.entries(events).sort((a: [string, Event[]], b: [string, Event[]]) => parseInt(b[0]) - parseInt(a[0])).map(e => (
+            <EventYear year={parseInt(e[0])} events={e[1]} key={e[0]} 
+              expandedEvents={expandedEvents} onShowEvent={showHideEvent} 
+              show={expandedYears.has(parseInt(e[0]))} onShowYear={showHideYear} />))}
+        </div>
+      </div>
+    </React.Fragment>
+  );
+};
+
+interface EventYearProps {
+  year: number,
+  events: Event[],
+  onShowEvent: (eventID: number) => void,
+  show: boolean,
+  onShowYear: (year: number) => void,
+  expandedEvents: Set<number>
+}
+
+function EventYear(props: EventYearProps) {
+  function handleShow() {
+    props.onShowYear(props.year);
+  };
+
+  return (
+    <div>
+      <h3 onClick={handleShow}>{props.year}</h3>
+      <ul className={props.show ? 'expanded' : undefined}>
+        {props.events.map((e: Event, i: number) => (
+          <LogEvent event={e} show={props.expandedEvents.has(i)} onShow={props.onShowEvent} key={i} />))}
+      </ul>
+    </div>
+  );
+};
+
+interface LogEventProps {
+  event: Event,
+  show: boolean,
+  onShow: (eventID: number) => void
+}
+
+function LogEvent(props: LogEventProps) {
+  function handleShow() {
+    props.onShow(props.event.id);
+  };
+
+  return (
+    <li>
+      <h5>{props.event.treatmentType}<span>{props.event.cancerType}</span></h5>  
+      <h4>{props.event.date.toDateString()}</h4>
+      <h6>Details <span onClick={handleShow}>{`(${props.show ? 'Hide' : 'Show'})`}</span></h6>
+      <p className={props.show ? 'expanded' : undefined}>{props.event.details}</p>
+    </li>
+  );
+};
