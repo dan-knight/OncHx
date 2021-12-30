@@ -37,7 +37,7 @@ function SelectWrapper(props: SelectWrapperProps) {
       <ul className={open ? 'open' : undefined}>
         {props.children}
         {Object.entries(props.options).map(([value, label]: [string, Option]) => (
-          <li key={value} onClick={(e: MouseEvent) => { handleClickOption(e, label ?? value); }}>
+          <li key={value} onClick={(e: MouseEvent) => { handleClickOption(e, value); }}>
             {label ?? value}
           </li>
         ))}
