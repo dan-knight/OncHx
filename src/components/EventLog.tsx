@@ -5,16 +5,16 @@ import useExpand from "../hooks/useExpand";
 import FilterMenu from "./FilterMenu";
 
 import { cancerTypes, treatmentTypes } from "../defaultData";
-import Event from "../types/Event/Event";
 import { FilterOptions, FilterSelected } from "../types/Filter";
+import { PatientEvent } from "../types/Event";
 
 interface EventLogProps {
-  allEvents: Event[],
+  allEvents: PatientEvent[],
   user: string
 }
 
 export default function EventLog(props: EventLogProps) {
-  const [events, setEvents] = useState<{ [key: number]: Event[] }>({});
+  const [events, setEvents] = useState<{ [key: number]: PatientEvent[] }>({});
   const [expandedEvents, showHideEvent] = useExpand();
   const [expandedYears, showHideYear] = useExpand();
 
@@ -27,7 +27,7 @@ export default function EventLog(props: EventLogProps) {
       { ...a, [b]: new Set<string>(defaultFilters[b])}
     ), {}));
 
-  const eventInFilters = (event: Event) => {
+  const eventInFilters = (event: PatientEvent) => {
     let inFilters = true;
     const filterCategories: string[] = Object.keys(defaultFilters);
     
@@ -43,9 +43,9 @@ export default function EventLog(props: EventLogProps) {
   };
 
   function prepareEvents() {
-    const newEvents: { [key: number]: Event[] } = {};
+    const newEvents: { [key: number]: PatientEvent[] } = {};
     
-    props.allEvents.forEach((e: Event) => {
+    props.allEvents.forEach((e: PatientEvent) => {
       if (e.user === props.user && eventInFilters(e)) {
         const year: number = e.date.getFullYear();
 
@@ -58,7 +58,7 @@ export default function EventLog(props: EventLogProps) {
     });
 
     Object.keys(newEvents).forEach((k: string) => { 
-      newEvents[parseInt(k)].sort((a: Event, b: Event) => b.date.getUTCDate() - a.date.getUTCDate());
+      newEvents[parseInt(k)].sort((a: PatientEvent, b: PatientEvent) => b.date.getUTCDate() - a.date.getUTCDate());
     });
 
     return newEvents;
@@ -88,7 +88,7 @@ export default function EventLog(props: EventLogProps) {
           <button>Add Event</button>
         </Link>
         <div>
-          {Object.entries(events).sort((a: [string, Event[]], b: [string, Event[]]) => parseInt(b[0]) - parseInt(a[0])).map(e => (
+          {Object.entries(events).sort((a: [string, PatientEvent[]], b: [string, PatientEvent[]]) => parseInt(b[0]) - parseInt(a[0])).map(e => (
             <EventYear year={parseInt(e[0])} events={e[1]} key={e[0]} 
               expandedEvents={expandedEvents} onShowEvent={showHideEvent} 
               show={expandedYears.has(parseInt(e[0]))} onShowYear={showHideYear} />))}
@@ -100,7 +100,7 @@ export default function EventLog(props: EventLogProps) {
 
 interface EventYearProps {
   year: number,
-  events: Event[],
+  events: PatientEvent[],
   onShowEvent: (eventID: number) => void,
   show: boolean,
   onShowYear: (year: number) => void,
@@ -116,7 +116,7 @@ function EventYear(props: EventYearProps) {
     <div>
       <h3 onClick={handleShow}>{props.year}</h3>
       <ul className={props.show ? 'expanded' : undefined}>
-        {props.events.map((e: Event, i: number) => (
+        {props.events.map((e: PatientEvent, i: number) => (
           <LogEvent event={e} show={props.expandedEvents.has(i)} onShow={props.onShowEvent} key={i} />))}
       </ul>
     </div>
@@ -124,7 +124,7 @@ function EventYear(props: EventYearProps) {
 };
 
 interface LogEventProps {
-  event: Event,
+  event: PatientEvent,
   show: boolean,
   onShow: (eventID: number) => void
 }
