@@ -4,14 +4,18 @@ html {
 }
 
 body {
-  background: #cad6e9;
+  background: #F0F0F0;
   text-align: center;
   font-family: "Manrope", "Helvetica", "sans-serif";
   color: #1b0058;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 .app {
-  background: #e6effd8c;
+  background: #ffffff;
   max-width: 30rem;
   margin: 0 auto;
   padding: 1rem 2rem;
@@ -32,24 +36,96 @@ form {
   text-align: left;
 }
 form div {
+  position: relative;
   display: block;
   margin: 1.25rem 0;
 }
 form div.button {
   text-align: center;
 }
-form div input, form div select {
+form div input, form div select, form div.select > div {
   width: 100%;
+  padding: 1.5rem 0.625rem 0.5rem;
+  background: none;
+  border: 0.1rem solid #A0A0A0;
+  border-radius: 0.25rem;
+  transition: border 300ms;
+  font-size: 0.8rem;
+  font-family: inherit;
+}
+form div input:focus, form div select:focus, form div.select > div:focus {
+  outline: none;
+  border-color: #2d88ff;
+}
+form div > div {
+  overflow-y: hidden;
+  cursor: pointer;
+}
+form div.select {
+  position: relative;
+}
+form div.select ul {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin: 0.125rem 0 0;
+  max-width: 100%;
+  z-index: 2;
+  background: #ffffff;
+  border: 0.1rem solid #A0A0A0;
+  border-radius: 0.25rem;
+  max-height: 6rem;
+  overflow-y: scroll;
+  display: none;
+}
+form div.select ul li {
+  padding: 0.25rem 0.5rem;
+  padding-right: 2rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: background-color 200ms;
+}
+form div.select ul li:first-child {
+  cursor: text;
+}
+form div.select ul li:hover {
+  background: #F0F0F0;
+}
+form div.select ul li input {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+form div.select ul.open {
+  display: inherit;
+}
+form div select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 form div label {
   color: #505050;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   font-weight: 500;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.15rem 0.75rem 0;
+  transition: all 250ms;
+}
+form div input + label, form div select + label {
+  cursor: text;
+}
+form div :focus + label, form div label.filled, form div select + label {
+  font-size: 0.625rem;
+  transform: translate3d(0, -25%, 0);
+  opacity: 1;
+  cursor: default;
 }
 form div .error {
   margin: 0 0.5rem;
   color: darkred;
-  font-size: 0.75rem;
+  font-size: 0.625rem;
 }
 
 .event-log h4, .event-log h5, .event-log p {
