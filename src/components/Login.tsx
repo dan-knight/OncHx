@@ -1,4 +1,4 @@
-import { Formik, Form, Field } from "formik";
+import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from 'yup';
 
 const treatmentSchema = Yup.object().shape({
@@ -6,7 +6,11 @@ const treatmentSchema = Yup.object().shape({
   password: Yup.string().required('Required')
 });
 
-export default function Login({ onSubmit }) {
+interface LoginProps {
+  onSubmit: (values: FormikValues) => void
+}
+
+export default function Login(props : LoginProps) {
   return (
     <div className='form'>
       <h3>Login</h3>
@@ -14,7 +18,7 @@ export default function Login({ onSubmit }) {
         initialValues={{
           username: '',
           password: ''}}
-        onSubmit={onSubmit}
+        onSubmit={props.onSubmit}
         validationSchema={treatmentSchema}>
         {({ errors }) => (
           <Form>

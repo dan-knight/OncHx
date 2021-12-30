@@ -1,8 +1,10 @@
 import { useState } from "react";
 
-export default function useExpand() {
-  const [expanded, setExpanded] = useState(new Set())
-  function showHide(eventID) {
+export default function useExpand():
+[Set<number>, (eventID: number) => void] {
+  const [expanded, setExpanded] = useState(new Set<number>());
+  
+  function showHide(eventID: number) {
     const newExpanded = new Set(expanded);
 
     if (newExpanded.has(eventID)) {
