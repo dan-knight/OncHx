@@ -38,7 +38,7 @@ export default function TreatmentInput(props: TreatmentInputProps) {
           day: today.getDay(),
           year: today.getFullYear(),
           treatmentType: '',
-          details: ''
+          notes: ''
         }}
 
         onSubmit={handleSubmit}

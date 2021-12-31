@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { Field, FormikValues, useFormikContext } from "formik";
+import { ErrorMessage, Field, FormikValues, useFormikContext } from "formik";
 
 import { FilterSelect, Select } from "./form/FilterSelect";
 
@@ -9,11 +9,11 @@ import { Month } from "../types/Date";
 import { Option, Options } from "../types/Options";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
+import TextField from "./form/TextField";
 
 export default function NewTreatment() {
   const { values, errors }: FormikValues = useFormikContext();
   const { treatmentTypes }: GlobalValues = useGlobalContext();
-  console.log(treatmentTypes)
 
   const months = useMemo((): Month[] => ([
     { name: 'January', days: 31 },
@@ -53,26 +53,10 @@ export default function NewTreatment() {
       <FilterSelect name='cancerType' options={cancerTypeOptions} label='Cancer Type' />
       <Select name='month' options={monthOptions} label='Month' />
       <Select name='day' options={days} label='Day' />
-      <div>
-        <Field name='year' id='year' />
-        <label htmlFor='year' className={values.year ? 'filled' : undefined}>
-          Year
-          {<span className="error">{errors.year}</span>}</label>
-        
-      </div>
-      <div>
-        <Field name='treatmentType' id='treatmentType' />
-        <label htmlFor='treatmentType'>
-          Treatment Type
-          {<span className="error">{errors.treatmentType}</span>}</label>
-      </div>
-      <div>
-        <Field name='details' id='details' />
-        <label htmlFor='details' className={values.details ? 'filled' : undefined}>
-          Details
-          {<span className="error">{errors.details}</span>}</label>
-        
-      </div>
+      <TextField name='year' filled={Boolean(values.year)} label='Year' />
+      <TextField name='treatmentType' label='Treatment Type' 
+         filled={Boolean(values.treatmentType)} errors={errors.treatmentType} />
+      <TextField name='notes' filled={Boolean(values.notes)} label='Notes' />
       <div className='button'>
         <button type='submit'>Add Treatment</button>
       </div>
