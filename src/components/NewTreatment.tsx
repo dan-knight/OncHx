@@ -27,16 +27,16 @@ export default function NewTreatment() {
   ]), []);
 
   const monthOptions: NumberOptions = useMemo(() => (
-    months.reduce((o: NumberOptions, m: Month, i: number) => ({ ...o, [i]: m.name}), {})
+    months.reduce((o: NumberOptions, m: Month, i: number) => ({ ...o, [i]: { label: m.name } }), {})
   ), []);
 
-  const days = useMemo((): { [key: number]: string | undefined } => {
+  const days: Options = useMemo(() => {
     const dayValues = range(1, months[values.month].days + Number(values.month === '1' && values.year % 4 === 0));
-    return dayValues.reduce((o: object, d: number) => ({ ...o, [d]: undefined }), {});
+    return dayValues.reduce((o: Options, d: number) => ({ ...o, [d]: { label: undefined } }), {});
   }, [values.month]);
 
   const cancerTypeOptions: Options = useMemo(() => (
-    cancerTypes().reduce((o: Options, c: string) => ({ ...o, [c]: undefined }), {})
+    cancerTypes().reduce((acc: Options, cancerType: string) => ({ ...acc, [cancerType]: { label: undefined } }), {})
   ), []);
 
   return (

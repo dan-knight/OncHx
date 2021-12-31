@@ -32,13 +32,13 @@ function SelectWrapper(props: SelectWrapperProps) {
   return (
     <div className='select'>
       <div onClick={handleOpen} id={props.name}>
-        {(props.options[values[props.name]] ?? values[props.name]) || '\u00a0'}
+        {(props.options[values[props.name]]?.label ?? values[props.name]) || '\u00a0'}
       </div>
       <ul className={open ? 'open' : undefined}>
         {props.children}
-        {Object.entries(props.options).map(([value, label]: [string, Option]) => (
+        {Object.entries(props.options).map(([value, option]: [string, Option]) => (
           <li key={value} onClick={(e: MouseEvent) => { handleClickOption(e, value); }}>
-            {label ?? value}
+            {option.label ?? value}
           </li>
         ))}
       </ul>
@@ -58,7 +58,7 @@ export function FilterSelect(props: SelectProps) {
   const [filterValue, setFilterValue] = useState('');
   const filteredOptions = useMemo(() => (
     Object.keys(props.options).reduce((a: Options, value: string) => {
-      const label = props.options[value] ?? value;
+      const label = props.options[value].label ?? value;
       return (new RegExp(filterValue, 'i').test(label) ?
         { ...a, [value]: props.options[value] } : a)
     }, {})
