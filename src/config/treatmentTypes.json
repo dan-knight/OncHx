@@ -1,15 +1,18 @@
 {
-  "0":  {
-    "label": "Chemotherapy",
-    "detailFields": {
-      "dropdown": {
-        "label": "Dropdown",
-        "options": {
-          "dan": { "label": "Daniel" },
-          "kush": { "label": "Kush" }
-        }
-      },
-      "text": { "label": "Text Input" }
+  "label": "Treatment Type",
+  "options": {
+    "0":  {
+      "label": "Chemotherapy",
+      "detailFields": {
+        "dropdown": {
+          "label": "Dropdown",
+          "options": {
+            "dan": { "label": "Daniel" },
+            "kush": { "label": "Kush" }
+          }
+        },
+        "text": { "label": "Text Input" }
+      }
     }
-  }
+}
 }

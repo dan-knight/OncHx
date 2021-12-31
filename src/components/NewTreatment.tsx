@@ -54,8 +54,7 @@ export default function NewTreatment() {
       <Select name='month' options={monthOptions} label='Month' />
       <Select name='day' options={days} label='Day' />
       <TextField name='year' filled={Boolean(values.year)} label='Year' />
-      <TextField name='treatmentType' label='Treatment Type' 
-         filled={Boolean(values.treatmentType)} errors={errors.treatmentType} />
+      <Select name='treatmentType' label={treatmentTypes.label ?? ''} options={treatmentTypes} />
       <TextField name='notes' filled={Boolean(values.notes)} label='Notes' />
       <div className='button'>
         <button type='submit'>Add Treatment</button>

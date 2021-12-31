@@ -1,5 +1,6 @@
+import { Options } from "./Options";
 import { TreatmentType } from "./Treatment";
 
 export interface GlobalValues {
-  treatmentTypes: { [key: string]: TreatmentType }
+  treatmentTypes: Options
 }
