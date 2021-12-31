@@ -9,7 +9,10 @@ interface SelectProps {
   label: string
 }
 
-interface SelectWrapperProps extends SelectProps {
+interface SelectWrapperProps {
+  name: string,
+  options: { [key: string]: Option },
+  label: string,
   children?: ReactNode | ReactNode[]
 }
 
@@ -51,16 +54,16 @@ function SelectWrapper(props: SelectWrapperProps) {
 }
 
 export function Select(props: SelectProps) {
-  return <SelectWrapper name={props.name} options={props.options} label={props.label} />
+  return <SelectWrapper name={props.name} options={props.options.options} label={props.label} />
 }
 
 export function FilterSelect(props: SelectProps) {
   const [filterValue, setFilterValue] = useState('');
   const filteredOptions = useMemo(() => (
-    Object.keys(props.options).reduce((a: Options, value: string) => {
-      const label = props.options[value].label ?? value;
+    Object.keys(props.options.options).reduce((a: { [key: string]: Option }, value: string) => {
+      const label = props.options.options[value].label ?? value;
       return (new RegExp(filterValue, 'i').test(label) ?
-        { ...a, [value]: props.options[value] } : a)
+        { ...a, [value]: props.options.options[value] } : a)
     }, {})
   ), [props.options, filterValue]);
 

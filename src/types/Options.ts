@@ -1,4 +1,5 @@
-export type Options = { [key: string]: Option };
-export type NumberOptions = { [key: number]: Option };
+export interface Options extends Option { 
+  options: { [key: string]: Option } 
+};
 
-export type Option = { label: string | undefined };
+export type Option = { label: string | undefined  };

@@ -6,10 +6,14 @@ import { FilterSelect, Select } from "./form/FilterSelect";
 import { cancerTypes } from "../defaultData";
 import { range } from "../utility";
 import { Month } from "../types/Date";
-import { NumberOptions, Options } from "../types/Options";
+import { Option, Options } from "../types/Options";
+import { GlobalValues } from "../types/Global";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 export default function NewTreatment() {
   const { values, errors }: FormikValues = useFormikContext();
+  const { treatmentTypes }: GlobalValues = useGlobalContext();
+  console.log(treatmentTypes)
 
   const months = useMemo((): Month[] => ([
     { name: 'January', days: 31 },
@@ -26,18 +30,23 @@ export default function NewTreatment() {
     { name: 'December', days: 31 }
   ]), []);
 
-  const monthOptions: NumberOptions = useMemo(() => (
-    months.reduce((o: NumberOptions, m: Month, i: number) => ({ ...o, [i]: { label: m.name } }), {})
-  ), []);
+  const monthOptions: Options = useMemo(() => ({
+    label: 'Month',
+    options: months.reduce((o: { [key: string]: Option }, m: Month, i: number) => ({ ...o, [i]: { label: m.name } }), {})
+  }), []);
 
   const days: Options = useMemo(() => {
     const dayValues = range(1, months[values.month].days + Number(values.month === '1' && values.year % 4 === 0));
-    return dayValues.reduce((o: Options, d: number) => ({ ...o, [d]: { label: undefined } }), {});
+    return {
+      label: 'Days',
+      options: dayValues.reduce((o: { [key: string]: Option }, d: number) => ({ ...o, [d]: { label: undefined } }), {})
+    };
   }, [values.month]);
 
-  const cancerTypeOptions: Options = useMemo(() => (
-    cancerTypes().reduce((acc: Options, cancerType: string) => ({ ...acc, [cancerType]: { label: undefined } }), {})
-  ), []);
+  const cancerTypeOptions: Options = useMemo(() => ({
+    label: 'Cancer Type',
+    options: cancerTypes().reduce((acc: { [key: string]: Option }, cancerType: string) => ({ ...acc, [cancerType]: { label: undefined } }), {})
+  }), []);
 
   return (
     <React.Fragment>

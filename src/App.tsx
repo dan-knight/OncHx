@@ -8,6 +8,7 @@ import Login from './components/Login';
 import { PatientEvent, StoredPatientEvent } from './types/Event';
 import { defaultEvents } from './defaultData';
 import { FormikValues } from 'formik';
+import { GlobalContextProvider } from './contexts/GlobalContext';
 
 export default function App() {
   const [user, setUser] = useState<string>('patient');
@@ -46,17 +47,19 @@ export default function App() {
   };
 
   return (
-    <Router>
-      <div className='app'>
-        <Switch>
-          <Route path='/add'>
-            {user ? <TreatmentInput onSubmit={addEvent} /> : <Redirect to='/' />}
-          </Route>
-          <Route path='/' exact>
-            {user ? <EventLog allEvents={events} user={user} /> : <Login onSubmit={login} />}
-          </Route>
-        </Switch>
-      </div>
-    </Router>
+    <GlobalContextProvider>
+      <Router>
+        <div className='app'>
+          <Switch>
+            <Route path='/add'>
+              {user ? <TreatmentInput onSubmit={addEvent} /> : <Redirect to='/' />}
+            </Route>
+            <Route path='/' exact>
+              {user ? <EventLog allEvents={events} user={user} /> : <Login onSubmit={login} />}
+            </Route>
+          </Switch>
+        </div>
+      </Router>
+    </GlobalContextProvider>
   );
 };
