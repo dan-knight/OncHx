@@ -10,6 +10,7 @@ import { Option, Options } from "../types/Options";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
 import TextField from "./form/TextField";
+import DetailFields from "./DetailFields";
 
 export default function NewTreatment() {
   const { values, errors }: FormikValues = useFormikContext();
@@ -55,6 +56,7 @@ export default function NewTreatment() {
       <Select name='day' options={days} label='Day' />
       <TextField name='year' filled={Boolean(values.year)} label='Year' />
       <Select name='treatmentType' label={treatmentTypes.label ?? ''} options={treatmentTypes} />
+      {values.treatmentType ? <DetailFields fields={treatmentTypes.options[values.treatmentType].detailFields} /> : undefined}
       <TextField name='notes' filled={Boolean(values.notes)} label='Notes' />
       <div className='button'>
         <button type='submit'>Add Treatment</button>

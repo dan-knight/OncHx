@@ -1,6 +1,6 @@
 import { Options } from "./Options";
-import { TreatmentType } from "./Treatment";
+import { TreatmentTypes } from "./Treatment";
 
 export interface GlobalValues {
-  treatmentTypes: Options
+  treatmentTypes: TreatmentTypes
 }

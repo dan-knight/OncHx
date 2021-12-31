@@ -13,6 +13,19 @@
         },
         "text": { "label": "Text Input" }
       }
+    },
+    "1":  {
+      "label": "Radiation",
+      "detailFields": {
+        "dropdown": {
+          "label": "Another Dropdown",
+          "options": {
+            "remy": { "label": "Remy" },
+            "alicia": { "label": "Alicia" }
+          }
+        },
+        "text": { "label": "Another Text Input" }
+      }
     }
-}
+  }
 }
