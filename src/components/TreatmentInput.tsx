@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import { Link, useHistory } from "react-router-dom";
 
 import NewTreatment from "./NewTreatment";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
 
 const treatmentSchema = Yup.object().shape({
   cancerType: Yup.string().required('Required'),
@@ -28,7 +30,9 @@ export default function TreatmentInput(props: TreatmentInputProps) {
   return (
     <div className='form'>
       <div className='exit'>
-        <Link to='/'>X</Link>
+        <Link to='/'>
+          <FontAwesomeIcon icon={faTimes} />
+        </Link>
       </div>
       <h3>Add Treatment</h3>
       <Formik

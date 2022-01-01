@@ -1,3 +1,5 @@
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FormikValues, useFormikContext } from "formik";
 import { useState, useMemo, MouseEvent, ReactNode, ChangeEvent } from "react";
 import { Option, Options } from "../../types/Options";
@@ -77,7 +79,8 @@ export function FilterSelect(props: SelectProps) {
 
   return (
     <SelectWrapper name={props.name} options={filteredOptions} label={props.label}>
-      <li>
+      <li className='filter'>
+        <FontAwesomeIcon icon={faSearch} />
         <input value={filterValue} onChange={handleChangeFilter} />
       </li>
     </SelectWrapper>

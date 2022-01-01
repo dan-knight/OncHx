@@ -96,6 +96,14 @@ form div.select ul li input {
   margin: 0;
   padding: 0;
 }
+form div.select ul li.filter {
+  display: flex;
+  align-content: space-between;
+  align-items: center;
+}
+form div.select ul li.filter svg {
+  margin-right: 0.5rem;
+}
 form div.select ul.open {
   display: inherit;
 }
