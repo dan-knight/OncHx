@@ -5,26 +5,47 @@
       "label": "Chemotherapy",
       "detailFields": {
         "dropdown": {
-          "label": "Dropdown",
+          "label": "Regimen",
+          "filter": "true",
           "options": {
-            "dan": { "label": "Daniel" },
-            "kush": { "label": "Kush" }
+            "0": { "label": "ABVD" },
+            "1": { "label": "ABVE" },
+            "2": { "label": "ABVE-PC" },
+            "3": { "label": "AC" },
+            "4": { "label": "AC-T" },
+            "5": { "label": "ADE" },
+            "6": { "label": "BEACOPP" },
+            "7": { "label": "BEP" },
+            "8": { "label": "CAF" },
+            "9": { "label": "CAPOX" },
+            "10": { "label": "Carboplatin-Taxol" },
+            "11": { "label": "CEM" },
+            "12": { "label": "CEV" },
+            "13": { "label": "CHOP" },
+            "14": { "label": "CMF" },
+            "15": { "label": "COPDAC" },
+            "16": { "label": "COPP" },
+            "17": { "label": "COPP-ABV" },
+            "18": { "label": "CVP" },
+            "19": { "label": "EPOCH" }
           }
         },
-        "text": { "label": "Text Input" }
+        "location": { "label": "Location" }
       }
     },
     "1":  {
       "label": "Radiation",
       "detailFields": {
-        "dropdown": {
-          "label": "Another Dropdown",
-          "options": {
-            "remy": { "label": "Remy" },
-            "alicia": { "label": "Alicia" }
-          }
-        },
-        "text": { "label": "Another Text Input" }
+        "grays": { "label": "Number of Grays" },
+        "fractions": { "label": "Number of Fractions" }
+      }
+    },
+    "2": {
+      "label": "Surgery",
+      "detailFields": {
+        "surgeryType": { "label": "Surgery Type" },
+        "location": { "label": "Location" },
+        "complications": { "label": "Complications" }
       }
     }
   }

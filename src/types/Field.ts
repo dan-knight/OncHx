@@ -4,4 +4,8 @@ export interface Fields {
   [key: string]: Field
 }
 
-export type Field = Options | Option;
+export type Field = SelectField | Option;
+
+export interface SelectField extends Options { 
+  filter: boolean
+}
