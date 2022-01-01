@@ -9,7 +9,10 @@ interface SelectProps {
   label: string
 }
 
-interface SelectWrapperProps extends SelectProps {
+interface SelectWrapperProps {
+  name: string,
+  options: { [key: string]: Option },
+  label: string,
   children?: ReactNode | ReactNode[]
 }
 
@@ -32,13 +35,13 @@ function SelectWrapper(props: SelectWrapperProps) {
   return (
     <div className='select'>
       <div onClick={handleOpen} id={props.name}>
-        {(props.options[values[props.name]] ?? values[props.name]) || '\u00a0'}
+        {(props.options[values[props.name]]?.label ?? values[props.name]) || '\u00a0'}
       </div>
       <ul className={open ? 'open' : undefined}>
         {props.children}
-        {Object.entries(props.options).map(([value, label]: [string, Option]) => (
+        {Object.entries(props.options).map(([value, option]: [string, Option]) => (
           <li key={value} onClick={(e: MouseEvent) => { handleClickOption(e, value); }}>
-            {label ?? value}
+            {option.label ?? value}
           </li>
         ))}
       </ul>
@@ -51,16 +54,16 @@ function SelectWrapper(props: SelectWrapperProps) {
 }
 
 export function Select(props: SelectProps) {
-  return <SelectWrapper name={props.name} options={props.options} label={props.label} />
+  return <SelectWrapper name={props.name} options={props.options.options} label={props.label} />
 }
 
 export function FilterSelect(props: SelectProps) {
   const [filterValue, setFilterValue] = useState('');
   const filteredOptions = useMemo(() => (
-    Object.keys(props.options).reduce((a: Options, value: string) => {
-      const label = props.options[value] ?? value;
+    Object.keys(props.options.options).reduce((a: { [key: string]: Option }, value: string) => {
+      const label = props.options.options[value].label ?? value;
       return (new RegExp(filterValue, 'i').test(label) ?
-        { ...a, [value]: props.options[value] } : a)
+        { ...a, [value]: props.options.options[value] } : a)
     }, {})
   ), [props.options, filterValue]);
 

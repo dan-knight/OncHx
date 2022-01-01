@@ -1,15 +1,20 @@
 import React, { useMemo } from "react";
-import { Field, FormikValues, useFormikContext } from "formik";
+import { ErrorMessage, Field, FormikValues, useFormikContext } from "formik";
 
 import { FilterSelect, Select } from "./form/FilterSelect";
 
 import { cancerTypes } from "../defaultData";
 import { range } from "../utility";
 import { Month } from "../types/Date";
-import { NumberOptions, Options } from "../types/Options";
+import { Option, Options } from "../types/Options";
+import { GlobalValues } from "../types/Global";
+import { useGlobalContext } from "../contexts/GlobalContext";
+import TextField from "./form/TextField";
+import DetailFields from "./DetailFields";
 
 export default function NewTreatment() {
   const { values, errors }: FormikValues = useFormikContext();
+  const { treatmentTypes }: GlobalValues = useGlobalContext();
 
   const months = useMemo((): Month[] => ([
     { name: 'January', days: 31 },
@@ -26,44 +31,33 @@ export default function NewTreatment() {
     { name: 'December', days: 31 }
   ]), []);
 
-  const monthOptions: NumberOptions = useMemo(() => (
-    months.reduce((o: NumberOptions, m: Month, i: number) => ({ ...o, [i]: m.name}), {})
-  ), []);
+  const monthOptions: Options = useMemo(() => ({
+    label: 'Month',
+    options: months.reduce((o: { [key: string]: Option }, m: Month, i: number) => ({ ...o, [i]: { label: m.name } }), {})
+  }), []);
 
-  const days = useMemo((): { [key: number]: string | undefined } => {
+  const days: Options = useMemo(() => {
     const dayValues = range(1, months[values.month].days + Number(values.month === '1' && values.year % 4 === 0));
-    return dayValues.reduce((o: object, d: number) => ({ ...o, [d]: undefined }), {});
+    return {
+      label: 'Days',
+      options: dayValues.reduce((o: { [key: string]: Option }, d: number) => ({ ...o, [d]: { label: undefined } }), {})
+    };
   }, [values.month]);
 
-  const cancerTypeOptions: Options = useMemo(() => (
-    cancerTypes().reduce((o: Options, c: string) => ({ ...o, [c]: undefined }), {})
-  ), []);
+  const cancerTypeOptions: Options = useMemo(() => ({
+    label: 'Cancer Type',
+    options: cancerTypes().reduce((acc: { [key: string]: Option }, cancerType: string) => ({ ...acc, [cancerType]: { label: undefined } }), {})
+  }), []);
 
   return (
     <React.Fragment>
       <FilterSelect name='cancerType' options={cancerTypeOptions} label='Cancer Type' />
       <Select name='month' options={monthOptions} label='Month' />
       <Select name='day' options={days} label='Day' />
-      <div>
-        <Field name='year' id='year' />
-        <label htmlFor='year' className={values.year ? 'filled' : undefined}>
-          Year
-          {<span className="error">{errors.year}</span>}</label>
-        
-      </div>
-      <div>
-        <Field name='treatmentType' id='treatmentType' />
-        <label htmlFor='treatmentType'>
-          Treatment Type
-          {<span className="error">{errors.treatmentType}</span>}</label>
-      </div>
-      <div>
-        <Field name='details' id='details' />
-        <label htmlFor='details' className={values.details ? 'filled' : undefined}>
-          Details
-          {<span className="error">{errors.details}</span>}</label>
-        
-      </div>
+      <TextField name='year' filled={Boolean(values.year)} label='Year' />
+      <Select name='treatmentType' label={treatmentTypes.label ?? ''} options={treatmentTypes} />
+      {values.treatmentType ? <DetailFields fields={treatmentTypes.options[values.treatmentType].detailFields} /> : undefined}
+      <TextField name='notes' filled={Boolean(values.notes)} label='Notes' />
       <div className='button'>
         <button type='submit'>Add Treatment</button>
       </div>
