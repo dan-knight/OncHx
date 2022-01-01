@@ -45,7 +45,11 @@ function SelectWrapper(props: SelectWrapperProps) {
           </li>
         ))}
       </ul>
-      <label htmlFor={props.name} className={values[props.name] !== '' ? 'filled' : undefined} onClick={handleOpen}>
+      <label 
+        htmlFor={props.name} 
+        className={values[props.name] !== undefined && values[props.name] !== '' ? 'filled' : undefined} 
+        onClick={handleOpen}
+      >
         {props.label}
         <span className="error">{errors[props.name]}</span>
       </label>
