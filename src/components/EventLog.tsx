@@ -7,6 +7,8 @@ import FilterMenu from "./FilterMenu";
 import { cancerTypes, treatmentTypes } from "../defaultData";
 import { FilterOptions, FilterSelected } from "../types/Filter";
 import { PatientEvent } from "../types/Event";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
 interface EventLogProps {
   allEvents: PatientEvent[],

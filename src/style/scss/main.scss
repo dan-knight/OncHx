@@ -118,6 +118,16 @@ form {
             margin: 0;
             padding: 0;
           }
+
+          &.filter {
+            display: flex;
+            align-content: space-between;
+            align-items: center;
+
+            svg {
+              margin-right: 0.5rem;
+            }
+          }
         }
         
         &.open {
