@@ -13,7 +13,7 @@ import TextField from "./form/TextField";
 import DetailFields from "./DetailFields";
 
 export default function NewTreatment() {
-  const { values, errors }: FormikValues = useFormikContext();
+  const { values }: FormikValues = useFormikContext();
   const { treatmentTypes }: GlobalValues = useGlobalContext();
 
   const months = useMemo((): Month[] => ([

@@ -1,4 +1,4 @@
-import { FilterChange, FilterOptions, FilterSelected } from "../types/Filter";
+import { FilterChange, FilterOption, FilterOptions, FilterSelected } from "../types/Filter";
 
 interface FilterMenuProps {
   filters: { [key: string]: FilterOptions },
@@ -25,7 +25,7 @@ interface FilterSectionProps {
 }
 
 function FilterSection(props: FilterSectionProps) {
-  function handleChange(value: string) {
+  function handleChange(value: FilterOption) {
     props.onChange(props.category, value);
   };
 
