@@ -75,24 +75,9 @@ export const treatmentTypes = (): string[] => ([
 ]);
 
 export const defaultEvents = (): PatientEvent[] => ([
-  {
-    user: 'patient', cancerType: 'Prostate', date: new Date(2020, 10, 15), treatmentType: 'Chemotherapy',
-    details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In turpis ante, elementum sed ligula ac, scelerisque cursus magna.'
-  },
-  {
-    user: 'patient', cancerType: 'Prostate', date: new Date(2020, 10, 18), treatmentType: 'Radiation Therapy',
-    details: 'Lorem ipsum dolor sit amet'
-  },
-  {
-    user: 'patient', cancerType: 'Bone', date: new Date(2020, 10, 18), treatmentType: 'Radiation Therapy',
-    details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    user: 'patient', cancerType: 'Prostate', date: new Date(2021, 1, 18), treatmentType: 'Radiation Therapy',
-    details: 'Lorem ipsum dolor sit amet'
-  },
-  {
-    user: 'patient', cancerType: 'Bone', date: new Date(2021, 1, 8), treatmentType: 'Radiation Therapy',
-    details: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  }
+  new PatientEvent('patient', 'Prostate', new Date(2020, 10, 15), 0),
+  new PatientEvent('patient', 'Prostate', new Date(2020, 10, 18), 1),
+  new PatientEvent('patient', 'Bone', new Date(2020, 10, 18), 0),
+  new PatientEvent('patient', 'Prostate', new Date(2021, 1, 18), 0),
+  new PatientEvent('patient', 'Bone', new Date(2021, 1, 8), 1, { notes: 'Note' })
 ]);
