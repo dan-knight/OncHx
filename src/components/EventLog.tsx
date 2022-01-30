@@ -91,7 +91,7 @@ export default function EventLog(props: EventLogProps) {
 
   return (
     <React.Fragment>
-      <FilterMenu selected={filters} filters={defaultFilters} onChange={handleCheck} />
+      {/* <FilterMenu selected={filters} filters={defaultFilters} onChange={handleCheck} /> */}
       <div className='event-log'>
         <Link to='/add'>
           <button>Add Event</button>
@@ -155,7 +155,7 @@ function LogEvent(props: LogEventProps) {
         <span>{getLabel(cancerTypes, props.event.cancerType.toString())}</span>
       </h5>  
       <h4>{props.event.date.toDateString()}</h4>
-      <h6>Details <span onClick={handleShow}>{`(${props.show ? 'Hide' : 'Show'})`}</span></h6>
+      {/* <h6>Details <span onClick={handleShow}>{`(${props.show ? 'Hide' : 'Show'})`}</span></h6> */}
       <p className={props.show ? 'expanded' : undefined}>{JSON.stringify(props.event.details)}</p>
     </li>
   );
