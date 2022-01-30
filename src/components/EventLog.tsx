@@ -10,6 +10,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
+import { TreatmentTypes } from "../types/Treatment";
+import { CancerTypes } from "../types/Cancer";
+import { Options } from "../types/Options";
 
 interface EventLogProps {
   allEvents: PatientEvent[],
@@ -136,13 +139,21 @@ interface LogEventProps {
 }
 
 function LogEvent(props: LogEventProps) {
+  const { treatmentTypes, cancerTypes }: GlobalValues = useGlobalContext();
   function handleShow() {
     props.onShow(props.event.id);
   };
 
+  function getLabel(options: Options, optionID: string): string | undefined {
+    return options.options[optionID]?.label;
+  }
+
   return (
     <li>
-      <h5>{props.event.treatmentType}<span>{props.event.cancerType}</span></h5>  
+      <h5>
+        {getLabel(treatmentTypes, props.event.treatmentType.toString())}
+        <span>{getLabel(cancerTypes, props.event.cancerType.toString())}</span>
+      </h5>  
       <h4>{props.event.date.toDateString()}</h4>
       <h6>Details <span onClick={handleShow}>{`(${props.show ? 'Hide' : 'Show'})`}</span></h6>
       <p className={props.show ? 'expanded' : undefined}>{JSON.stringify(props.event.details)}</p>
