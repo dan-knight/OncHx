@@ -17,9 +17,9 @@ export class PatientEvent implements BaseEvent {
   constructor(user: string, cancerType: number, date: Date, treatmentType: number, details?: object);
   constructor(user: string, cancerType: number, date: Date | string, treatmentType: number, details?: object) {
     this.user = user;
-    this.cancerType = cancerType;
+    this.cancerType = typeof cancerType === 'number' ? cancerType : parseInt(cancerType);
     this.date = typeof date === 'string' ? new Date(Date.parse(date)) : date;
-    this.treatmentType = treatmentType;
+    this.treatmentType = typeof treatmentType === 'number' ? treatmentType : parseInt(treatmentType);
     this.details = details ?? {};
   }
 }
