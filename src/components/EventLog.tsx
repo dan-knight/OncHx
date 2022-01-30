@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import useExpand from "../hooks/useExpand";
 import FilterMenu from "./FilterMenu";
 
-import { cancerTypes } from "../defaultData";
 import { FilterOption, FilterOptions, FilterSelected } from "../types/Filter";
 import { PatientEvent } from "../types/Event";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -22,10 +21,10 @@ export default function EventLog(props: EventLogProps) {
   const [expandedEvents, showHideEvent] = useExpand();
   const [expandedYears, showHideYear] = useExpand();
 
-  const { treatmentTypes }: GlobalValues = useGlobalContext();
+  const { treatmentTypes, cancerTypes }: GlobalValues = useGlobalContext();
 
   const defaultFilters: { [key: string]: FilterOptions } = {
-    cancerType: cancerTypes(),
+    cancerType: Object.keys(cancerTypes.options).map((k: string) => parseInt(k)),
     treatmentType: Object.keys(treatmentTypes.options).map((k: string) => parseInt(k))
   };
   const [filters, setFilters] = useState<{ [key: string]: FilterSelected }>(Object.keys(defaultFilters).reduce(

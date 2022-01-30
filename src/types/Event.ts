@@ -1,6 +1,6 @@
 interface BaseEvent {
   user: string,
-  cancerType: string
+  cancerType: number
   treatmentType: number,
   details?: object
 }
@@ -8,14 +8,14 @@ interface BaseEvent {
 export class PatientEvent implements BaseEvent {
   [key: string]: any;
   user: string;
-  cancerType: string;
+  cancerType: number;
   date: Date;
   treatmentType: number;
   details: object
 
-  constructor(user: string, cancerType: string, date: string, treatmentType: number, details?: object);
-  constructor(user: string, cancerType: string, date: Date, treatmentType: number, details?: object);
-  constructor(user: string, cancerType: string, date: Date | string, treatmentType: number, details?: object) {
+  constructor(user: string, cancerType: number, date: string, treatmentType: number, details?: object);
+  constructor(user: string, cancerType: number, date: Date, treatmentType: number, details?: object);
+  constructor(user: string, cancerType: number, date: Date | string, treatmentType: number, details?: object) {
     this.user = user;
     this.cancerType = cancerType;
     this.date = typeof date === 'string' ? new Date(Date.parse(date)) : date;
