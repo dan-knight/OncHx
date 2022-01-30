@@ -3,7 +3,7 @@ import { ErrorMessage, Field, FormikValues, useFormikContext } from "formik";
 
 import { FilterSelect, Select } from "./form/FilterSelect";
 
-import { cancerTypes } from "../defaultData";
+import cancerTypes from "../config/cancerTypes.json";
 import { range } from "../utility";
 import { Month } from "../types/Date";
 import { Option, Options } from "../types/Options";
@@ -13,7 +13,7 @@ import TextField from "./form/TextField";
 import DetailFields from "./DetailFields";
 
 export default function NewTreatment() {
-  const { values, errors }: FormikValues = useFormikContext();
+  const { values }: FormikValues = useFormikContext();
   const { treatmentTypes }: GlobalValues = useGlobalContext();
 
   const months = useMemo((): Month[] => ([
@@ -44,14 +44,9 @@ export default function NewTreatment() {
     };
   }, [values.month]);
 
-  const cancerTypeOptions: Options = useMemo(() => ({
-    label: 'Cancer Type',
-    options: cancerTypes().reduce((acc: { [key: string]: Option }, cancerType: string) => ({ ...acc, [cancerType]: { label: undefined } }), {})
-  }), []);
-
   return (
     <React.Fragment>
-      <FilterSelect name='cancerType' options={cancerTypeOptions} label='Cancer Type' />
+      <FilterSelect name='cancerType' options={cancerTypes} label='Cancer Type' />
       <Select name='month' options={monthOptions} label='Month' />
       <Select name='day' options={days} label='Day' />
       <TextField name='year' filled={Boolean(values.year)} label='Year' />

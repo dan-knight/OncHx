@@ -4,11 +4,15 @@ import { Link } from "react-router-dom";
 import useExpand from "../hooks/useExpand";
 import FilterMenu from "./FilterMenu";
 
-import { cancerTypes, treatmentTypes } from "../defaultData";
-import { FilterOptions, FilterSelected } from "../types/Filter";
+import { FilterOption, FilterOptions, FilterSelected } from "../types/Filter";
 import { PatientEvent } from "../types/Event";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import { GlobalValues } from "../types/Global";
+import { useGlobalContext } from "../contexts/GlobalContext";
+import { TreatmentTypes } from "../types/Treatment";
+import { CancerTypes } from "../types/Cancer";
+import { Options } from "../types/Options";
 
 interface EventLogProps {
   allEvents: PatientEvent[],
@@ -20,13 +24,15 @@ export default function EventLog(props: EventLogProps) {
   const [expandedEvents, showHideEvent] = useExpand();
   const [expandedYears, showHideYear] = useExpand();
 
+  const { treatmentTypes, cancerTypes }: GlobalValues = useGlobalContext();
+
   const defaultFilters: { [key: string]: FilterOptions } = {
-    cancerType: cancerTypes(),
-    treatmentType: treatmentTypes()
+    cancerType: Object.keys(cancerTypes.options).map((k: string) => parseInt(k)),
+    treatmentType: Object.keys(treatmentTypes.options).map((k: string) => parseInt(k))
   };
   const [filters, setFilters] = useState<{ [key: string]: FilterSelected }>(Object.keys(defaultFilters).reduce(
-    (a: { [key: string]: FilterSelected }, b: string): { [key: string]: FilterSelected } => (
-      { ...a, [b]: new Set<string>(defaultFilters[b])}
+    (a: { [key: string]: FilterSelected }, b: FilterOption): { [key: string]: FilterSelected } => (
+      { ...a, [b]: new Set<FilterOption>(defaultFilters[b])}
     ), {}));
 
   const eventInFilters = (event: PatientEvent) => {
@@ -35,6 +41,7 @@ export default function EventLog(props: EventLogProps) {
     
     for (let i = 0; i < filterCategories.length; i++) {
       const category: string = filterCategories[i];
+
       if (!filters[category].has(event[category])) {
         inFilters = false;
         break;
@@ -70,7 +77,7 @@ export default function EventLog(props: EventLogProps) {
     setEvents(prepareEvents());
   }, [props.allEvents, props.user, filters]);
 
-  function handleCheck(filter: string, value: string) {
+  function handleCheck(filter: FilterOption, value: FilterOption) {
     const newSelected = new Set(filters[filter]);
 
     if (newSelected.has(value)) {
@@ -84,7 +91,7 @@ export default function EventLog(props: EventLogProps) {
 
   return (
     <React.Fragment>
-      <FilterMenu selected={filters} filters={defaultFilters} onChange={handleCheck} />
+      {/* <FilterMenu selected={filters} filters={defaultFilters} onChange={handleCheck} /> */}
       <div className='event-log'>
         <Link to='/add'>
           <button>Add Event</button>
@@ -132,16 +139,24 @@ interface LogEventProps {
 }
 
 function LogEvent(props: LogEventProps) {
+  const { treatmentTypes, cancerTypes }: GlobalValues = useGlobalContext();
   function handleShow() {
     props.onShow(props.event.id);
   };
 
+  function getLabel(options: Options, optionID: string): string | undefined {
+    return options.options[optionID]?.label;
+  }
+
   return (
     <li>
-      <h5>{props.event.treatmentType}<span>{props.event.cancerType}</span></h5>  
+      <h5>
+        {getLabel(treatmentTypes, props.event.treatmentType.toString())}
+        <span>{getLabel(cancerTypes, props.event.cancerType.toString())}</span>
+      </h5>  
       <h4>{props.event.date.toDateString()}</h4>
-      <h6>Details <span onClick={handleShow}>{`(${props.show ? 'Hide' : 'Show'})`}</span></h6>
-      <p className={props.show ? 'expanded' : undefined}>{props.event.details}</p>
+      {/* <h6>Details <span onClick={handleShow}>{`(${props.show ? 'Hide' : 'Show'})`}</span></h6> */}
+      <p className={props.show ? 'expanded' : undefined}>{JSON.stringify(props.event.details)}</p>
     </li>
   );
 };
