@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, HashRouter } from 'react-router-dom';
 
 import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
@@ -48,7 +48,7 @@ export default function App() {
 
   return (
     <GlobalContextProvider>
-      <Router>
+      <HashRouter>
         <div className='app'>
           <Switch>
             <Route path='/add'>
@@ -59,7 +59,7 @@ export default function App() {
             </Route>
           </Switch>
         </div>
-      </Router>
+      </HashRouter>
     </GlobalContextProvider>
   );
 };
