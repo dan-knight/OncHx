@@ -1,23 +1,23 @@
-import { Field } from "../../../Field";
-import { Option } from "../../../Options";
-import { EventDetailFields } from "../EventDetailFields";
-import EventDetailValues from "../EventDetailValues";
+import { DetailField } from "../DetailField";
+import { Options } from "../../../Options";
+import { IEventDetailValues } from "../EventDetailValues";
 
-export class ChemotherapyDetailFields implements EventDetailFields {
-  [key: string]: Field;
-  regimen: Field;
+export class ChemotherapyDetailFields {
+  regimen: DetailField;
+  location: DetailField;
 
-  constructor() {
-    const r: Option = { label: 'Regimen' };
-    this.regimen = r;
+  constructor(regimen: Options, location: Options) {
+    this.regimen = regimen;
+    this.location = location;
   }
 }
 
-export class ChemotherapyDetailValues implements EventDetailValues {
-  [key: string]: any;
+export class ChemotherapyDetailValues implements IEventDetailValues<ChemotherapyDetailFields> {
   regimen: string;
+  location: string;
 
   constructor() {
     this.regimen = '';
+    this.location = '';
   }
 }

@@ -1,23 +1,22 @@
-import { Field } from "../../../Field";
 import { Option } from "../../../Options";
-import { EventDetailFields } from "../EventDetailFields";
-import EventDetailValues from "../EventDetailValues";
+import { IEventDetailValues } from "../EventDetailValues";
 
-export class RadiationDetailFields implements EventDetailFields {
-  [key: string]: Field;
-  regimen: Field;
+export class RadiationDetailFields {
+  grays: Option;
+  fractions: Option;
 
-  constructor() {
-    const r: Option = { label: 'Regimen' };
-    this.regimen = r;
+  constructor(grays: Option, fractions: Option) {
+    this.grays = grays;
+    this.fractions = fractions;
   }
 }
 
-export class RadiationDetailValues implements EventDetailValues {
-  [key: string]: any;
-  regimen: string;
+export class RadiationDetailValues implements IEventDetailValues<RadiationDetailFields> {
+  grays: string;
+  fractions: string;
 
   constructor() {
-    this.regimen = '';
+    this.grays = '';
+    this.fractions = '';
   }
 }

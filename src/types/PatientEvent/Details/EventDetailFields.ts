@@ -1,5 +1,6 @@
-import { Field } from "../../Field";
+import { Option, Options } from "../../Options";
+import { ChemotherapyDetailFields } from "./EventTypes/ChemotherapyDetails";
+import { RadiationDetailFields } from "./EventTypes/RadiationDetails";
+import { SurgeryDetailFields } from "./EventTypes/SurgeryDetails";
 
-export interface EventDetailFields {
-  [key: string]: Field
-}
+export type EventDetailFields = ChemotherapyDetailFields | RadiationDetailFields | SurgeryDetailFields;

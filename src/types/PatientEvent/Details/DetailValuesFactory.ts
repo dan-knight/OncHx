@@ -3,7 +3,7 @@ import { RadiationDetailValues } from "./EventTypes/RadiationDetails";
 import { SurgeryDetailValues } from "./EventTypes/SurgeryDetails";
 
 import { TreatmentTypeName } from "../../../config/TreatmentTypeName";
-import EventDetailValues from "./EventDetailValues";
+import { EventDetailValues } from "./EventDetailValues";
 
 export default class DetailValuesFactory {
   static createDetails(treatmentType: TreatmentTypeName): EventDetailValues {

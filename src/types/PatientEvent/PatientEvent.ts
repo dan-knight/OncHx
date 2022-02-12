@@ -1,4 +1,4 @@
-import EventDetailValues from "./Details/EventDetailValues";
+import { EventDetailValues } from "./Details/EventDetailValues";
 import Event from "./Event";
 
 export default class PatientEvent extends Event {

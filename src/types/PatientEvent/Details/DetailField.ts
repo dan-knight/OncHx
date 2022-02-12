@@ -1,6 +1,3 @@
-import { Options } from "../../Options";
+import { Option, Options } from "../../Options";
 
-export interface DetailField {
-  label: string,
-  options?: Options
-}
+export type DetailField = Options | Option;
