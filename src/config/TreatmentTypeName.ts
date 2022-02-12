@@ -1,0 +1,1 @@
+export type TreatmentTypeName = 'chemotherapy' | 'radiation' | 'surgery';
