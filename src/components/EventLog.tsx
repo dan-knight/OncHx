@@ -5,7 +5,6 @@ import useExpand from "../hooks/useExpand";
 import FilterMenu from "./FilterMenu";
 
 import { FilterOption, FilterOptions, FilterSelected } from "../types/Filter";
-import { PatientEvent } from "../types/Event";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { GlobalValues } from "../types/Global";
@@ -13,14 +12,16 @@ import { useGlobalContext } from "../contexts/GlobalContext";
 import { TreatmentTypes } from "../types/Treatment";
 import { CancerTypes } from "../types/Cancer";
 import { Options } from "../types/Options";
+import DBPatientEvent from "../types/PatientEvent/DBPatientEvent";
+import PatientEvent from "../types/PatientEvent/PatientEvent";
 
 interface EventLogProps {
-  allEvents: PatientEvent[],
+  allEvents: DBPatientEvent[],
   user: string
 }
 
 export default function EventLog(props: EventLogProps) {
-  const [events, setEvents] = useState<{ [key: number]: PatientEvent[] }>({});
+  const [events, setEvents] = useState<{ [key: number]: DBPatientEvent[] }>({});
   const [expandedEvents, showHideEvent] = useExpand();
   const [expandedYears, showHideYear] = useExpand();
 
@@ -35,27 +36,30 @@ export default function EventLog(props: EventLogProps) {
       { ...a, [b]: new Set<FilterOption>(defaultFilters[b])}
     ), {}));
 
-  const eventInFilters = (event: PatientEvent) => {
-    let inFilters = true;
-    const filterCategories: string[] = Object.keys(defaultFilters);
+  // const eventInFilters = (event: DBPatientEvent) => {
+  //   let inFilters = true;
+  //   const filterCategories: string[] = Object.keys(defaultFilters);
     
-    for (let i = 0; i < filterCategories.length; i++) {
-      const category: string = filterCategories[i];
+  //   for (let i = 0; i < filterCategories.length; i++) {
+  //     const category: string = filterCategories[i];
 
-      if (!filters[category].has(event[category])) {
-        inFilters = false;
-        break;
-      }
-    };
+  //     if (!filters[category].has(event[category])) {
+  //       inFilters = false;
+  //       break;
+  //     }
+  //   };
 
-    return inFilters;
-  };
+  //   return inFilters;
+  // };
+
+  // TODO Reimplement eventInFilters() with command pattern
+  const eventInFilters = (event: PatientEvent): boolean => true;
 
   function prepareEvents() {
-    const newEvents: { [key: number]: PatientEvent[] } = {};
+    const newEvents: { [key: number]: DBPatientEvent[] } = {};
     
-    props.allEvents.forEach((e: PatientEvent) => {
-      if (e.user === props.user && eventInFilters(e)) {
+    props.allEvents.forEach((e: DBPatientEvent) => {
+      if (e.patient === props.user && eventInFilters(e)) {
         const year: number = e.date.getFullYear();
 
         if (newEvents[year] === undefined) {
@@ -67,7 +71,7 @@ export default function EventLog(props: EventLogProps) {
     });
 
     Object.keys(newEvents).forEach((k: string) => { 
-      newEvents[parseInt(k)].sort((a: PatientEvent, b: PatientEvent) => b.date.getUTCDate() - a.date.getUTCDate());
+      newEvents[parseInt(k)].sort((a: DBPatientEvent, b: DBPatientEvent) => b.date.getUTCDate() - a.date.getUTCDate());
     });
 
     return newEvents;
@@ -97,7 +101,7 @@ export default function EventLog(props: EventLogProps) {
           <button>Add Event</button>
         </Link>
         <div>
-          {Object.entries(events).sort((a: [string, PatientEvent[]], b: [string, PatientEvent[]]) => parseInt(b[0]) - parseInt(a[0])).map(e => (
+          {Object.entries(events).sort((a: [string, DBPatientEvent[]], b: [string, DBPatientEvent[]]) => parseInt(b[0]) - parseInt(a[0])).map(e => (
             <EventYear year={parseInt(e[0])} events={e[1]} key={e[0]} 
               expandedEvents={expandedEvents} onShowEvent={showHideEvent} 
               show={expandedYears.has(parseInt(e[0]))} onShowYear={showHideYear} />))}
@@ -109,7 +113,7 @@ export default function EventLog(props: EventLogProps) {
 
 interface EventYearProps {
   year: number,
-  events: PatientEvent[],
+  events: DBPatientEvent[],
   onShowEvent: (eventID: number) => void,
   show: boolean,
   onShowYear: (year: number) => void,
@@ -125,7 +129,7 @@ function EventYear(props: EventYearProps) {
     <div>
       <h3 onClick={handleShow}>{props.year}</h3>
       <ul className={props.show ? 'expanded' : undefined}>
-        {props.events.map((e: PatientEvent, i: number) => (
+        {props.events.map((e: DBPatientEvent, i: number) => (
           <LogEvent event={e} show={props.expandedEvents.has(i)} onShow={props.onShowEvent} key={i} />))}
       </ul>
     </div>
@@ -133,7 +137,7 @@ function EventYear(props: EventYearProps) {
 };
 
 interface LogEventProps {
-  event: PatientEvent,
+  event: DBPatientEvent,
   show: boolean,
   onShow: (eventID: number) => void
 }
@@ -141,7 +145,7 @@ interface LogEventProps {
 function LogEvent(props: LogEventProps) {
   const { treatmentTypes, cancerTypes }: GlobalValues = useGlobalContext();
   function handleShow() {
-    props.onShow(props.event.id);
+    props.onShow(props.event.eventID);
   };
 
   function getLabel(options: Options, optionID: string): string | undefined {
@@ -151,8 +155,8 @@ function LogEvent(props: LogEventProps) {
   return (
     <li>
       <h5>
-        {getLabel(treatmentTypes, props.event.treatmentType.toString())}
-        <span>{getLabel(cancerTypes, props.event.cancerType.toString())}</span>
+        {getLabel(treatmentTypes, props.event.treatmentType?.toString() ?? '')}
+        <span>{getLabel(cancerTypes, props.event.cancerType?.toString() ?? '')}</span>
       </h5>  
       <h4>{props.event.date.toDateString()}</h4>
       {/* <h6>Details <span onClick={handleShow}>{`(${props.show ? 'Hide' : 'Show'})`}</span></h6> */}

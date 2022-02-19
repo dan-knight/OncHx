@@ -7,8 +7,15 @@ export default class PatientEvent extends Event {
   treatmentType?: number;
   cancerType?: number;
 
-  constructor(patient: string, details: EventDetailValues, date?: Date, treatmentType?: number, cancerType?: number) {
-    super(date);
+  constructor(patient: string, details: EventDetailValues, date?: Date, treatmentType?: number, cancerType?: number);
+  constructor(patient: string, details: EventDetailValues, date?: string, treatmentType?: number, cancerType?: number);
+  constructor(patient: string, details: EventDetailValues, date?: Date | string, treatmentType?: number, cancerType?: number) {
+    
+    try {
+      (super(typeof date === 'string' ? new Date(Date.parse(date)) : date)); 
+    } catch (error) {
+      throw new Error('Invalid string date');
+    }
 
     this.patient = patient;
     this.details = details;
