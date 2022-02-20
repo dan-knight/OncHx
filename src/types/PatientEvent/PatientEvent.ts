@@ -9,6 +9,7 @@ export default class PatientEvent extends Event {
 
   constructor(patient: string, details: EventDetailValues, date?: Date, treatmentType?: number, cancerType?: number);
   constructor(patient: string, details: EventDetailValues, date?: string, treatmentType?: number, cancerType?: number);
+  constructor(patient: string, details: EventDetailValues, date?: Date | string, treatmentType?: number, cancerType?: number);
   constructor(patient: string, details: EventDetailValues, date?: Date | string, treatmentType?: number, cancerType?: number) {
     
     try {

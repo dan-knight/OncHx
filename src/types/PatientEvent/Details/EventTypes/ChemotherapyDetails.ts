@@ -16,8 +16,8 @@ export class ChemotherapyDetailValues implements IEventDetailValues<Chemotherapy
   regimen: string;
   location: string;
 
-  constructor() {
-    this.regimen = '';
-    this.location = '';
+  constructor(regimen?: string, location?: string) {
+    this.regimen = regimen ?? '';
+    this.location = location ?? '';
   }
 }

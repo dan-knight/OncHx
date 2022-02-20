@@ -15,8 +15,8 @@ export class RadiationDetailValues implements IEventDetailValues<RadiationDetail
   grays: string;
   fractions: string;
 
-  constructor() {
-    this.grays = '';
-    this.fractions = '';
+  constructor(grays?: string, fractions?: string) {
+    this.grays = grays ?? '';
+    this.fractions = fractions ?? '';
   }
 }

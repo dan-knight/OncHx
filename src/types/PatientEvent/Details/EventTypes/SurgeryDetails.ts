@@ -8,8 +8,8 @@ export class SurgeryDetailFields {
 
   constructor(location: Option, surgeryType: Option, complications: Option) {
     this.location = location;
-    this.surgeryType = surgeryType,
-    this.complications = complications
+    this.surgeryType = surgeryType;
+    this.complications = complications;
   }
 }
 
@@ -18,9 +18,9 @@ export class SurgeryDetailValues implements IEventDetailValues<SurgeryDetailFiel
   surgeryType: string;
   complications: string;
 
-  constructor() {
-    this.location = '';
-    this.surgeryType = '';
-    this.complications = '';
+  constructor(location?: string, surgeryType?: string, complications?: string) {
+    this.location = location ?? '';
+    this.surgeryType = surgeryType ?? '';
+    this.complications = complications ?? '';
   }
 }
