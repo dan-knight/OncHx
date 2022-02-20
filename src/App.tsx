@@ -5,12 +5,10 @@ import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
 import Login from './components/Login';
 
-import { PatientEvent, StoredPatientEvent } from './types/Event';
 import { defaultEvents } from './defaultData';
 import { FormikValues } from 'formik';
 import { GlobalContextProvider } from './contexts/GlobalContext';
 import DBPatientEvent from './types/PatientEvent/DBPatientEvent';
-import DetailValuesFactory from './types/PatientEvent/Details/DetailValuesFactory';
 import LocalStoragePatientEvent from './types/PatientEvent/LocalStoragePatientEvent';
 import LocalStoragePatientEventImporter from './types/PatientEvent/Importer/LocalStoragePatientEventImporter';
 
