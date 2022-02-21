@@ -1,6 +1,6 @@
 import SafeJSONImporter from "./SafeJSONImporter";
 
-export default class JSONImporter extends SafeJSONImporter {
+export default class StrictJSONImporter extends SafeJSONImporter {
   importString(value: any): string {
     const imported: string | undefined = super.importString(value);
 
