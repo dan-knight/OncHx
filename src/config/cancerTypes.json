@@ -1,188 +1,63 @@
-{
-  "label": "Cancer Types",
-  "options": {
-    "0": {
-      "label": "Acute Lymphoblastic Leukemia"
-    },
-    "1": {
-      "label": "Acute Myeloid Leukemia"
-    },
-    "2": {
-      "label": "Anal Carcinoma"
-    },
-    "3": {
-      "label": "Basal Cell Skin Cancer"
-    },
-    "4": {
-      "label": "B-Cell Lymphomas"
-    },
-    "5": {
-      "label": "Bladder"
-    },
-    "6": {
-      "label": "Bone"
-    },
-    "7": {
-      "label": "Breast"
-    },
-    "8": {
-      "label": "Central Nervous System"
-    },
-    "9": {
-      "label": "Cervical"
-    },
-    "10": {
-      "label": "Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma"
-    },
-    "11": {
-      "label": "Chronic Myeloid Leukemia"
-    },
-    "12": {
-      "label": "Colon"
-    },
-    "13": {
-      "label": "Dermatofibrosarcoma Protruberans"
-    },
-    "14": {
-      "label": "Esophageal and Esophagogastric Junction"
-    },
-    "15": {
-      "label": "Gastric"
-    },
-    "16": {
-      "label": "Gastrointestinal Stromal Tumors (GIST)"
-    },
-    "17": {
-      "label": "Gestational Trophoblastic Neoplasia"
-    },
-    "18": {
-      "label": "Hairy Cell Leukemia"
-    },
-    "19": {
-      "label": "Head and Neck"
-    },
-    "20": {
-      "label": "Hepatobiliary"
-    },
-    "21": {
-      "label": "Histiocytic Neoplasms"
-    },
-    "22": {
-      "label": "Hodgkin Lymphoma"
-    },
-    "23": {
-      "label": "Kaposi Sarcoma"
-    },
-    "24": {
-      "label": "Renal Cell Carcinoma"
-    },
-    "25": {
-      "label": "Malignant Pleural Mesothelioma"
-    },
-    "26": {
-      "label": "Melanoma: Cutaneous"
-    },
-    "27": {
-      "label": "Melanoma: Uveal"
-    },
-    "28": {
-      "label": "Merkel Cell Carcinoma"
-    },
-    "29": {
-      "label": "Multiple Myeloma"
-    },
-    "30": {
-      "label": "Myelodysplastic Syndromes"
-    },
-    "31": {
-      "label": "Myeloproliferative Neoplasms"
-    },
-    "32": {
-      "label": "Neuroendocrine and Adrenal Tumors"
-    },
-    "33": {
-      "label": "Non-Small Cell Lung Cancer"
-    },
-    "34": {
-      "label": "Ovarian/Fallopian Tube/Primary Peritoneal"
-    },
-    "35": {
-      "label": "Pancreatic Adenocarcinoma"
-    },
-    "36": {
-      "label": "Pediatric Acute Lymphoblastic Leukemia"
-    },
-    "37": {
-      "label": "Pediatric Aggressive Mature B-Cell Lymphomas"
-    },
-    "38": {
-      "label": "Pediatric Hodgkin Lymphoma"
-    },
-    "39": {
-      "label": "Penile"
-    },
-    "40": {
-      "label": "Primary Cutaneous Lymphomas"
-    },
-    "41": {
-      "label": "Prostate"
-    },
-    "42": {
-      "label": "Rectal"
-    },
-    "43": {
-      "label": "Retinoblastoma"
-    },
-    "44": {
-      "label": "Rhabdomyosarcoma"
-    },
-    "45": {
-      "label": "Small Bowel Adenocarcinoma"
-    },
-    "46": {
-      "label": "Small Cell Lung"
-    },
-    "47": {
-      "label": "Soft Tissue Sarcoma"
-    },
-    "48": {
-      "label": "Squamous Cell Skin"
-    },
-    "49": {
-      "label": "Systemic Light Chain Amyloidosis"
-    },
-    "50": {
-      "label": "Systemic Mastocytosis"
-    },
-    "51": {
-      "label": "T-Cell Lymphomas"
-    },
-    "52": {
-      "label": "Testicular Cancer"
-    },
-    "53": {
-      "label": "Thymomas and Thymic Carcinomas"
-    },
-    "54": {
-      "label": "Thyroid Carcinoma"
-    },
-    "55": {
-      "label": "Uterine Neoplasms"
-    },
-    "56": {
-      "label": "Vaginal"
-    },
-    "57": {
-      "label": "Vulvar"
-    },
-    "58": {
-      "label": "Waldenstrom Macroglobulinemia/Lymphoplasmacytic Lymphoma"
-    },
-    "59": {
-      "label": "Wilms Tumor (Nephroblastoma)"
-    },
-    "60": {
-      "label": "Other"
-    }
-  }
-}
+[
+  { "id": "0", "cancerName": "Acute Lymphoblastic Leukemia" },
+  { "id": "1", "cancerName": "Acute Myeloid Leukemia" },
+  { "id": "2", "cancerName": "Anal Carcinoma" },
+  { "id": "3", "cancerName": "Basal Cell Skin Cancer" },
+  { "id": "4", "cancerName": "B-Cell Lymphomas" },
+  { "id": "5", "cancerName": "Bladder" },
+  { "id": "6", "cancerName": "Bone" },
+  { "id": "7", "cancerName": "Breast" },
+  { "id": "8", "cancerName": "Central Nervous System" },
+  { "id": "9", "cancerName": "Cervical" },
+  { "id": "10", "cancerName": "Chronic Lymphocytic Leukemia/Small Lymphocytic Lymphoma" },
+  { "id": "11", "cancerName": "Chronic Myeloid Leukemia" },
+  { "id": "12", "cancerName": "Colon" },
+  { "id": "13", "cancerName": "Dermatofibrosarcoma Protruberans" },
+  { "id": "14", "cancerName": "Esophageal and Esophagogastric Junction" },
+  { "id": "15", "cancerName": "Gastric" },
+  { "id": "16", "cancerName": "Gastrointestinal Stromal Tumors (GIST)" },
+  { "id": "17", "cancerName": "Gestational Trophoblastic Neoplasia" },
+  { "id": "18", "cancerName": "Hairy Cell Leukemia" },
+  { "id": "19", "cancerName": "Head and Neck" },
+  { "id": "20", "cancerName": "Hepatobiliary" },
+  { "id": "21", "cancerName": "Histiocytic Neoplasms" },
+  { "id": "22", "cancerName": "Hodgkin Lymphoma" },
+  { "id": "23", "cancerName": "Kaposi Sarcoma" },
+  { "id": "24", "cancerName": "Renal Cell Carcinoma" },
+  { "id": "25", "cancerName": "Malignant Pleural Mesothelioma" },
+  { "id": "26", "cancerName": "Melanoma: Cutaneous" },
+  { "id": "27", "cancerName": "Melanoma: Uveal" },
+  { "id": "28", "cancerName": "Merkel Cell Carcinoma" },
+  { "id": "29", "cancerName": "Multiple Myeloma" },
+  { "id": "30", "cancerName": "Myelodysplastic Syndromes" },
+  { "id": "31", "cancerName": "Myeloproliferative Neoplasms" },
+  { "id": "32", "cancerName": "Neuroendocrine and Adrenal Tumors" },
+  { "id": "33", "cancerName": "Non-Small Cell Lung Cancer" },
+  { "id": "34", "cancerName": "Ovarian/Fallopian Tube/Primary Peritoneal" },
+  { "id": "35", "cancerName": "Pancreatic Adenocarcinoma" },
+  { "id": "36", "cancerName": "Pediatric Acute Lymphoblastic Leukemia" },
+  { "id": "37", "cancerName": "Pediatric Aggressive Mature B-Cell Lymphomas" },
+  { "id": "38", "cancerName": "Pediatric Hodgkin Lymphoma" },
+  { "id": "39", "cancerName": "Penile" },
+  { "id": "40", "cancerName": "Primary Cutaneous Lymphomas" },
+  { "id": "41", "cancerName": "Prostate" },
+  { "id": "42", "cancerName": "Rectal" },
+  { "id": "43", "cancerName": "Retinoblastoma" },
+  { "id": "44", "cancerName": "Rhabdomyosarcoma" },
+  { "id": "45", "cancerName": "Small Bowel Adenocarcinoma" },
+  { "id": "46", "cancerName": "Small Cell Lung" },
+  { "id": "47", "cancerName": "Soft Tissue Sarcoma" },
+  { "id": "48", "cancerName": "Squamous Cell Skin" },
+  { "id": "49", "cancerName": "Systemic Light Chain Amyloidosis" },
+  { "id": "50", "cancerName": "Systemic Mastocytosis" },
+  { "id": "51", "cancerName": "T-Cell Lymphomas" },
+  { "id": "52", "cancerName": "Testicular Cancer" },
+  { "id": "53", "cancerName": "Thymomas and Thymic Carcinomas" },
+  { "id": "54", "cancerName": "Thyroid Carcinoma" },
+  { "id": "55", "cancerName": "Uterine Neoplasms" },
+  { "id": "56", "cancerName": "Vaginal" },
+  { "id": "57", "cancerName": "Vulvar" },
+  { "id": "58", "cancerName": "Waldenstrom Macroglobulinemia/Lymphoplasmacytic Lymphoma" },
+  { "id": "59", "cancerName": "Wilms Tumor (Nephroblastoma)" },
+  { "id": "60", "cancerName": "Other" }
+]

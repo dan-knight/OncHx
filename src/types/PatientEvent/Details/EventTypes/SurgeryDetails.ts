@@ -1,15 +1,27 @@
-import { Option } from "../../../Options";
+
+import DropdownField from "../../../Form/Dropdown/DropdownField";
+import Field from "../../../Form/Field";
+import DropdownOption from "../../../Form/Dropdown/DropdownOption";
 import { IEventDetailValues } from "../EventDetailValues";
 
-export class SurgeryDetailFields {
-  location: Option;
-  surgeryType: Option;
-  complications: Option;
+import TreatmentLocations from '../../../../config/treatmentLocations.json';
 
-  constructor(location: Option, surgeryType: Option, complications: Option) {
-    this.location = location;
-    this.surgeryType = surgeryType;
-    this.complications = complications;
+export class SurgeryDetailFields {
+  location: DropdownField;
+  surgeryType: Field;
+  complications: Field;
+
+  constructor() {
+    this.location = {
+      label: 'Location',
+      filter: false,
+      options: Object.freeze(TreatmentLocations.map((location: Record<string, string>) => (
+        new DropdownOption(location.id, location.locationName)
+      )))
+    };
+
+    this.surgeryType = { label: 'Surgery Type' };
+    this.complications = { label: 'Complications' };
   }
 }
 

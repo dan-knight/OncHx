@@ -1,0 +1,12 @@
+[
+  { "id": "0", "locationName": "Lymph Nodes" },
+  { "id": "1", "locationName": "Brain" },
+  { "id": "2", "locationName": "Bone" },
+  { "id": "3", "locationName": "Liver" },
+  { "id": "4", "locationName": "Lung" },
+  { "id": "5", "locationName": "Peritoneum" },
+  { "id": "6", "locationName": "Adrenal Gland" },
+  { "id": "7", "locationName": "Skin" },
+  { "id": "8", "locationName": "Muscle" },
+  { "id": "9", "locationName": "Vagina" }
+]
