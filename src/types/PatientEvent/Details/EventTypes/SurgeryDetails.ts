@@ -4,8 +4,10 @@ import Field from "../../../Form/Field";
 import DropdownOption from "../../../Form/Dropdown/DropdownOption";
 import { IEventDetailValues } from "../EventDetailValues";
 
+import TreatmentLocation from "../../../DB/Config/TreatmentLocation";
+import JSONTreatmentLocationImporter from "../../../DB/JSON/Importer/JSONTreatmentLocationImporter";
+
 import TreatmentLocations from '../../../../config/treatmentLocations.json';
-import StrictJSONImporter from "../../../DB/JSON/Importer/StrictJSONImporter";
 
 export class SurgeryDetailFields {
   location: DropdownField;
@@ -16,14 +18,14 @@ export class SurgeryDetailFields {
     this.location = {
       label: 'Location',
       filter: false,
-      options: Object.freeze(TreatmentLocations.map((jsonLocation: any): DropdownOption => {
-        const location: Record<any, any> = StrictJSONImporter.importObject(jsonLocation);
-
-        return new DropdownOption(
-          StrictJSONImporter.importString(location.id), 
-          StrictJSONImporter.importString(location.locationName)
-        );
-      }))
+      options: Object.freeze(function() {
+        const importer = new JSONTreatmentLocationImporter();
+  
+        return TreatmentLocations.map((jsonLocation: any) => {
+          const location: TreatmentLocation = importer.import(jsonLocation);
+          return new DropdownOption(location.id.toString(), location.locationName);
+        });
+      }())
     };
 
     this.surgeryType = { label: 'Surgery Type' };

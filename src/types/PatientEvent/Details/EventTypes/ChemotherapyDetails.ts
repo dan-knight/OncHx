@@ -2,9 +2,14 @@ import DropdownField from "../../../Form/Dropdown/DropdownField";
 import DropdownOption from "../../../Form/Dropdown/DropdownOption";
 import { IEventDetailValues } from "../EventDetailValues";
 
+import ChemotherapyRegimen from "../../../DB/Config/ChemotherapyRegimen";
+import TreatmentLocation from "../../../DB/Config/TreatmentLocation";
+import JSONChemotherapyRegimenImporter from "../../../DB/JSON/Importer/JSONChemotherapyRegimenImporter";
+import JSONTreatmentLocationImporter from "../../../DB/JSON/Importer/JSONTreatmentLocationImporter";
+
 import ChemotherapyRegimens from '../../../../config/chemotherapyRegimens.json';
 import TreatmentLocations from '../../../../config/treatmentLocations.json';
-import StrictJSONImporter from "../../../DB/JSON/Importer/StrictJSONImporter";
+
 
 export class ChemotherapyDetailFields {
   readonly regimen: Readonly<DropdownField>;
@@ -14,27 +19,27 @@ export class ChemotherapyDetailFields {
     this.regimen = {
         label: 'Regimen',
         filter: true,
-        options: Object.freeze(ChemotherapyRegimens.map((jsonRegimen: any): DropdownOption => {
-          const regimen: Record<any, any> = StrictJSONImporter.importObject(jsonRegimen);
-          
-          return new DropdownOption(
-            StrictJSONImporter.importString(regimen.id), 
-            StrictJSONImporter.importString(regimen.regimenName
-          ));
-        }))
+        options: Object.freeze(function() {
+          const importer = new JSONChemotherapyRegimenImporter();
+    
+          return ChemotherapyRegimens.map((jsonRegimen: any) => {
+            const regimen: ChemotherapyRegimen = importer.import(jsonRegimen);
+            return new DropdownOption(regimen.id.toString(), regimen.regimenName);
+          });
+        }())
       };
 
     this.location = {
       label: 'Location',
       filter: false,
-      options: Object.freeze(TreatmentLocations.map((jsonLocation: any): DropdownOption => {
-        const location: Record<any, any> = StrictJSONImporter.importObject(jsonLocation);
-
-        return new DropdownOption(
-          StrictJSONImporter.importString(location.id),
-          StrictJSONImporter.importString(location.locationName)
-        );
-      }))
+      options: Object.freeze(function() {
+        const importer = new JSONTreatmentLocationImporter();
+  
+        return TreatmentLocations.map((jsonLocation: any) => {
+          const location: TreatmentLocation = importer.import(jsonLocation);
+          return new DropdownOption(location.id.toString(), location.locationName);
+        });
+      }())
     };
   }
 }
