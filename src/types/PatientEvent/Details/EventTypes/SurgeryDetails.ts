@@ -5,7 +5,7 @@ import DropdownOption from "../../../Form/Dropdown/DropdownOption";
 import { IEventDetailValues } from "../EventDetailValues";
 
 import TreatmentLocations from '../../../../config/treatmentLocations.json';
-import StrictJSONImporter from "../../../JSON/StrictJSONImporter";
+import StrictJSONImporter from "../../../DB/JSON/Importer/StrictJSONImporter";
 
 export class SurgeryDetailFields {
   location: DropdownField;
@@ -13,17 +13,15 @@ export class SurgeryDetailFields {
   complications: Field;
 
   constructor() {
-    const importer = new StrictJSONImporter();
-
     this.location = {
       label: 'Location',
       filter: false,
       options: Object.freeze(TreatmentLocations.map((jsonLocation: any): DropdownOption => {
-        const location: Record<any, any> = importer.importObject(jsonLocation);
+        const location: Record<any, any> = StrictJSONImporter.importObject(jsonLocation);
 
         return new DropdownOption(
-          importer.importString(location.id), 
-          importer.importString(location.locationName)
+          StrictJSONImporter.importString(location.id), 
+          StrictJSONImporter.importString(location.locationName)
         );
       }))
     };

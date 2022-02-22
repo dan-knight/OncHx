@@ -4,24 +4,22 @@ import { IEventDetailValues } from "../EventDetailValues";
 
 import ChemotherapyRegimens from '../../../../config/chemotherapyRegimens.json';
 import TreatmentLocations from '../../../../config/treatmentLocations.json';
-import StrictJSONImporter from "../../../JSON/StrictJSONImporter";
+import StrictJSONImporter from "../../../DB/JSON/Importer/StrictJSONImporter";
 
 export class ChemotherapyDetailFields {
   readonly regimen: Readonly<DropdownField>;
   readonly location: Readonly<DropdownField>;
 
   constructor() {
-    const importer = new StrictJSONImporter();
-
     this.regimen = {
         label: 'Regimen',
         filter: true,
         options: Object.freeze(ChemotherapyRegimens.map((jsonRegimen: any): DropdownOption => {
-          const regimen: Record<any, any> = importer.importObject(jsonRegimen);
+          const regimen: Record<any, any> = StrictJSONImporter.importObject(jsonRegimen);
           
           return new DropdownOption(
-            importer.importString(regimen.id), 
-            importer.importString(regimen.regimenName
+            StrictJSONImporter.importString(regimen.id), 
+            StrictJSONImporter.importString(regimen.regimenName
           ));
         }))
       };
@@ -30,11 +28,11 @@ export class ChemotherapyDetailFields {
       label: 'Location',
       filter: false,
       options: Object.freeze(TreatmentLocations.map((jsonLocation: any): DropdownOption => {
-        const location: Record<any, any> = importer.importObject(jsonLocation);
+        const location: Record<any, any> = StrictJSONImporter.importObject(jsonLocation);
 
         return new DropdownOption(
-          importer.importString(location.id),
-          importer.importString(location.locationName)
+          StrictJSONImporter.importString(location.id),
+          StrictJSONImporter.importString(location.locationName)
         );
       }))
     };
