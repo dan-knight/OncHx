@@ -1,7 +1,11 @@
-import { CancerTypes } from "./Cancer";
-import { TreatmentTypes } from "./Treatment";
+import CancerType from "./DB/Config/CancerType";
+import ChemotherapyRegimen from "./DB/Config/ChemotherapyRegimen";
+import TreatmentLocation from "./DB/Config/TreatmentLocation";
+import TreatmentType from "./DB/Config/TreatmentType";
 
 export interface GlobalValues {
-  treatmentTypes: TreatmentTypes,
-  cancerTypes: CancerTypes
+  treatmentTypes: TreatmentType[],
+  cancerTypes: CancerType[],
+  treatmentLocations: TreatmentLocation[],
+  chemotherapyRegimens: ChemotherapyRegimen[]
 }

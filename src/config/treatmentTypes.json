@@ -1,0 +1,5 @@
+[
+  { "id": 0, "treatmentName": "Chemotherapy" },
+  { "id": 1, "treatmentName": "Radiation" },
+  { "id": 2, "treatmentName": "Surgery" }
+]
