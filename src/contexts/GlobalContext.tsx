@@ -15,6 +15,10 @@ import TreatmentTypes from '../config/treatmentTypes.json';
 import CancerTypes from '../config/cancerTypes.json';
 import TreatmentLocations from '../config/treatmentLocations.json';
 import ChemotherapyRegimens from '../config/chemotherapyRegimens.json';
+import Config from "../types/Config";
+import { access } from "fs";
+import DBIndex from "../types/DB/DBIndex";
+import useDBIndex from "../hooks/useDBIndex";
 
 const GlobalContext = createContext<GlobalValues | null>(null);
 
@@ -39,12 +43,21 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
     return ChemotherapyRegimens.map((regimen: any) => importer.import(regimen));
   }, []);
 
+  const config: Config = {
+    treatmentTypes: treatmentTypes,
+    cancerTypes: cancerTypes,
+    treatmentLocations: treatmentLocations,
+    chemotherapyRegimens: chemotherapyRegimens
+  }
+
+  const treatmentTypeIndex = useDBIndex<TreatmentType>(treatmentTypes);
+  const cancerTypeIndex = useDBIndex<CancerType>(cancerTypes);
+
   return (
     <GlobalContext.Provider value={{
-      treatmentTypes: treatmentTypes,
-      cancerTypes: cancerTypes,
-      treatmentLocations: treatmentLocations,
-      chemotherapyRegimens: chemotherapyRegimens
+      config,
+      treatmentTypeIndex,
+      cancerTypeIndex
     }}>
       {props.children}
     </GlobalContext.Provider>
