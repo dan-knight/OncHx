@@ -18,14 +18,14 @@ export class SurgeryDetailFields {
     this.location = {
       label: 'Location',
       filter: false,
-      options: Object.freeze(function() {
+      options: function() {
         const importer = new JSONTreatmentLocationImporter();
   
         return TreatmentLocations.map((jsonLocation: any) => {
           const location: TreatmentLocation = importer.import(jsonLocation);
           return new DropdownOption(location.id.toString(), location.locationName);
         });
-      }())
+      }()
     };
 
     this.surgeryType = { label: 'Surgery Type' };

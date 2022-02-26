@@ -19,27 +19,27 @@ export class ChemotherapyDetailFields {
     this.regimen = {
         label: 'Regimen',
         filter: true,
-        options: Object.freeze(function() {
+        options: function() {
           const importer = new JSONChemotherapyRegimenImporter();
     
           return ChemotherapyRegimens.map((jsonRegimen: any) => {
             const regimen: ChemotherapyRegimen = importer.import(jsonRegimen);
             return new DropdownOption(regimen.id.toString(), regimen.regimenName);
           });
-        }())
+        }()
       };
 
     this.location = {
       label: 'Location',
       filter: false,
-      options: Object.freeze(function() {
+      options: function() {
         const importer = new JSONTreatmentLocationImporter();
   
         return TreatmentLocations.map((jsonLocation: any) => {
           const location: TreatmentLocation = importer.import(jsonLocation);
           return new DropdownOption(location.id.toString(), location.locationName);
         });
-      }())
+      }()
     };
   }
 }

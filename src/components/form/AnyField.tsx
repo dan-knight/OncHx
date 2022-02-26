@@ -1,3 +1,4 @@
+import DropdownOption from "../../types/Form/Dropdown/DropdownOption";
 import { Options } from "../../types/Options";
 import { FilterSelect, Select } from "./FilterSelect";
 import TextField from "./TextField";
@@ -7,7 +8,7 @@ interface AnyFieldProps {
   label: string,
   filled: boolean,
   filter?: boolean,
-  options?: Options,
+  options?: DropdownOption[],
   errors?: string
 }
 
