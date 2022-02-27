@@ -9,13 +9,11 @@ import { Option } from "../../types/Options";
 interface SelectProps {
   name: string,
   options: DropdownOption[],
-  label: string
+  label: string,
+  displayValue: string
 }
 
-interface SelectWrapperProps {
-  name: string,
-  options: DropdownOption[],
-  label: string,
+interface SelectWrapperProps extends SelectProps {
   children?: ReactNode | ReactNode[]
 }
 
@@ -38,7 +36,7 @@ function SelectWrapper(props: SelectWrapperProps) {
   return (
     <div className='select'>
       <div onClick={handleOpen} id={props.name}>
-        {(props.label) || '\u00a0'}
+        {(props.displayValue) || '\u00a0'}
       </div>
       <ul className={open ? 'open' : undefined}>
         {props.children}
@@ -61,7 +59,7 @@ function SelectWrapper(props: SelectWrapperProps) {
 }
 
 export function Select(props: SelectProps) {
-  return <SelectWrapper name={props.name} options={props.options} label={props.label} />
+  return <SelectWrapper name={props.name} options={props.options} displayValue={props.displayValue} label={props.label} />
 }
 
 export function FilterSelect(props: SelectProps) {
@@ -77,7 +75,7 @@ export function FilterSelect(props: SelectProps) {
   }
 
   return (
-    <SelectWrapper name={props.name} options={filteredOptions} label={props.label}>
+    <SelectWrapper name={props.name} options={filteredOptions} displayValue={props.displayValue} label={props.label}>
       <li className='filter'>
         <FontAwesomeIcon icon={faSearch} />
         <input value={filterValue} onChange={handleChangeFilter} />

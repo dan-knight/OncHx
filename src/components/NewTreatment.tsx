@@ -1,12 +1,10 @@
 import React, { useMemo } from "react";
-import { ErrorMessage, Field, FormikValues, useFormikContext } from "formik";
+import { FormikValues, useFormikContext } from "formik";
 
 import { FilterSelect, Select } from "./form/FilterSelect";
 
-import cancerTypes from "../config/cancerTypes.json";
 import { range } from "../utility";
 import { Month } from "../types/Date";
-import { Option, Options } from "../types/Options";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
 import TextField from "./form/TextField";
@@ -20,7 +18,7 @@ import safelyParseInt from "../utility/safelyParseInt";
 
 export default function NewTreatment() {
   const { values }: FormikValues = useFormikContext();
-  const { config }: GlobalValues = useGlobalContext();
+  const { config, cancerTypeIndex, treatmentTypeIndex }: GlobalValues = useGlobalContext();
 
   const months = useMemo((): Month[] => ([
     { name: 'January', days: 31 },
@@ -67,11 +65,13 @@ export default function NewTreatment() {
 
   return (
     <React.Fragment>
-      <FilterSelect name='cancerType' label='Cancer Type' options={cancerTypeOptions} />
-      <Select name='month' options={monthOptions} label='Month' />
-      <Select name='day' label='Day' options={dayOptions} />
+      <FilterSelect name='cancerType' label='Cancer Type' options={cancerTypeOptions} 
+        displayValue={cancerTypeIndex(values.cancerType)?.cancerName ?? ''} />
+      <Select name='month' options={monthOptions} label='Month' displayValue={values.month} />
+      <Select name='day' label='Day' options={dayOptions} displayValue={values.day} />
       <TextField name='year' filled={Boolean(values.year)} label='Year' />
-      <Select name='treatmentType' label='Treatment Type' options={treatmentTypeOptions} />
+      <Select name='treatmentType' label='Treatment Type' options={treatmentTypeOptions} 
+        displayValue={treatmentTypeIndex(values.treatmentType)?.treatmentName ?? ''} />
       {values.treatmentType ? <DetailFields fields={detailFields} /> : undefined}
       <TextField name='notes' filled={Boolean(values.notes)} label='Notes' />
       <div className='button'>

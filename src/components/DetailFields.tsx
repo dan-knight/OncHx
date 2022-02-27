@@ -17,7 +17,7 @@ export default function DetailFields(props: DetailFieldsProps) {
   return (
     <React.Fragment>
       {Object.entries(props.fields).map(([name, field]: [string, Field]) => (
-        <AnyField name={name} label={field.label ?? ''} options={(field as DropdownField).options} 
+        <AnyField name={name} label={field.label ?? ''} options={(field as DropdownField).options} displayValue={values?.details?.[name] ?? ''}
           filled={Boolean(values[name])} errors={errors[name]} key={name} filter={(field as DropdownField).filter} />
       ))}
     </React.Fragment>
