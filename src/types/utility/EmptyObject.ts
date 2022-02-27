@@ -1,0 +1,1 @@
+export type EmptyObject = { [Key in any]: never };
