@@ -1,13 +1,13 @@
-import { Option } from "../../../Options";
+import Field from "../../../Form/Field";
 import { IEventDetailValues } from "../EventDetailValues";
 
 export class RadiationDetailFields {
-  grays: Option;
-  fractions: Option;
+  grays: Field;
+  fractions: Field;
 
-  constructor(grays: Option, fractions: Option) {
-    this.grays = grays;
-    this.fractions = fractions;
+  constructor() {
+    this.grays = { label: 'Grays' };
+    this.fractions = { label: 'Fractions' };
   }
 }
 

@@ -1,20 +1,25 @@
 import React, { useMemo } from "react";
-import { ErrorMessage, Field, FormikValues, useFormikContext } from "formik";
+import { FormikValues, useFormikContext } from "formik";
 
+import DetailFields from "./DetailFields";
+import TextField from "./form/TextField";
 import { FilterSelect, Select } from "./form/FilterSelect";
-
-import cancerTypes from "../config/cancerTypes.json";
-import { range } from "../utility";
-import { Month } from "../types/Date";
-import { Option, Options } from "../types/Options";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
-import TextField from "./form/TextField";
-import DetailFields from "./DetailFields";
+
+import DetailFieldsFactory from "../types/PatientEvent/Details/DetailFieldsFactory";
+import { EventDetailFields } from "../types/PatientEvent/Details/EventDetailFields";
+import DropdownOption from "../types/Form/Dropdown/DropdownOption";
+import TreatmentType from "../types/DB/Config/TreatmentType";
+import CancerType from "../types/DB/Config/CancerType";
+import { Month } from "../types/Date";
+
+import { range } from "../utility";
+import { safelyParseInt } from "../utility/parseNumber";
 
 export default function NewTreatment() {
   const { values }: FormikValues = useFormikContext();
-  const { treatmentTypes }: GlobalValues = useGlobalContext();
+  const { config, cancerTypeIndex, treatmentTypeIndex }: GlobalValues = useGlobalContext();
 
   const months = useMemo((): Month[] => ([
     { name: 'January', days: 31 },
@@ -31,27 +36,36 @@ export default function NewTreatment() {
     { name: 'December', days: 31 }
   ]), []);
 
-  const monthOptions: Options = useMemo(() => ({
-    label: 'Month',
-    options: months.reduce((o: { [key: string]: Option }, m: Month, i: number) => ({ ...o, [i]: { label: m.name } }), {})
-  }), []);
+  const monthOptions: DropdownOption[] = useMemo(() => (
+    months.map((month: Month, index: number) => new DropdownOption(index.toString(), month.name))
+  ), [months]);
 
-  const days: Options = useMemo(() => {
-    const dayValues = range(1, months[values.month].days + Number(values.month === '1' && values.year % 4 === 0));
-    return {
-      label: 'Days',
-      options: dayValues.reduce((o: { [key: string]: Option }, d: number) => ({ ...o, [d]: { label: undefined } }), {})
-    };
-  }, [values.month]);
+  const dayOptions: DropdownOption[] = useMemo(() => (
+    range(1, months[values.month].days).map((d: number) => new DropdownOption(d.toString()))
+  ), [values.month]);
+  
+  const cancerTypeOptions: DropdownOption[] = useMemo(() => (
+    config.cancerTypes.map((c: CancerType) => new DropdownOption(c.id.toString(), c.cancerName))
+  ), [config.cancerTypes]);
+
+  const treatmentTypeOptions: DropdownOption[] = useMemo(() => (
+    config.treatmentTypes.map((t: TreatmentType) => new DropdownOption(t.id.toString(), t.treatmentName))
+  ), [config.treatmentTypes]);
+
+  const detailFields: EventDetailFields = useMemo(() => (
+    DetailFieldsFactory.createFields(safelyParseInt(values.treatmentType))
+  ), [values.treatmentType]);
 
   return (
     <React.Fragment>
-      <FilterSelect name='cancerType' options={cancerTypes} label='Cancer Type' />
-      <Select name='month' options={monthOptions} label='Month' />
-      <Select name='day' options={days} label='Day' />
+      <FilterSelect name='cancerType' label='Cancer Type' options={cancerTypeOptions} 
+        displayValue={cancerTypeIndex(values.cancerType)?.cancerName ?? ''} />
+      <Select name='month' options={monthOptions} label='Month' displayValue={values.month} />
+      <Select name='day' label='Day' options={dayOptions} displayValue={values.day} />
       <TextField name='year' filled={Boolean(values.year)} label='Year' />
-      <Select name='treatmentType' label={treatmentTypes.label ?? ''} options={treatmentTypes} />
-      {values.treatmentType ? <DetailFields fields={treatmentTypes.options[values.treatmentType].detailFields} /> : undefined}
+      <Select name='treatmentType' label='Treatment Type' options={treatmentTypeOptions} 
+        displayValue={treatmentTypeIndex(values.treatmentType)?.treatmentName ?? ''} />
+      <DetailFields />
       <TextField name='notes' filled={Boolean(values.notes)} label='Notes' />
       <div className='button'>
         <button type='submit'>Add Treatment</button>

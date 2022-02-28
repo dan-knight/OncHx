@@ -1,20 +1,19 @@
+import { useState, useMemo, MouseEvent, ReactNode, ChangeEvent } from "react";
+import { FormikValues, useFormikContext } from "formik";
+
+import DropdownOption from "../../types/Form/Dropdown/DropdownOption";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FormikValues, useFormikContext } from "formik";
-import { useState, useMemo, MouseEvent, ReactNode, ChangeEvent } from "react";
-import { Option, Options } from "../../types/Options";
 
 
 interface SelectProps {
   name: string,
-  options: Options,
-  label: string
+  options: DropdownOption[],
+  label: string,
+  displayValue: string
 }
 
-interface SelectWrapperProps {
-  name: string,
-  options: { [key: string]: Option },
-  label: string,
+interface SelectWrapperProps extends SelectProps {
   children?: ReactNode | ReactNode[]
 }
 
@@ -37,13 +36,13 @@ function SelectWrapper(props: SelectWrapperProps) {
   return (
     <div className='select'>
       <div onClick={handleOpen} id={props.name}>
-        {(props.options[values[props.name]]?.label ?? values[props.name]) || '\u00a0'}
+        {(props.displayValue) || '\u00a0'}
       </div>
       <ul className={open ? 'open' : undefined}>
         {props.children}
-        {Object.entries(props.options).map(([value, option]: [string, Option]) => (
-          <li key={value} onClick={(e: MouseEvent) => { handleClickOption(e, value); }}>
-            {option.label ?? value}
+        {props.options.map((option: DropdownOption) => (
+          <li key={option.value} onClick={(e: MouseEvent) => { handleClickOption(e, option.value); }}>
+            {option.getLabel()}
           </li>
         ))}
       </ul>
@@ -59,26 +58,28 @@ function SelectWrapper(props: SelectWrapperProps) {
   );
 }
 
-export function Select(props: SelectProps) {
-  return <SelectWrapper name={props.name} options={props.options.options} label={props.label} />
+export function Select({ filter, ...props }: SelectProps & { filter?: boolean }) {
+  return filter ? <FilterSelect {...props} /> : <BaseSelect {...props} />;
+}
+
+function BaseSelect(props: SelectProps) {
+  return <SelectWrapper {...props} />;
 }
 
 export function FilterSelect(props: SelectProps) {
   const [filterValue, setFilterValue] = useState('');
-  const filteredOptions = useMemo(() => (
-    Object.keys(props.options.options).reduce((a: { [key: string]: Option }, value: string) => {
-      const label = props.options.options[value].label ?? value;
-      return (new RegExp(filterValue, 'i').test(label) ?
-        { ...a, [value]: props.options.options[value] } : a)
-    }, {})
-  ), [props.options, filterValue]);
+  const filteredOptions: DropdownOption[] = useMemo(() => {
+    const filterRegExp = new RegExp(filterValue, 'i');
+    
+    return props.options.filter((option: DropdownOption) => filterRegExp.test(option.getLabel()));
+  }, [props.options, filterValue]);
 
   function handleChangeFilter(event: ChangeEvent) {
     setFilterValue((event.target as HTMLInputElement).value);
   }
 
   return (
-    <SelectWrapper name={props.name} options={filteredOptions} label={props.label}>
+    <SelectWrapper name={props.name} options={filteredOptions} displayValue={props.displayValue} label={props.label}>
       <li className='filter'>
         <FontAwesomeIcon icon={faSearch} />
         <input value={filterValue} onChange={handleChangeFilter} />
