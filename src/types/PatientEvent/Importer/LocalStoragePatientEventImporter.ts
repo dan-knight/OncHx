@@ -2,7 +2,6 @@ import LocalStoragePatientEvent from "../LocalStoragePatientEvent";
 import DetailValuesFactory from "../Details/DetailValuesFactory";
 import DBPatientEvent from "../DBPatientEvent";
 
-import { TreatmentTypeNameIndex } from "../../../config/TreatmentTypeName";
 import { strictlyParseInt } from "../../../utility/parseNumber";
 
 export default class LocalStoragePatientEventImporter {
@@ -16,7 +15,7 @@ export default class LocalStoragePatientEventImporter {
     return new DBPatientEvent(
       eventID,
       localStorage.patient,
-      DetailValuesFactory.createDetails(TreatmentTypeNameIndex[treatmentType], localStorage.details),
+      DetailValuesFactory.createDetails(treatmentType, localStorage.details),
       localStorage.date,
       treatmentType,
       strictlyParseInt(localStorage.cancerType)

@@ -5,7 +5,7 @@ import { EventDetailValues } from "./types/PatientEvent/Details/EventDetailValue
 
 export const defaultEvents = (): DBPatientEvent[] => {
   const treatmentType: TreatmentTypeName = TreatmentTypeNameIndex[0];
-  const details: EventDetailValues = DetailValuesFactory.createDetails(treatmentType);
+  const details: EventDetailValues = {};
 
   return [
     new DBPatientEvent(0, 'patient', details, new Date(2020, 10, 15), 0, 0),

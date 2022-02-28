@@ -2,18 +2,26 @@ import { ChemotherapyDetailValues } from "./EventTypes/ChemotherapyDetails";
 import { RadiationDetailValues } from "./EventTypes/RadiationDetails";
 import { SurgeryDetailValues } from "./EventTypes/SurgeryDetails";
 
-import { TreatmentTypeName } from "../../../config/TreatmentTypeName";
 import { EventDetailValues } from "./EventDetailValues";
 
-export default class DetailValuesFactory {
-  static createDetails(treatmentType: TreatmentTypeName, values?: Record<string, any>): EventDetailValues {
-      const factoryMethod: (values?: Record<string, any>) => EventDetailValues = {
-        chemotherapy: DetailValuesFactory.createChemotherapyDetails,
-        radiation: DetailValuesFactory.createRadiationDetails,
-        surgery: DetailValuesFactory.createSurgeryDetails
-      }[treatmentType];
+type DetailValuesFactoryMethod = (values?: Record<number, any>) => EventDetailValues;
 
-      return factoryMethod !== undefined ? factoryMethod(values) : {};
+export default class DetailValuesFactory {
+  static createDetails(treatmentTypeID: number | undefined, values?: Record<string, any>): EventDetailValues {
+    let details: EventDetailValues = {};
+
+    if (treatmentTypeID !== undefined) {
+  
+      const factoryMethod: DetailValuesFactoryMethod | undefined = {
+        0: DetailValuesFactory.createChemotherapyDetails,
+        1: DetailValuesFactory.createRadiationDetails,
+        2: DetailValuesFactory.createSurgeryDetails
+      }[treatmentTypeID];
+
+      if (factoryMethod !== undefined) details = factoryMethod(values);
+    }
+
+    return details;
   }
 
   private static createChemotherapyDetails(values?: Record<string, any>): ChemotherapyDetailValues {
