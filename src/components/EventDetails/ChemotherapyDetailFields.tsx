@@ -7,9 +7,10 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 
 import { ChemotherapyDetailFields as ChemotherapyDetailFieldConfig } from "../../types/PatientEvent/Details/EventTypes/ChemotherapyDetails";
 import DetailFieldsFactory from "../../types/PatientEvent/Details/DetailFieldsFactory";
+import { safelyParseInt } from "../../utility/parseNumber";
 
 export default function ChemotherapyDetailFields() {
-  const { config }: GlobalValues = useGlobalContext();
+  const { config, chemotherapyRegimenIndex, treatmentLocationIndex }: GlobalValues = useGlobalContext();
   const { values }: FormikValues = useFormikContext();
 
   const fields: ChemotherapyDetailFieldConfig = useMemo(() => (
@@ -18,9 +19,11 @@ export default function ChemotherapyDetailFields() {
 
   return (
     <React.Fragment>
-      <Select name='regimen' label={fields.regimen.label} displayValue={values.regimen ?? ''} 
+      <Select name='regimen' label={fields.regimen.label} 
+        displayValue={chemotherapyRegimenIndex(safelyParseInt(values.regimen))?.regimenName ?? ''} 
         options={fields.regimen.options} filter={fields.regimen.filter} />
-      <Select name='location' label={fields.location.label} displayValue={values.location ?? ''} 
+      <Select name='location' label={fields.location.label} 
+        displayValue={treatmentLocationIndex(safelyParseInt(values.location))?.locationName ?? ''} 
         options={fields.location.options} filter={fields.location.filter} />
     </React.Fragment>
   );
