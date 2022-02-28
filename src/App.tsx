@@ -45,16 +45,20 @@ export default function App() {
   // };
 
   function addEvent(values: FormikValues) {
-    const newEvent = new DBPatientEvent(
-      events.length, 
-      user, 
-      values.details, 
-      values.date, 
-      safelyParseInt(values.treatmentType), 
-      safelyParseInt(values.cancerType)
-    );
+    const newEvents: DBPatientEvent[] = [
+      ...events,
+      new DBPatientEvent(
+        events.length, 
+        user, 
+        values.details, 
+        values.date, 
+        safelyParseInt(values.treatmentType), 
+        safelyParseInt(values.cancerType)
+      )
+    ];
 
-    setEvents([...events, newEvent]);
+    localStorage.setItem('events', JSON.stringify(newEvents));
+    setEvents(newEvents);
   }
 
   return (
