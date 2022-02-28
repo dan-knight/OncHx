@@ -11,6 +11,8 @@ import { GlobalContextProvider } from './contexts/GlobalContext';
 import DBPatientEvent from './types/PatientEvent/DBPatientEvent';
 import LocalStoragePatientEvent from './types/PatientEvent/LocalStoragePatientEvent';
 import LocalStoragePatientEventImporter from './types/PatientEvent/Importer/LocalStoragePatientEventImporter';
+import PatientEvent from './types/PatientEvent/PatientEvent';
+import { safelyParseInt } from './utility/parseNumber';
 
 export default function App() {
   const [user, setUser] = useState<string>('patient');
@@ -42,9 +44,17 @@ export default function App() {
   //   setEvents(newEvents);
   // };
 
-  // TODO Reimplement with new classes
   function addEvent(values: FormikValues) {
+    const newEvent = new DBPatientEvent(
+      events.length, 
+      user, 
+      values.details, 
+      values.date, 
+      safelyParseInt(values.treatmentType), 
+      safelyParseInt(values.cancerType)
+    );
 
+    setEvents([...events, newEvent]);
   }
 
   return (
