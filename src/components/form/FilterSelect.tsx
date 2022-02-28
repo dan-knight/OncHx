@@ -26,7 +26,7 @@ function SelectWrapper(props: SelectWrapperProps) {
     setOpen(!open);
   }
 
-  function handleClickOption(event: MouseEvent, value: string) {
+  function handleClickOption(event: MouseEvent, value: string | number) {
     event.stopPropagation();
 
     setFieldValue(props.name, value);
@@ -71,7 +71,10 @@ export function FilterSelect(props: SelectProps) {
   const filteredOptions: DropdownOption[] = useMemo(() => {
     const filterRegExp = new RegExp(filterValue, 'i');
     
-    return props.options.filter((option: DropdownOption) => filterRegExp.test(option.getLabel()));
+    return props.options.filter((option: DropdownOption) => {
+      const label: string | number = option.getLabel();
+      return filterRegExp.test(typeof(label) === 'string' ? label : label.toString());
+    })
   }, [props.options, filterValue]);
 
   function handleChangeFilter(event: ChangeEvent) {

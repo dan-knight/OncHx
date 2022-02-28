@@ -24,7 +24,7 @@ export class ChemotherapyDetailFields {
     
           return ChemotherapyRegimens.map((jsonRegimen: any) => {
             const regimen: ChemotherapyRegimen = importer.import(jsonRegimen);
-            return new DropdownOption(regimen.id.toString(), regimen.regimenName);
+            return new DropdownOption<number>(regimen.id, regimen.regimenName);
           });
         }()
       };
@@ -37,7 +37,7 @@ export class ChemotherapyDetailFields {
   
         return TreatmentLocations.map((jsonLocation: any) => {
           const location: TreatmentLocation = importer.import(jsonLocation);
-          return new DropdownOption(location.id.toString(), location.locationName);
+          return new DropdownOption<number>(location.id, location.locationName);
         });
       }()
     };
@@ -45,11 +45,11 @@ export class ChemotherapyDetailFields {
 }
 
 export class ChemotherapyDetailValues implements IEventDetailValues<ChemotherapyDetailFields> {
-  regimen: string;
-  location: string;
+  regimen: number | undefined;
+  location: number | undefined;
 
-  constructor(regimen?: string, location?: string) {
-    this.regimen = regimen ?? '';
-    this.location = location ?? '';
+  constructor(regimen?: number, location?: number) {
+    this.regimen = regimen;
+    this.location = location;
   }
 }

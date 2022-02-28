@@ -23,7 +23,7 @@ export class SurgeryDetailFields {
   
         return TreatmentLocations.map((jsonLocation: any) => {
           const location: TreatmentLocation = importer.import(jsonLocation);
-          return new DropdownOption(location.id.toString(), location.locationName);
+          return new DropdownOption<number>(location.id, location.locationName);
         });
       }()
     };
@@ -34,12 +34,12 @@ export class SurgeryDetailFields {
 }
 
 export class SurgeryDetailValues implements IEventDetailValues<SurgeryDetailFields> {
-  location: string;
+  location: number | undefined;
   surgeryType: string;
   complications: string;
 
-  constructor(location?: string, surgeryType?: string, complications?: string) {
-    this.location = location ?? '';
+  constructor(location?: number, surgeryType?: string, complications?: string) {
+    this.location = location;
     this.surgeryType = surgeryType ?? '';
     this.complications = complications ?? '';
   }
