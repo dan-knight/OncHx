@@ -1,10 +1,8 @@
 import { Field } from "formik";
+import FieldProps from "./FieldProps";
 
-interface TextFieldProps {
-  name: string,
-  label: string
-  filled: boolean,
-  errors?: string
+interface TextFieldProps extends FieldProps {
+  filled?: boolean;
 }
 
 export default function TextField(props: TextFieldProps) {
