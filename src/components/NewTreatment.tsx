@@ -65,7 +65,7 @@ export default function NewTreatment() {
       <TextField name='year' filled={Boolean(values.year)} label='Year' />
       <Select name='treatmentType' label='Treatment Type' options={treatmentTypeOptions} 
         displayValue={treatmentTypeIndex(values.treatmentType)?.treatmentName ?? ''} />
-      {values.treatmentType ? <DetailFields fields={detailFields} /> : undefined}
+      <DetailFields />
       <TextField name='notes' filled={Boolean(values.notes)} label='Notes' />
       <div className='button'>
         <button type='submit'>Add Treatment</button>
