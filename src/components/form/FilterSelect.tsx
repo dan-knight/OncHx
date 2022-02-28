@@ -1,9 +1,9 @@
+import { useState, useMemo, MouseEvent, ReactNode, ChangeEvent } from "react";
+import { FormikValues, useFormikContext } from "formik";
+
+import DropdownOption from "../../types/Form/Dropdown/DropdownOption";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FormikValues, useFormikContext } from "formik";
-import { useState, useMemo, MouseEvent, ReactNode, ChangeEvent } from "react";
-import DropdownOption from "../../types/Form/Dropdown/DropdownOption";
-import { Option } from "../../types/Options";
 
 
 interface SelectProps {
@@ -58,8 +58,12 @@ function SelectWrapper(props: SelectWrapperProps) {
   );
 }
 
-export function Select(props: SelectProps) {
-  return <SelectWrapper name={props.name} options={props.options} displayValue={props.displayValue} label={props.label} />
+export function Select({ filter, ...props }: SelectProps & { filter?: boolean }) {
+  return filter ? <BaseSelect {...props} /> : <FilterSelect {...props} />
+}
+
+function BaseSelect(props: SelectProps) {
+  return <SelectWrapper {...props} />;
 }
 
 export function FilterSelect(props: SelectProps) {
