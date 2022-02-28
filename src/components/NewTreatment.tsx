@@ -15,6 +15,7 @@ import { Month } from "../types/Date";
 import { range } from "../utility";
 import DetailValuesFactory from "../types/PatientEvent/Details/DetailValuesFactory";
 import { safelyParseInt } from "../utility/parseNumber";
+import DateField from "./form/DateField";
 
 export default function NewTreatment() {
   const { values, setFieldValue }: FormikValues = useFormikContext();
@@ -59,9 +60,7 @@ export default function NewTreatment() {
     <React.Fragment>
       <FilterSelect name='cancerType' label='Cancer Type' options={cancerTypeOptions} 
         displayValue={cancerTypeIndex(values.cancerType)?.cancerName ?? ''} />
-      <Select name='month' options={monthOptions} label='Month' displayValue={values.month} />
-      <Select name='day' label='Day' options={dayOptions} displayValue={values.day} />
-      <TextField name='year' filled={Boolean(values.year)} label='Year' />
+      <DateField name='date' label='Date' />
       <Select name='treatmentType' label='Treatment Type' options={treatmentTypeOptions} 
         displayValue={treatmentTypeIndex(values.treatmentType)?.treatmentName ?? ''} />
       <DetailFields />
