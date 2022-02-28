@@ -3,7 +3,7 @@ import DetailValuesFactory from "../Details/DetailValuesFactory";
 import DBPatientEvent from "../DBPatientEvent";
 
 import { TreatmentTypeNameIndex } from "../../../config/TreatmentTypeName";
-import safelyParseInt from "../../../utility/safelyParseInt";
+import { strictlyParseInt } from "../../../utility/parseNumber";
 
 export default class LocalStoragePatientEventImporter {
   static createDBEvent(localStorage: LocalStoragePatientEvent, eventID: number): DBPatientEvent {
@@ -11,7 +11,7 @@ export default class LocalStoragePatientEventImporter {
       throw new Error('Invalid event details');
     }
 
-    const treatmentType: number = safelyParseInt(localStorage.treatmentType);
+    const treatmentType: number = strictlyParseInt(localStorage.treatmentType);
 
     return new DBPatientEvent(
       eventID,
@@ -19,7 +19,7 @@ export default class LocalStoragePatientEventImporter {
       DetailValuesFactory.createDetails(TreatmentTypeNameIndex[treatmentType], localStorage.details),
       localStorage.date,
       treatmentType,
-      safelyParseInt(localStorage.cancerType)
+      strictlyParseInt(localStorage.cancerType)
     );
   }
 }

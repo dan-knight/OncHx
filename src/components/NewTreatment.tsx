@@ -1,20 +1,21 @@
 import React, { useMemo } from "react";
 import { FormikValues, useFormikContext } from "formik";
 
+import DetailFields from "./DetailFields";
+import TextField from "./form/TextField";
 import { FilterSelect, Select } from "./form/FilterSelect";
-
-import { range } from "../utility";
-import { Month } from "../types/Date";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
-import TextField from "./form/TextField";
-import DetailFields from "./DetailFields";
-import CancerType from "../types/DB/Config/CancerType";
+
+import DetailFieldsFactory from "../types/PatientEvent/Details/DetailFieldsFactory";
+import { EventDetailFields } from "../types/PatientEvent/Details/EventDetailFields";
 import DropdownOption from "../types/Form/Dropdown/DropdownOption";
 import TreatmentType from "../types/DB/Config/TreatmentType";
-import { EventDetailFields } from "../types/PatientEvent/Details/EventDetailFields";
-import DetailFieldsFactory from "../types/PatientEvent/Details/DetailFieldsFactory";
-import safelyParseInt from "../utility/safelyParseInt";
+import CancerType from "../types/DB/Config/CancerType";
+import { Month } from "../types/Date";
+
+import { range } from "../utility";
+import { safelyParseInt } from "../utility/parseNumber";
 
 export default function NewTreatment() {
   const { values }: FormikValues = useFormikContext();
@@ -51,17 +52,9 @@ export default function NewTreatment() {
     config.treatmentTypes.map((t: TreatmentType) => new DropdownOption(t.id.toString(), t.treatmentName))
   ), [config.treatmentTypes]);
 
-  const detailFields: EventDetailFields = useMemo(() => {
-    let treatmentTypeID: number | undefined;
-    
-    try {
-      treatmentTypeID = safelyParseInt(values.treatmentType);
-    } catch (error) {
-      treatmentTypeID = undefined;
-    }
-
-    return DetailFieldsFactory.createFields(safelyParseInt(values.treatmentType));
-  }, [values.treatmentType]);
+  const detailFields: EventDetailFields = useMemo(() => (
+    DetailFieldsFactory.createFields(safelyParseInt(values.treatmentType))
+  ), [values.treatmentType]);
 
   return (
     <React.Fragment>
