@@ -59,7 +59,7 @@ function SelectWrapper(props: SelectWrapperProps) {
 }
 
 export function Select({ filter, ...props }: SelectProps & { filter?: boolean }) {
-  return filter ? <BaseSelect {...props} /> : <FilterSelect {...props} />
+  return filter ? <FilterSelect {...props} /> : <BaseSelect {...props} />;
 }
 
 function BaseSelect(props: SelectProps) {
