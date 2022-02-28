@@ -1,17 +1,17 @@
 import { useState } from 'react';
-import { BrowserRouter as Router, Switch, Route, Redirect, HashRouter } from 'react-router-dom';
+import { FormikValues } from 'formik';
+import { BrowserRouter as Switch, Route, Redirect, HashRouter } from 'react-router-dom';
 
 import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
 import Login from './components/Login';
-
-import { defaultEvents } from './defaultData';
-import { FormikValues } from 'formik';
 import { GlobalContextProvider } from './contexts/GlobalContext';
+
 import DBPatientEvent from './types/PatientEvent/DBPatientEvent';
 import LocalStoragePatientEvent from './types/PatientEvent/LocalStoragePatientEvent';
 import LocalStoragePatientEventImporter from './types/PatientEvent/Importer/LocalStoragePatientEventImporter';
-import PatientEvent from './types/PatientEvent/PatientEvent';
+import { defaultEvents } from './defaultData';
+
 import { safelyParseInt } from './utility/parseNumber';
 
 export default function App() {
@@ -29,20 +29,6 @@ export default function App() {
   function login(values: FormikValues) {
     setUser(values.username);
   };
-
-  // function addEvent(values: FormikValues) {
-  //   const event: PatientEvent = new PatientEvent(
-  //     user,
-  //     values.cancerType,
-  //     new Date(values.year, values.month, values.day),
-  //     values.treatmentType,
-  //     values.details
-  //   );
-
-  //   const newEvents: PatientEvent[] = [event, ...events];
-  //   localStorage.setItem('events', JSON.stringify(newEvents));
-  //   setEvents(newEvents);
-  // };
 
   function addEvent(values: FormikValues) {
     const newEvents: DBPatientEvent[] = [
