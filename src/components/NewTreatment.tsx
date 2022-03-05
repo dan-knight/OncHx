@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { FormikValues, useFormikContext } from "formik";
 
 import DetailFields from "./DetailFields";
@@ -7,18 +7,17 @@ import { FilterSelect, Select } from "./form/FilterSelect";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
-import DetailFieldsFactory from "../types/PatientEvent/Details/DetailFieldsFactory";
-import { EventDetailFields } from "../types/PatientEvent/Details/EventDetailFields";
 import DropdownOption from "../types/Form/Dropdown/DropdownOption";
 import TreatmentType from "../types/DB/Config/TreatmentType";
 import CancerType from "../types/DB/Config/CancerType";
 import { Month } from "../types/Date";
 
 import { range } from "../utility";
+import DetailValuesFactory from "../types/PatientEvent/Details/DetailValuesFactory";
 import { safelyParseInt } from "../utility/parseNumber";
 
 export default function NewTreatment() {
-  const { values }: FormikValues = useFormikContext();
+  const { values, setFieldValue }: FormikValues = useFormikContext();
   const { config, cancerTypeIndex, treatmentTypeIndex }: GlobalValues = useGlobalContext();
 
   const months = useMemo((): Month[] => ([
@@ -52,9 +51,9 @@ export default function NewTreatment() {
     config.treatmentTypes.map((t: TreatmentType) => new DropdownOption(t.id.toString(), t.treatmentName))
   ), [config.treatmentTypes]);
 
-  const detailFields: EventDetailFields = useMemo(() => (
-    DetailFieldsFactory.createFields(safelyParseInt(values.treatmentType))
-  ), [values.treatmentType]);
+  useEffect(() => {
+    setFieldValue('details', DetailValuesFactory.createDetails(safelyParseInt(values.treatmentType)))
+  }, [values.treatmentType]);
 
   return (
     <React.Fragment>
