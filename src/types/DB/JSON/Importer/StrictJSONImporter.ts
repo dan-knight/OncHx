@@ -16,9 +16,11 @@ export default abstract class StrictJSONImporter extends BaseJSONImporter  {
       if (typeof value === 'number') {
         return value;
       } else if (typeof value === 'string') {
-        try {
-          return parseFloat(value);
-        } catch (error) {};
+        const parsed: number = parseFloat(value);
+
+        if (!isNaN(parsed)) {
+          return parsed;
+        }
       }
       
       throw new Error('Invalid JSON number import');
