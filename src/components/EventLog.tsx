@@ -20,7 +20,7 @@ import { EventDetailValues } from "../types/PatientEvent/Details/EventDetailValu
 
 interface EventLogProps {
   allEvents: DBPatientEvent[],
-  user: string
+  user: number
 }
 
 export default function EventLog(props: EventLogProps) {

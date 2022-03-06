@@ -3,6 +3,7 @@ import DetailValuesFactory from "../Details/DetailValuesFactory";
 import DBPatientEvent from "../DBPatientEvent";
 
 import { strictlyParseInt } from "../../../utility/parseNumber";
+import StrictJSONImporter from "../../DB/JSON/Importer/StrictJSONImporter";
 
 export default class LocalStoragePatientEventImporter {
   static createDBEvent(localStorage: LocalStoragePatientEvent, eventID: number): DBPatientEvent {
@@ -14,7 +15,7 @@ export default class LocalStoragePatientEventImporter {
 
     return new DBPatientEvent(
       eventID,
-      localStorage.patient,
+      StrictJSONImporter.importNumber(localStorage.patient),
       DetailValuesFactory.createDetails(treatmentType, localStorage.details),
       localStorage.date,
       treatmentType,

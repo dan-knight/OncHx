@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { FormikValues } from 'formik';
 import { BrowserRouter as Switch, Route, Redirect, HashRouter } from 'react-router-dom';
 
@@ -10,13 +10,15 @@ import { GlobalContextProvider } from './contexts/GlobalContext';
 import DBPatientEvent from './types/PatientEvent/DBPatientEvent';
 import LocalStoragePatientEvent from './types/PatientEvent/LocalStoragePatientEvent';
 import LocalStoragePatientEventImporter from './types/PatientEvent/Importer/LocalStoragePatientEventImporter';
-import { defaultEvents } from './defaultData';
+import { defaultEvents, defaultPatients } from './defaultData';
 
 import { safelyParseInt } from './utility/parseNumber';
+import Patient from './types/Patient/Patient';
 
 export default function App() {
-  const [user, setUser] = useState<string>('patient');
+  const [user, setUser] = useState<number | undefined>(0);
   const [events, setEvents] = useState<DBPatientEvent[]>(getEvents());
+  const patients: Patient[] = useMemo(() => defaultPatients(), []);
 
   function getEvents(): DBPatientEvent[] {
     const stored: string | null = localStorage.getItem('events');
@@ -31,6 +33,10 @@ export default function App() {
   };
 
   function addEvent(values: FormikValues) {
+    if (user === undefined) {
+      throw new Error('Not patient logged in');
+    }
+    
     const newEvents: DBPatientEvent[] = [
       ...events,
       new DBPatientEvent(
@@ -53,10 +59,10 @@ export default function App() {
         <div className='app'>
           <Switch>
             <Route path='/add'>
-              {user ? <TreatmentInput onSubmit={addEvent} /> : <Redirect to='/' />}
+              {user !== undefined ? <TreatmentInput onSubmit={addEvent} /> : <Redirect to='/' />}
             </Route>
             <Route path='/' exact>
-              {user ? <EventLog allEvents={events} user={user} /> : <Login onSubmit={login} />}
+              {user !== undefined ? <EventLog allEvents={events} user={user} /> : <Login onSubmit={login} />}
             </Route>
           </Switch>
         </div>
