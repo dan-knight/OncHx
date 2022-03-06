@@ -4,8 +4,10 @@ import { BrowserRouter as Switch, Route, Redirect, HashRouter } from 'react-rout
 
 import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
+import PatientInfo from './components/PatientInfo/PatientInfo';
 import Login from './components/Login';
-import { GlobalContextProvider } from './contexts/GlobalContext';
+import { GlobalValues } from './types/Global';
+import { useGlobalContext } from './contexts/GlobalContext';
 
 import DBPatientEvent from './types/PatientEvent/DBPatientEvent';
 import LocalStoragePatientEvent from './types/PatientEvent/LocalStoragePatientEvent';
@@ -13,12 +15,10 @@ import LocalStoragePatientEventImporter from './types/PatientEvent/Importer/Loca
 import { defaultEvents, defaultPatients } from './defaultData';
 
 import { safelyParseInt } from './utility/parseNumber';
-import Patient from './types/Patient/Patient';
 
 export default function App() {
-  const [user, setUser] = useState<number | undefined>(0);
+  const { user }: GlobalValues = useGlobalContext();
   const [events, setEvents] = useState<DBPatientEvent[]>(getEvents());
-  const patients: Patient[] = useMemo(() => defaultPatients(), []);
 
   function getEvents(): DBPatientEvent[] {
     const stored: string | null = localStorage.getItem('events');
@@ -28,9 +28,9 @@ export default function App() {
     )) : defaultEvents();
   };
 
-  function login(values: FormikValues) {
-    setUser(values.username);
-  };
+  // function login(values: FormikValues) {
+  //   setUser(values.username);
+  // };
 
   function addEvent(values: FormikValues) {
     if (user === undefined) {
@@ -54,19 +54,20 @@ export default function App() {
   }
 
   return (
-    <GlobalContextProvider>
       <HashRouter>
         <div className='app'>
           <Switch>
             <Route path='/add'>
               {user !== undefined ? <TreatmentInput onSubmit={addEvent} /> : <Redirect to='/' />}
             </Route>
+            <Route path='/user'>
+              {user !== undefined ? <PatientInfo /> : <Redirect to='/' />}
+            </Route>
             <Route path='/' exact>
-              {user !== undefined ? <EventLog allEvents={events} user={user} /> : <Login onSubmit={login} />}
+              {user !== undefined ? <EventLog allEvents={events} user={user} /> : <Login />}
             </Route>
           </Switch>
         </div>
       </HashRouter>
-    </GlobalContextProvider>
   );
 };
