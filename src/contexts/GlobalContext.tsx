@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useMemo } from "react";
+import { createContext, ReactNode, useContext, useMemo, useState } from "react";
 
 import TreatmentType from "../types/DB/Config/TreatmentType";
 import CancerType from "../types/DB/Config/CancerType";
@@ -9,6 +9,7 @@ import JSONTreatmentTypeImporter from "../types/DB/JSON/Importer/JSONTreatmentTy
 import JSONCancerTypeImporter from "../types/DB/JSON/Importer/JSONCancerTypeImporter";
 import JSONTreatmentLocationImporter from "../types/DB/JSON/Importer/JSONTreatmentLocationImporter";
 import JSONChemotherapyRegimenImporter from "../types/DB/JSON/Importer/JSONChemotherapyRegimenImporter";
+import Patient from "../types/Patient/Patient";
 import { GlobalValues } from "../types/Global";
 
 import TreatmentTypes from '../config/treatmentTypes.json';
@@ -17,6 +18,7 @@ import TreatmentLocations from '../config/treatmentLocations.json';
 import ChemotherapyRegimens from '../config/chemotherapyRegimens.json';
 import Config from "../types/Config";
 import useDBIndex from "../hooks/useDBIndex";
+import { defaultPatients } from "../defaultData";
 
 const GlobalContext = createContext<GlobalValues | null>(null);
 
@@ -53,13 +55,19 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
   const chemotherapyRegimenIndex = useDBIndex<ChemotherapyRegimen>(chemotherapyRegimens);
   const treatmentLocationIndex = useDBIndex<TreatmentLocation>(treatmentLocations);
 
+  const patients: Patient[] = useMemo(() => defaultPatients(), []);
+  
+  const [user, setUser] = useState<number | undefined>(0);
+
   return (
     <GlobalContext.Provider value={{
       config,
       treatmentTypeIndex,
       cancerTypeIndex,
       chemotherapyRegimenIndex,
-      treatmentLocationIndex
+      treatmentLocationIndex,
+      patients,
+      user
     }}>
       {props.children}
     </GlobalContext.Provider>
