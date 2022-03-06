@@ -191,4 +191,21 @@ li {
   list-style: none;
 }
 
+.user-avatar {
+  height: 5rem;
+  width: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #F0F0F0;
+  border-radius: 5rem;
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: 0.125rem;
+  margin: 0 auto 1rem;
+}
+.user-avatar > * {
+  margin-right: -0.125rem;
+}
+
 /*# sourceMappingURL=main.css.map */

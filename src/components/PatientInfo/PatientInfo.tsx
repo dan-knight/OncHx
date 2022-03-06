@@ -1,8 +1,12 @@
-import { GlobalValues } from "../../types/Global"
-import { useGlobalContext } from "../../contexts/GlobalContext"
+import Avatar from "./Avatar";
 
-export default function PatientInfo() {
-  const { patients, user }: GlobalValues = useGlobalContext();
+import Patient from "../../types/Patient/Patient";
 
-  return <h1>{JSON.stringify(user !== undefined ? patients[user] : undefined)}</h1>
+interface PatientInfoProps {
+  patient: Patient
+}
+
+export default function PatientInfo(props: PatientInfoProps) {
+
+  return <Avatar firstName={props.patient.firstName} lastName={props.patient.lastName} />;
 }
