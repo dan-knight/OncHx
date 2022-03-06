@@ -18,6 +18,7 @@ import TreatmentLocations from '../config/treatmentLocations.json';
 import ChemotherapyRegimens from '../config/chemotherapyRegimens.json';
 import Config from "../types/Config";
 import useDBIndex from "../hooks/useDBIndex";
+import StrictJSONImporter from "../types/DB/JSON/Importer/StrictJSONImporter";
 import { defaultPatients } from "../defaultData";
 
 const GlobalContext = createContext<GlobalValues | null>(null);
@@ -25,22 +26,24 @@ const GlobalContext = createContext<GlobalValues | null>(null);
 export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[] }) {
   const treatmentTypes: TreatmentType[] = useMemo(() => {
     const importer = new JSONTreatmentTypeImporter();
-    return TreatmentTypes.map((treatment: any) => importer.import(treatment));
+
+    return StrictJSONImporter.importArray(TreatmentTypes).map((treatment: any) => importer.import(treatment));
   }, []);
 
   const cancerTypes: CancerType[] = useMemo(() => {
     const importer = new JSONCancerTypeImporter();
-    return CancerTypes.map((cancer: any) => importer.import(cancer));
+
+    return StrictJSONImporter.importArray(CancerTypes).map((cancer: any) => importer.import(cancer));
   }, []);
 
   const treatmentLocations: TreatmentLocation[] = useMemo(() => {
     const importer = new JSONTreatmentLocationImporter();
-    return TreatmentLocations.map((location: any) => importer.import(location));
+    return StrictJSONImporter.importArray(TreatmentLocations).map((location: any) => importer.import(location));
   }, []);
 
   const chemotherapyRegimens: ChemotherapyRegimen[] = useMemo(() => {
     const importer = new JSONChemotherapyRegimenImporter();
-    return ChemotherapyRegimens.map((regimen: any) => importer.import(regimen));
+    return StrictJSONImporter.importArray(ChemotherapyRegimens).map((regimen: any) => importer.import(regimen));
   }, []);
 
   const config: Config = {
