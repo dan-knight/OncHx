@@ -4,6 +4,7 @@ import { FormikValues, useFormikContext } from "formik";
 import DropdownOption from "../../types/Form/Dropdown/DropdownOption";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import FieldLabel from "./FieldLabel";
 
 
 interface SelectProps {
@@ -46,14 +47,9 @@ function SelectWrapper(props: SelectWrapperProps) {
           </li>
         ))}
       </ul>
-      <label 
-        htmlFor={props.name} 
-        className={values[props.name] !== undefined && values[props.name] !== '' ? 'filled' : undefined} 
-        onClick={handleOpen}
-      >
-        {props.label}
-        <span className="error">{errors[props.name]}</span>
-      </label>
+      <FieldLabel {...props} 
+        filled={![undefined, ''].includes(props.displayValue)} 
+        onClick={handleOpen} />
     </div>
   );
 }
