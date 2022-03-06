@@ -1,19 +1,16 @@
 import { Field } from "formik";
+import FieldLabel from "./FieldLabel";
+import FieldProps from "./FieldProps";
 
-interface TextFieldProps {
-  name: string,
-  label: string
-  filled: boolean,
-  errors?: string
+interface TextFieldProps extends FieldProps {
+  filled?: boolean;
 }
 
 export default function TextField(props: TextFieldProps) {
   return (
     <div>
       <Field name={props.name} id={props.name} autoComplete="off" />
-      <label htmlFor={props.name} className={props.filled ? 'filled' : undefined}>
-        {props.label}
-        {<span className="error">{props.errors}</span>}</label>
+      <FieldLabel {...props} />
     </div>
   )
 }

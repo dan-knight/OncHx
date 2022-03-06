@@ -1,22 +1,26 @@
+import { FunctionComponent, useMemo } from "react";
 import { FormikValues, useFormikContext } from "formik";
-import React from "react";
-import { Field, Fields, SelectField } from "../types/Field";
-import { Options } from "../types/Options";
-import AnyField from "./form/AnyField";
+import { safelyParseInt } from "../utility/parseNumber";
+import ChemotherapyDetailFields from "./EventDetails/ChemotherapyDetailFields";
+import RadiationDetailFields from "./EventDetails/RadiationDetailFields";
+import SurgeryDetailFields from "./EventDetails/SurgeryDetailFields";
 
-interface DetailFieldsProps {
-  fields: Fields
-}
+export default function DetailFields() {
+  const { values }: FormikValues = useFormikContext();
 
-export default function DetailFields(props: DetailFieldsProps) {
-  const { values, errors }: FormikValues = useFormikContext();
+  const DetailFieldComponent: FunctionComponent | undefined = useMemo(() => {
+    const treatmentType: number | undefined = safelyParseInt(values.treatmentType);
 
-  return (
-    <React.Fragment>
-      {Object.entries(props.fields).map(([name, field]: [string, Field]) => (
-        <AnyField name={name} label={field.label ?? ''} options={(field as SelectField).options ? (field as SelectField) : undefined} 
-          filled={Boolean(values[name])} errors={errors[name]} key={name} filter={(field as SelectField).filter} />
-      ))}
-    </React.Fragment>
-  )
+    if (treatmentType !== undefined) {
+      const DetailComponentTypes: Record<number, FunctionComponent> = {
+        0: ChemotherapyDetailFields,
+        1: RadiationDetailFields,
+        2: SurgeryDetailFields
+      };
+
+      return DetailComponentTypes[treatmentType];
+    } else return undefined;
+  }, [values.treatmentType]);
+
+  return DetailFieldComponent !== undefined ? <DetailFieldComponent /> : null;
 }
