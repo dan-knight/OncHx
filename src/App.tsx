@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { FormikValues } from 'formik';
-import { BrowserRouter as Switch, Route, Redirect, HashRouter } from 'react-router-dom';
+import { BrowserRouter as Switch, Route, Redirect, HashRouter, BrowserRouter } from 'react-router-dom';
 
 import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
@@ -55,7 +55,7 @@ export default function App() {
 
   return (
     <GlobalContextProvider>
-      <HashRouter>
+      <BrowserRouter>
         <div className='app'>
           <Switch>
             <Route path='/add'>
@@ -66,7 +66,7 @@ export default function App() {
             </Route>
           </Switch>
         </div>
-      </HashRouter>
+      </BrowserRouter>
     </GlobalContextProvider>
   );
 };
