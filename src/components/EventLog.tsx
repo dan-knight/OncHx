@@ -1,22 +1,15 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 
-import useExpand from "../hooks/useExpand";
-import FilterMenu from "./FilterMenu";
-
-import { FilterOption, FilterOptions, FilterSelected } from "../types/Filter";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
-import { TreatmentTypes } from "../types/Treatment";
-import { CancerTypes } from "../types/Cancer";
-import { Options } from "../types/Options";
+
 import DBPatientEvent from "../types/PatientEvent/DBPatientEvent";
 import PatientEvent from "../types/PatientEvent/PatientEvent";
 import CancerType from "../types/DB/Config/CancerType";
 import TreatmentType from "../types/DB/Config/TreatmentType";
 import { EventDetailValues } from "../types/PatientEvent/Details/EventDetailValues";
+import PatientEventFilter from "../types/utility/Filter/PatientEventFilter/PatientEventFilter";
 
 interface EventLogProps {
   allEvents: DBPatientEvent[],
@@ -28,34 +21,26 @@ export default function EventLog(props: EventLogProps) {
 
   const { config }: GlobalValues = useGlobalContext();
 
-  const defaultFilters: { [key: string]: FilterOptions } = {
-    cancerType: config.cancerTypes.map((cancer: CancerType) => cancer.id),
-    treatmentType: config.treatmentTypes.map((treatment: TreatmentType) => treatment.id)
-  };
+  const [cancerTypeFilters, setCancerTypeFilters] = useState<Set<number>>(
+    new Set(config.cancerTypes.map((cancerType: CancerType) => cancerType.id))
+  );
 
-  const [filters, setFilters] = useState<{ [key: string]: FilterSelected }>(Object.keys(defaultFilters).reduce(
-    (a: { [key: string]: FilterSelected }, b: FilterOption): { [key: string]: FilterSelected } => (
-      { ...a, [b]: new Set<FilterOption>(defaultFilters[b])}
-    ), {}));
+  const [startDateFilter, setStartDateFilter] = useState<Date | undefined>(undefined);
+  const [endDateFilter, setEndDateFilter] = useState<Date | undefined>(undefined);
 
-  // const eventInFilters = (event: DBPatientEvent) => {
-  //   let inFilters = true;
-  //   const filterCategories: string[] = Object.keys(defaultFilters);
-    
-  //   for (let i = 0; i < filterCategories.length; i++) {
-  //     const category: string = filterCategories[i];
+  useEffect(() => {
+    setCancerTypeFilters(
+      new Set(config.cancerTypes.map((cancerType: CancerType) => cancerType.id))
+    );
+  }, [config.cancerTypes]);
 
-  //     if (!filters[category].has(event[category])) {
-  //       inFilters = false;
-  //       break;
-  //     }
-  //   };
-
-  //   return inFilters;
-  // };
-
-  // TODO Reimplement eventInFilters() with command pattern
-  const eventInFilters = (event: PatientEvent): boolean => true;
+  const eventInFilters = (event: PatientEvent): boolean => (
+    new PatientEventFilter({
+      cancerTypeIDs: cancerTypeFilters,
+      startDate: startDateFilter,
+      endDate: endDateFilter 
+    }).isInFilters(event)
+  );
 
   function prepareEvents() {
     const newEvents: { [key: number]: DBPatientEvent[] } = {};
@@ -81,19 +66,7 @@ export default function EventLog(props: EventLogProps) {
 
   useEffect(() => {    
     setEvents(prepareEvents());
-  }, [props.allEvents, props.user, filters]);
-
-  function handleCheck(filter: FilterOption, value: FilterOption) {
-    const newSelected = new Set(filters[filter]);
-
-    if (newSelected.has(value)) {
-      newSelected.delete(value);
-    } else {
-      newSelected.add(value);
-    }
-
-    setFilters({...filters, [filter]: newSelected});
-  };
+  }, [cancerTypeFilters, startDateFilter, endDateFilter, props.allEvents, props.user]);
 
   return (
     <React.Fragment>
