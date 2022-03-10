@@ -208,4 +208,15 @@ li {
   margin-right: -0.125rem;
 }
 
+.filters .header {
+  text-align: left;
+  font-size: 0.75rem;
+  color: #888;
+}
+.filters .content {
+  display: flex;
+  justify-content: space-between;
+  margin: 0.5rem 0 2rem;
+}
+
 /*# sourceMappingURL=main.css.map */

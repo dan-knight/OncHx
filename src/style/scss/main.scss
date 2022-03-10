@@ -270,3 +270,18 @@ $avatar-spacing: 0.125rem;
     margin-right: $avatar-spacing * -1;
   }
 }
+
+.filters {
+  .header {
+    text-align: left;
+    font-size: 0.75rem;
+    color: #888;
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    
+    margin: 0.5rem 0 2rem;
+  }
+}
