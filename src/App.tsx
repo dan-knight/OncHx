@@ -1,13 +1,13 @@
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 import { FormikValues } from 'formik';
-import { BrowserRouter as Switch, Route, Redirect, HashRouter } from 'react-router-dom';
+import { BrowserRouter as Switch, Route, Redirect, HashRouter, BrowserRouter } from 'react-router-dom';
 
 import TreatmentInput from './components/TreatmentInput';
 import EventLog from './components/EventLog';
 import PatientInfo from './components/PatientInfo/PatientInfo';
 import Login from './components/Login';
 import { GlobalValues } from './types/Global';
-import { useGlobalContext } from './contexts/GlobalContext';
+import { GlobalContextProvider, useGlobalContext } from './contexts/GlobalContext';
 
 import DBPatientEvent from './types/PatientEvent/DBPatientEvent';
 import LocalStoragePatientEvent from './types/PatientEvent/LocalStoragePatientEvent';
@@ -54,7 +54,8 @@ export default function App() {
   }
 
   return (
-      <HashRouter>
+    <GlobalContextProvider>
+      <BrowserRouter>
         <div className='app'>
           <Switch>
             <Route path='/add'>
@@ -68,6 +69,7 @@ export default function App() {
             </Route>
           </Switch>
         </div>
-      </HashRouter>
+      </BrowserRouter>
+    </GlobalContextProvider>
   );
 };
