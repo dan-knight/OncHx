@@ -7,7 +7,7 @@ import PatientEvent from '../../../../PatientEvent/PatientEvent';
 describe('PatientEventFilter', () => {
   it('initializes required rules', () => {
     const filterValues = { 
-      treatmentTypeIDs: new Set<number>()
+      treatmentTypeID: 9
     };
 
     const filter = new PatientEventFilter(filterValues);
@@ -18,7 +18,7 @@ describe('PatientEventFilter', () => {
 
   it('initializes optional rules', () => {
     const filterValues = { 
-      treatmentTypeIDs: new Set<number>(),
+      treatmentTypeID: 0,
       startDate: new Date(),
       endDate: new Date()
     };
@@ -33,7 +33,7 @@ describe('PatientEventFilter', () => {
     const treatmentType: number = 1;
 
     // @ts-ignore: Testing private method
-    const rule: FilterRule<PatientEvent> = PatientEventFilter.treatmentTypeRule(new Set<number>());
+    const rule: FilterRule<PatientEvent> = PatientEventFilter.treatmentTypeRule(treatmentType + 1);
 
     const patientEvent = new PatientEvent(0, {}, new Date(), undefined, treatmentType);
 
@@ -44,7 +44,7 @@ describe('PatientEventFilter', () => {
     const treatmentType: number = 2;
 
     // @ts-ignore: Testing private method
-    const rule: FilterRule<PatientEvent> = PatientEventFilter.treatmentTypeRule(new Set<number>([treatmentType]));
+    const rule: FilterRule<PatientEvent> = PatientEventFilter.treatmentTypeRule(treatmentType);
 
     const patientEvent = new PatientEvent(0, {}, new Date(), treatmentType);
 

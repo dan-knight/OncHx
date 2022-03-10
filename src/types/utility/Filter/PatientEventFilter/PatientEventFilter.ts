@@ -3,7 +3,7 @@ import PatientEvent from "../../../PatientEvent/PatientEvent";
 import FilterRule from "../FilterRule";
 
 interface PatientEventFilterValues {
-  treatmentTypeIDs: Set<number>,
+  treatmentTypeID?: number,
   startDate?: Date,
   endDate?: Date
 }
@@ -11,7 +11,7 @@ interface PatientEventFilterValues {
 export default class PatientEventFilter extends Filter<PatientEvent> {
   constructor(filterValues: PatientEventFilterValues) {
     const rules: FilterRule<PatientEvent>[] = [
-      PatientEventFilter.treatmentTypeRule(filterValues.treatmentTypeIDs)
+      PatientEventFilter.treatmentTypeRule(filterValues.treatmentTypeID)
     ];
 
     if (filterValues.startDate !== undefined) {
@@ -33,7 +33,9 @@ export default class PatientEventFilter extends Filter<PatientEvent> {
     isValid: (value: PatientEvent) => value.date < endDate
   });
 
-  private static treatmentTypeRule = (treatmentTypeIDs: Set<number>): FilterRule<PatientEvent> => ({
-    isValid: (value: PatientEvent) => value.treatmentType !== undefined && treatmentTypeIDs.has(value.treatmentType)
+  // private static treatmentTypeRule = (treatmentTypeIDs: Set<number>): FilterRule<PatientEvent> => ({
+  //   isValid: (value: PatientEvent) => value.treatmentType !== undefined && treatmentTypeIDs.has(value.treatmentType)
+  private static treatmentTypeRule = (treatmentTypeID: number | undefined): FilterRule<PatientEvent> => ({
+    isValid: (value: PatientEvent) => treatmentTypeID === undefined || value.treatmentType === treatmentTypeID
   });
 }

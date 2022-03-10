@@ -24,26 +24,27 @@ export default function EventLog(props: EventLogProps) {
 
   const { config, patients, user }: GlobalValues = useGlobalContext();
 
-  const [
-    treatmentTypeFilters, 
-    toggleTreatmentTypeFilters, 
-    setTreatmentTypeFilters
-  ] = useSetToggle<number>();
+  // const [
+  //   treatmentTypeFilters, 
+  //   toggleTreatmentTypeFilters, 
+  //   setTreatmentTypeFilters
+  // ] = useSetToggle<number>();
+  const [treatmentTypeFilter, setTreatmentTypeFilter] = useState<number | undefined>(undefined);
 
   const patient: Patient | undefined = user !== undefined ? patients[user] : undefined;
 
   const [startDateFilter, setStartDateFilter] = useState<Date | undefined>(undefined);
   const [endDateFilter, setEndDateFilter] = useState<Date | undefined>(undefined);
 
-  useEffect(() => {
-    setTreatmentTypeFilters(
-      new Set(config.treatmentTypes.map((treatmentType: TreatmentType) => treatmentType.id))
-    );
-  }, [config.treatmentTypes]);
+  // useEffect(() => {
+  //   setTreatmentTypeFilters(
+  //     new Set(config.treatmentTypes.map((treatmentType: TreatmentType) => treatmentType.id))
+  //   );
+  // }, [config.treatmentTypes]);
 
   const eventInFilters = (event: PatientEvent): boolean => (
     new PatientEventFilter({
-      treatmentTypeIDs: treatmentTypeFilters,
+      treatmentTypeID: treatmentTypeFilter,
       startDate: startDateFilter,
       endDate: endDateFilter 
     }).isInFilters(event)
@@ -73,11 +74,12 @@ export default function EventLog(props: EventLogProps) {
 
   useEffect(() => {    
     setEvents(prepareEvents());
-  }, [treatmentTypeFilters, startDateFilter, endDateFilter, props.allEvents, props.user]);
+  // }, [treatmentTypeFilters, startDateFilter, endDateFilter, props.allEvents, props.user]);
+  }, [treatmentTypeFilter, startDateFilter, endDateFilter, props.allEvents, props.user]);
 
   return (
     <React.Fragment>
-      <EventFilters onTreatmentTypeToggle={toggleTreatmentTypeFilters} />
+      <EventFilters onTreatmentTypeToggle={setTreatmentTypeFilter} />
       {patient !== undefined ? <PatientInfo patient={patient} /> : undefined}
       <div className='event-log'>
         <Link to='/add'>
