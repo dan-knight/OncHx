@@ -21,22 +21,22 @@ export default function EventLog(props: EventLogProps) {
 
   const { config }: GlobalValues = useGlobalContext();
 
-  const [cancerTypeFilters, setCancerTypeFilters] = useState<Set<number>>(
-    new Set(config.cancerTypes.map((cancerType: CancerType) => cancerType.id))
+  const [treatmentTypeFilters, setTreatmentTypeFilters] = useState<Set<number>>(
+    new Set(config.treatmentTypes.map((treatmentType: TreatmentType) => treatmentType.id))
   );
 
   const [startDateFilter, setStartDateFilter] = useState<Date | undefined>(undefined);
   const [endDateFilter, setEndDateFilter] = useState<Date | undefined>(undefined);
 
   useEffect(() => {
-    setCancerTypeFilters(
-      new Set(config.cancerTypes.map((cancerType: CancerType) => cancerType.id))
+    setTreatmentTypeFilters(
+      new Set(config.treatmentTypes.map((treatmentType: TreatmentType) => treatmentType.id))
     );
-  }, [config.cancerTypes]);
+  }, [config.treatmentTypes]);
 
   const eventInFilters = (event: PatientEvent): boolean => (
     new PatientEventFilter({
-      cancerTypeIDs: cancerTypeFilters,
+      treatmentTypeIDs: treatmentTypeFilters,
       startDate: startDateFilter,
       endDate: endDateFilter 
     }).isInFilters(event)
@@ -66,7 +66,7 @@ export default function EventLog(props: EventLogProps) {
 
   useEffect(() => {    
     setEvents(prepareEvents());
-  }, [cancerTypeFilters, startDateFilter, endDateFilter, props.allEvents, props.user]);
+  }, [treatmentTypeFilters, startDateFilter, endDateFilter, props.allEvents, props.user]);
 
   return (
     <React.Fragment>

@@ -7,7 +7,7 @@ import PatientEvent from '../../../../PatientEvent/PatientEvent';
 describe('PatientEventFilter', () => {
   it('initializes required rules', () => {
     const filterValues = { 
-      cancerTypeIDs: new Set<number>()
+      treatmentTypeIDs: new Set<number>()
     };
 
     const filter = new PatientEventFilter(filterValues);
@@ -18,7 +18,7 @@ describe('PatientEventFilter', () => {
 
   it('initializes optional rules', () => {
     const filterValues = { 
-      cancerTypeIDs: new Set<number>(),
+      treatmentTypeIDs: new Set<number>(),
       startDate: new Date(),
       endDate: new Date()
     };
@@ -29,24 +29,24 @@ describe('PatientEventFilter', () => {
     expect(filter.rules).toHaveLength(expectedLength);
   });
 
-  it('filters an invalid cancer type', () => {
-    const cancerType: number = 1;
+  it('filters an invalid treatment type', () => {
+    const treatmentType: number = 1;
 
     // @ts-ignore: Testing private method
-    const rule: FilterRule<PatientEvent> = PatientEventFilter.cancerTypeRule(new Set<number>());
+    const rule: FilterRule<PatientEvent> = PatientEventFilter.treatmentTypeRule(new Set<number>());
 
-    const patientEvent = new PatientEvent(0, {}, new Date(), undefined, cancerType);
+    const patientEvent = new PatientEvent(0, {}, new Date(), undefined, treatmentType);
 
     expect(rule.isValid(patientEvent)).toBeFalsy();
   });
 
-  it('handles a valid cancer type', () => {
-    const cancerType: number = 2;
+  it('handles a valid treatment type', () => {
+    const treatmentType: number = 2;
 
     // @ts-ignore: Testing private method
-    const rule: FilterRule<PatientEvent> = PatientEventFilter.cancerTypeRule(new Set<number>([cancerType]));
+    const rule: FilterRule<PatientEvent> = PatientEventFilter.treatmentTypeRule(new Set<number>([treatmentType]));
 
-    const patientEvent = new PatientEvent(0, {}, new Date(), undefined, cancerType);
+    const patientEvent = new PatientEvent(0, {}, new Date(), treatmentType);
 
     expect(rule.isValid(patientEvent)).toBeTruthy();
   });
