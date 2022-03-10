@@ -270,3 +270,45 @@ $avatar-spacing: 0.125rem;
     margin-right: $avatar-spacing * -1;
   }
 }
+
+.filters {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    text-align: left;
+    font-size: 0.825rem;
+    font-weight: 600;
+    color: #888;
+
+    padding-bottom: 0.325rem;
+    margin-bottom: 0.625rem;
+    border-bottom: #DFDFDF solid 0.0125rem;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .content {
+    display: flex;
+    justify-content: space-between;
+    
+    margin-bottom: 2rem;
+
+    font-size: 0.925rem;
+
+    > span {
+      text-align: left;
+
+      &:hover {
+        cursor: pointer;
+      }
+
+      > div {
+        font-size: 0.75rem;
+      }
+    }
+  }
+}

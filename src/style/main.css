@@ -208,4 +208,35 @@ li {
   margin-right: -0.125rem;
 }
 
+.filters .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-align: left;
+  font-size: 0.825rem;
+  font-weight: 600;
+  color: #888;
+  padding-bottom: 0.325rem;
+  margin-bottom: 0.625rem;
+  border-bottom: #DFDFDF solid 0.0125rem;
+}
+.filters .header:hover {
+  cursor: pointer;
+}
+.filters .content {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  font-size: 0.925rem;
+}
+.filters .content > span {
+  text-align: left;
+}
+.filters .content > span:hover {
+  cursor: pointer;
+}
+.filters .content > span > div {
+  font-size: 0.75rem;
+}
+
 /*# sourceMappingURL=main.css.map */
