@@ -244,3 +244,29 @@ ul {
 li {
   list-style: none;
 }
+
+$avatar-size: 5rem;
+$avatar-spacing: 0.125rem;
+
+.user-avatar {
+  height: $avatar-size;
+  width: $avatar-size;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #F0F0F0;
+  border-radius: $avatar-size;
+
+  font-size: 2rem;
+  font-weight: 600;
+  letter-spacing: $avatar-spacing;
+
+  margin: 0 auto 1rem;
+
+  > * {
+    // Account for letter-spacing when centering text
+    margin-right: $avatar-spacing * -1;
+  }
+}

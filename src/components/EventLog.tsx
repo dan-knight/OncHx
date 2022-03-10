@@ -1,15 +1,16 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
+import PatientInfo from "./PatientInfo/PatientInfo";
 import { GlobalValues } from "../types/Global";
 import { useGlobalContext } from "../contexts/GlobalContext";
 
 import DBPatientEvent from "../types/PatientEvent/DBPatientEvent";
 import PatientEvent from "../types/PatientEvent/PatientEvent";
-import CancerType from "../types/DB/Config/CancerType";
 import TreatmentType from "../types/DB/Config/TreatmentType";
 import { EventDetailValues } from "../types/PatientEvent/Details/EventDetailValues";
 import PatientEventFilter from "../types/utility/Filter/PatientEventFilter/PatientEventFilter";
+import Patient from "../types/Patient/Patient";
 
 interface EventLogProps {
   allEvents: DBPatientEvent[],
@@ -19,11 +20,13 @@ interface EventLogProps {
 export default function EventLog(props: EventLogProps) {
   const [events, setEvents] = useState<{ [key: number]: DBPatientEvent[] }>({});
 
-  const { config }: GlobalValues = useGlobalContext();
+  const { config, patients, user }: GlobalValues = useGlobalContext();
 
   const [treatmentTypeFilters, setTreatmentTypeFilters] = useState<Set<number>>(
     new Set(config.treatmentTypes.map((treatmentType: TreatmentType) => treatmentType.id))
   );
+
+  const patient: Patient | undefined = user !== undefined ? patients[user] : undefined;
 
   const [startDateFilter, setStartDateFilter] = useState<Date | undefined>(undefined);
   const [endDateFilter, setEndDateFilter] = useState<Date | undefined>(undefined);
@@ -70,7 +73,7 @@ export default function EventLog(props: EventLogProps) {
 
   return (
     <React.Fragment>
-      {/* <FilterMenu selected={filters} filters={defaultFilters} onChange={handleCheck} /> */}
+      {patient !== undefined ? <PatientInfo patient={patient} /> : undefined}
       <div className='event-log'>
         <Link to='/add'>
           <button>Add Event</button>
