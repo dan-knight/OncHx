@@ -23,7 +23,7 @@ export default function EventLog(props: EventLogProps) {
   const [events, setEvents] = useState<{ [key: number]: DBPatientEvent[] }>({});
 
   const { config, patients, user }: GlobalValues = useGlobalContext();
-
+  const g = useGlobalContext();
   // const [
   //   treatmentTypeFilters, 
   //   toggleTreatmentTypeFilters, 
@@ -31,7 +31,7 @@ export default function EventLog(props: EventLogProps) {
   // ] = useSetToggle<number>();
   const [treatmentTypeFilter, setTreatmentTypeFilter] = useState<number | undefined>(undefined);
 
-  const patient: Patient | undefined = user !== undefined ? patients[user] : undefined;
+  const patient: Patient | undefined = patients[props.user];
 
   const [startDateFilter, setStartDateFilter] = useState<Date | undefined>(undefined);
   const [endDateFilter, setEndDateFilter] = useState<Date | undefined>(undefined);
