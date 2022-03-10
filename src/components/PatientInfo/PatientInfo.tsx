@@ -8,5 +8,10 @@ interface PatientInfoProps {
 
 export default function PatientInfo(props: PatientInfoProps) {
 
-  return <Avatar firstName={props.patient.firstName} lastName={props.patient.lastName} />;
+  return (
+    <div className='patient'>
+      <Avatar firstName={props.patient.firstName} lastName={props.patient.lastName} />
+      <h3>{`${props.patient.lastName}, ${props.patient.firstName}`}</h3>
+    </div>
+  );
 }
