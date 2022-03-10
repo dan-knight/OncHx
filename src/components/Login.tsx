@@ -1,12 +1,24 @@
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from 'yup';
+import { useGlobalContext } from "../contexts/GlobalContext";
+import { GlobalValues } from "../types/Global";
+import { safelyParseInt } from "../utility/parseNumber";
+import TextField from "./form/TextField";
 
 const treatmentSchema = Yup.object().shape({
   username: Yup.string().required('Required'),
   password: Yup.string().required('Required')
 });
 
-export default function Login() {
+interface LoginProps {
+  onLogin: (value: number | undefined) => void
+}
+
+export default function Login(props: LoginProps) {
+
+  function handleLogin(values: { username: string, password: string }) {
+    props.onLogin(safelyParseInt(values.username));
+  }
   return (
     <div className='form'>
       <h3>Login</h3>
@@ -14,26 +26,14 @@ export default function Login() {
         initialValues={{
           username: '',
           password: ''}}
-        onSubmit={(values) => { console.log(values); }}
+        onSubmit={handleLogin}
         validationSchema={treatmentSchema}>
-        {({ errors }) => (
+        {({ errors, values }) => (
           <Form>
-            <div>
-              <label>
-                Username
-                {<span className="error">{errors.username}</span>}
-              </label>
-              <Field name='username' />
-            </div>
-            <div>
-              <label>
-                Password
-                {<span className="error">{errors.password}</span>}
-              </label>
-              <Field name='password' type='password' />
-            </div>
+            <TextField label='Username' name='username' filled={Boolean(values.username)} />
+            <TextField label='Password' name='password' type='password' filled={Boolean(values.password)} />
             <div className='button'>
-              <button type='submit'>Add Treatment</button>
+              <button type='submit'>Login</button>
             </div>
           </Form>
         )}

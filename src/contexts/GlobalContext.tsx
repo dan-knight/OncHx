@@ -60,7 +60,8 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
 
   const patients: Patient[] = useMemo(() => defaultPatients(), []);
   
-  const [user, setUser] = useState<number | undefined>(0);
+  const [user, setUser] = useState<number | undefined>(undefined);
+  const login: (value: number | undefined) => void = setUser;
 
   return (
     <GlobalContext.Provider value={{
@@ -70,7 +71,8 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
       chemotherapyRegimenIndex,
       treatmentLocationIndex,
       patients,
-      user
+      user,
+      login
     }}>
       {props.children}
     </GlobalContext.Provider>
