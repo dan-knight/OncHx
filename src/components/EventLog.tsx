@@ -29,7 +29,7 @@ export default function EventLog(props: EventLogProps) {
   //   toggleTreatmentTypeFilters, 
   //   setTreatmentTypeFilters
   // ] = useSetToggle<number>();
-  const [treatmentTypeFilter, setTreatmentTypeFilter] = useState<number | undefined>(undefined);
+  const [treatmentTypeFilter, setTreatmentTypeFilter] = useState<number | undefined>(1);
 
   const patient: Patient | undefined = user !== undefined ? patients[user] : undefined;
 
@@ -79,7 +79,10 @@ export default function EventLog(props: EventLogProps) {
 
   return (
     <React.Fragment>
-      <EventFilters onTreatmentTypeToggle={setTreatmentTypeFilter} />
+      <EventFilters 
+        treatmentTypeFilterValue={treatmentTypeFilter}
+        onTreatmentTypeToggle={setTreatmentTypeFilter} 
+      />
       {patient !== undefined ? <PatientInfo patient={patient} /> : undefined}
       <div className='event-log'>
         <Link to='/add'>
