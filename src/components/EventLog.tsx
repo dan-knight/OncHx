@@ -12,6 +12,7 @@ import { EventDetailValues } from "../types/PatientEvent/Details/EventDetailValu
 import PatientEventFilter from "../types/utility/Filter/PatientEventFilter/PatientEventFilter";
 import Patient from "../types/Patient/Patient";
 import useSetToggle from "../hooks/useSetToggle";
+import EventFilters from "./EventFilters";
 
 interface EventLogProps {
   allEvents: DBPatientEvent[],
@@ -76,6 +77,7 @@ export default function EventLog(props: EventLogProps) {
 
   return (
     <React.Fragment>
+      <EventFilters onTreatmentTypeToggle={toggleTreatmentTypeFilters} />
       {patient !== undefined ? <PatientInfo patient={patient} /> : undefined}
       <div className='event-log'>
         <Link to='/add'>

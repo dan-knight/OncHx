@@ -1,8 +1,8 @@
-interface EventFilterProps {
+interface EventFiltersProps {
   onTreatmentTypeToggle: (value: number) => void
 }
 
-export default function EventFilter(props: EventFilterProps) {
+export default function EventFilters(props: EventFiltersProps) {
   return (
     <div className='filters'>
       <div className="header">
