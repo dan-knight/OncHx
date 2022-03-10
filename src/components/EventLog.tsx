@@ -11,6 +11,7 @@ import TreatmentType from "../types/DB/Config/TreatmentType";
 import { EventDetailValues } from "../types/PatientEvent/Details/EventDetailValues";
 import PatientEventFilter from "../types/utility/Filter/PatientEventFilter/PatientEventFilter";
 import Patient from "../types/Patient/Patient";
+import useSetToggle from "../hooks/useSetToggle";
 
 interface EventLogProps {
   allEvents: DBPatientEvent[],
@@ -22,9 +23,11 @@ export default function EventLog(props: EventLogProps) {
 
   const { config, patients, user }: GlobalValues = useGlobalContext();
 
-  const [treatmentTypeFilters, setTreatmentTypeFilters] = useState<Set<number>>(
-    new Set(config.treatmentTypes.map((treatmentType: TreatmentType) => treatmentType.id))
-  );
+  const [
+    treatmentTypeFilters, 
+    toggleTreatmentTypeFilters, 
+    setTreatmentTypeFilters
+  ] = useSetToggle<number>();
 
   const patient: Patient | undefined = user !== undefined ? patients[user] : undefined;
 
