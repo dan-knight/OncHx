@@ -3,6 +3,7 @@ import { useGlobalContext } from "../contexts/GlobalContext";
 import TreatmentType from "../types/DB/Config/TreatmentType";
 import DropdownOption from "../types/Form/Dropdown/DropdownOption";
 import { GlobalValues } from "../types/Global";
+import DateFilter from "./Filter/DateFilter";
 import DropdownFilter from "./Filter/DropdownFilter";
 
 interface EventFiltersProps {
@@ -29,6 +30,16 @@ export default function EventFilters(props: EventFiltersProps) {
           label='Treatment Type' 
           options={treatmentTypeOptions} 
           displayValue={props.treatmentTypeFilterValue !== undefined ? treatmentTypeIndex(props.treatmentTypeFilterValue)?.treatmentName : ''}
+        />
+        <DateFilter 
+          label='Start Date' 
+          onChange={(value: Date) => { console.log(value); }} 
+          value={new Date(2021, 3, 10)}
+        />
+        <DateFilter 
+          label='End Date' 
+          onChange={(value: Date) => { console.log(value); }} 
+          value={new Date()}
         />
       </div>
     </div>

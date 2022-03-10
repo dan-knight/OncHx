@@ -216,7 +216,8 @@ li {
 .filters .content {
   display: flex;
   justify-content: space-between;
-  margin: 0.5rem 0 2rem;
+  margin-bottom: 2rem;
+  font-size: 0.825rem;
 }
 
 /*# sourceMappingURL=main.css.map */
