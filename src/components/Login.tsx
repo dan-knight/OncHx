@@ -1,12 +1,23 @@
 import { Formik, Form, Field, FormikValues } from "formik";
 import * as Yup from 'yup';
+import { useGlobalContext } from "../contexts/GlobalContext";
+import { GlobalValues } from "../types/Global";
+import { safelyParseInt } from "../utility/parseNumber";
 
 const treatmentSchema = Yup.object().shape({
   username: Yup.string().required('Required'),
   password: Yup.string().required('Required')
 });
 
-export default function Login() {
+interface LoginProps {
+  onLogin: (value: number | undefined) => void
+}
+
+export default function Login(props: LoginProps) {
+
+  function handleLogin(values: { username: string, password: string }) {
+    props.onLogin(safelyParseInt(values.username));
+  }
   return (
     <div className='form'>
       <h3>Login</h3>
@@ -14,7 +25,7 @@ export default function Login() {
         initialValues={{
           username: '',
           password: ''}}
-        onSubmit={(values) => { console.log(values); }}
+        onSubmit={handleLogin}
         validationSchema={treatmentSchema}>
         {({ errors }) => (
           <Form>

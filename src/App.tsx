@@ -17,7 +17,7 @@ import { defaultEvents, defaultPatients } from './defaultData';
 import { safelyParseInt } from './utility/parseNumber';
 
 export default function App() {
-  const { user, patients }: GlobalValues = useGlobalContext();
+  const { user, patients, login }: GlobalValues = useGlobalContext();
   const [events, setEvents] = useState<DBPatientEvent[]>(getEvents());
 
   function getEvents(): DBPatientEvent[] {
@@ -65,7 +65,7 @@ export default function App() {
               {user !== undefined ? <PatientInfo patient={patients[user]} /> : <Redirect to='/' />}
             </Route>
             <Route path='/' exact>
-              {user !== undefined ? <EventLog allEvents={events} user={user} /> : <Login />}
+              {user !== undefined ? <EventLog allEvents={events} user={user} /> : <Login onLogin={login} />}
             </Route>
           </Switch>
         </div>
