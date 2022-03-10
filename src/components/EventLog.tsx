@@ -17,6 +17,9 @@ import PatientEvent from "../types/PatientEvent/PatientEvent";
 import CancerType from "../types/DB/Config/CancerType";
 import TreatmentType from "../types/DB/Config/TreatmentType";
 import { EventDetailValues } from "../types/PatientEvent/Details/EventDetailValues";
+import Avatar from "./PatientInfo/Avatar";
+import Patient from "../types/Patient/Patient";
+import PatientInfo from "./PatientInfo/PatientInfo";
 
 interface EventLogProps {
   allEvents: DBPatientEvent[],
@@ -26,7 +29,7 @@ interface EventLogProps {
 export default function EventLog(props: EventLogProps) {
   const [events, setEvents] = useState<{ [key: number]: DBPatientEvent[] }>({});
 
-  const { config }: GlobalValues = useGlobalContext();
+  const { config, patients, user }: GlobalValues = useGlobalContext();
 
   const defaultFilters: { [key: string]: FilterOptions } = {
     cancerType: config.cancerTypes.map((cancer: CancerType) => cancer.id),
@@ -37,6 +40,9 @@ export default function EventLog(props: EventLogProps) {
     (a: { [key: string]: FilterSelected }, b: FilterOption): { [key: string]: FilterSelected } => (
       { ...a, [b]: new Set<FilterOption>(defaultFilters[b])}
     ), {}));
+
+
+  const patient: Patient | undefined = user !== undefined ? patients[user] : undefined;
 
   // const eventInFilters = (event: DBPatientEvent) => {
   //   let inFilters = true;
@@ -97,7 +103,7 @@ export default function EventLog(props: EventLogProps) {
 
   return (
     <React.Fragment>
-      {/* <FilterMenu selected={filters} filters={defaultFilters} onChange={handleCheck} /> */}
+      {patient !== undefined ? <PatientInfo patient={patient} /> : undefined}
       <div className='event-log'>
         <Link to='/add'>
           <button>Add Event</button>

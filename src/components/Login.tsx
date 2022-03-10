@@ -6,11 +6,7 @@ const treatmentSchema = Yup.object().shape({
   password: Yup.string().required('Required')
 });
 
-interface LoginProps {
-  onSubmit: (values: FormikValues) => void
-}
-
-export default function Login(props : LoginProps) {
+export default function Login() {
   return (
     <div className='form'>
       <h3>Login</h3>
@@ -18,7 +14,7 @@ export default function Login(props : LoginProps) {
         initialValues={{
           username: '',
           password: ''}}
-        onSubmit={props.onSubmit}
+        onSubmit={(values) => { console.log(values); }}
         validationSchema={treatmentSchema}>
         {({ errors }) => (
           <Form>
