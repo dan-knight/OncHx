@@ -14,5 +14,6 @@ export interface GlobalValues {
   chemotherapyRegimenIndex: DBIndexFunc<ChemotherapyRegimen>,
   treatmentLocationIndex: DBIndexFunc<TreatmentLocation>,
   user: number | undefined,
+  login: (value: number | undefined) => void,
   patients: Patient[]
 }
