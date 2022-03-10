@@ -29,7 +29,7 @@ export default function EventLog(props: EventLogProps) {
   //   toggleTreatmentTypeFilters, 
   //   setTreatmentTypeFilters
   // ] = useSetToggle<number>();
-  const [treatmentTypeFilter, setTreatmentTypeFilter] = useState<number | undefined>(1);
+  const [treatmentTypeFilter, setTreatmentTypeFilter] = useState<number | undefined>(undefined);
 
   const patient: Patient | undefined = user !== undefined ? patients[user] : undefined;
 

@@ -8,6 +8,9 @@ interface DropdownFilterProps<T extends number | string> {
 
 export default function DropdownFilter<T extends number | string>(props: DropdownFilterProps<T>) {
   return (
-    <span>{props.label}{props.displayValue ? `: ${props.displayValue}` : ''}</span>
+    <span>
+      <div>{props.label}</div>
+      {props.displayValue ? props.displayValue : 'All'}
+    </span>
   );
 }

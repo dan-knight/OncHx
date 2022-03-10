@@ -7,5 +7,10 @@ interface DateFilterProps {
 }
 
 export default function DateFilter(props: DateFilterProps) {
-  return <span>{props.label}{props.value !== undefined ? `: ${format(props.value, 'M-dd-yyyy')}` : ''}</span>;
+  return (
+    <span>
+      <div>{props.label}</div>
+      {props.value !== undefined ? `${format(props.value, 'M-dd-yyyy')}` : 'None'}
+    </span>
+  );
 }

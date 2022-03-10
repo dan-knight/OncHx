@@ -1,3 +1,5 @@
+import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMemo } from "react";
 import { useGlobalContext } from "../contexts/GlobalContext";
 import TreatmentType from "../types/DB/Config/TreatmentType";
@@ -24,6 +26,7 @@ export default function EventFilters(props: EventFiltersProps) {
     <div className='filters'>
       <div className="header">
         Filters
+        <FontAwesomeIcon icon={faChevronDown} />
       </div>
       <div className="content">
         <DropdownFilter 
@@ -39,7 +42,7 @@ export default function EventFilters(props: EventFiltersProps) {
         <DateFilter 
           label='End Date' 
           onChange={(value: Date) => { console.log(value); }} 
-          value={new Date()}
+          value={undefined}
         />
       </div>
     </div>
