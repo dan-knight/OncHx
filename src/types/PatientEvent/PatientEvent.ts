@@ -6,11 +6,12 @@ export default class PatientEvent extends Event {
   details: EventDetailValues;
   treatmentType?: number;
   cancerType?: number;
+  institution?: string;
 
-  constructor(patient: number, details: EventDetailValues, date?: Date, treatmentType?: number, cancerType?: number);
-  constructor(patient: number, details: EventDetailValues, date?: string, treatmentType?: number, cancerType?: number);
-  constructor(patient: number, details: EventDetailValues, date?: Date | string, treatmentType?: number, cancerType?: number);
-  constructor(patient: number, details: EventDetailValues, date?: Date | string, treatmentType?: number, cancerType?: number) {
+  constructor(patient: number, details: EventDetailValues, date?: Date, treatmentType?: number, cancerType?: number, institution?: string);
+  constructor(patient: number, details: EventDetailValues, date?: string, treatmentType?: number, cancerType?: number, institution?: string);
+  constructor(patient: number, details: EventDetailValues, date?: Date | string, treatmentType?: number, cancerType?: number, institution?: string);
+  constructor(patient: number, details: EventDetailValues, date?: Date | string, treatmentType?: number, cancerType?: number, institution?: string) {
     
     try {
       (super(typeof date === 'string' ? new Date(Date.parse(date)) : date)); 
@@ -22,5 +23,6 @@ export default class PatientEvent extends Event {
     this.details = details;
     this.treatmentType = treatmentType;
     this.cancerType = cancerType;
+    this.institution = institution;
   }
 }

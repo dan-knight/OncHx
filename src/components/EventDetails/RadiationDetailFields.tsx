@@ -9,6 +9,7 @@ import { RadiationDetailFields as RadiationDetailFieldConfig } from "../../types
 import DetailFieldsFactory from "../../types/PatientEvent/Details/DetailFieldsFactory";
 
 import prependDetailFieldName from "./prependDetailFieldName";
+import { Select } from "../form/FilterSelect";
 
 export default function RadiationDetailFields() {
   const { config }: GlobalValues = useGlobalContext();
@@ -20,6 +21,12 @@ export default function RadiationDetailFields() {
 
   return (
     <React.Fragment>
+      <Select 
+        name={prependDetailFieldName('location')}
+        label={fields.location.label}
+        options={fields.location.options}
+        displayValue={values.details.location ?? ''}
+        filter={fields.location.filter} />
       <TextField name={prependDetailFieldName('grays')} label={fields.grays.label} filled={values.details?.grays} />
       <TextField name={prependDetailFieldName('fractions')} label={fields.fractions.label} filled={values.details?.fractions} />
     </React.Fragment>

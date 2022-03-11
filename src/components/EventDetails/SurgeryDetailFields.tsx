@@ -26,6 +26,7 @@ export default function SurgeryDetailFields() {
       <Select name={prependDetailFieldName('location')} label={fields.location.label} options={fields.location.options} 
         displayValue={treatmentLocationIndex(safelyParseInt(values.details?.location))?.locationName ?? ''}
         filter={fields.location.filter} />
+      <TextField name={prependDetailFieldName('surgeon')} label={fields.surgeon.label} filled={values.details?.surgeon} />
       <TextField name={prependDetailFieldName('complications')} label={fields.complications.label} filled={values.details?.complications} />
     </React.Fragment>
   );

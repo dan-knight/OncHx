@@ -10,6 +10,7 @@ import DetailFieldsFactory from "../../types/PatientEvent/Details/DetailFieldsFa
 
 import { safelyParseInt } from "../../utility/parseNumber";
 import prependDetailFieldName from "./prependDetailFieldName";
+import TextField from "../form/TextField";
 
 export default function ChemotherapyDetailFields() {
   const { config, chemotherapyRegimenIndex, treatmentLocationIndex }: GlobalValues = useGlobalContext();
@@ -24,9 +25,7 @@ export default function ChemotherapyDetailFields() {
       <Select name={prependDetailFieldName('regimen')} label={fields.regimen.label} 
         displayValue={chemotherapyRegimenIndex(safelyParseInt(values.details?.regimen))?.regimenName ?? ''} 
         options={fields.regimen.options} filter={fields.regimen.filter} />
-      <Select name={prependDetailFieldName('location')} label={fields.location.label} 
-        displayValue={treatmentLocationIndex(safelyParseInt(values.details?.location))?.locationName ?? ''} 
-        options={fields.location.options} filter={fields.location.filter} />
+      <TextField name={prependDetailFieldName('cycle')} label={fields.cycle.label} filled={Boolean(values.details.cycle)} />
     </React.Fragment>
   );
 }
