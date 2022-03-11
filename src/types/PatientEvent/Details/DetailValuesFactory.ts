@@ -43,6 +43,7 @@ export default class DetailValuesFactory {
     return new SurgeryDetailValues(
       DetailValuesFactory.assertNumber(values?.['location']),
       DetailValuesFactory.assertString(values?.['surgeryType']),
+      DetailValuesFactory.assertString(values?.['surgeon']),
       DetailValuesFactory.assertString(values?.['complications']),
     );
   }
