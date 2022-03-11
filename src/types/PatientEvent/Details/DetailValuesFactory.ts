@@ -33,6 +33,7 @@ export default class DetailValuesFactory {
 
   private static createRadiationDetails(values?: Record<string, any>): RadiationDetailValues {
     return new RadiationDetailValues(
+      DetailValuesFactory.assertNumber(values?.['location']),
       DetailValuesFactory.assertString(values?.['grays']),
       DetailValuesFactory.assertString(values?.['fractions'])
     );
