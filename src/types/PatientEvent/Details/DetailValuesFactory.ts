@@ -27,7 +27,7 @@ export default class DetailValuesFactory {
   private static createChemotherapyDetails(values?: Record<string, any>): ChemotherapyDetailValues {
     return new ChemotherapyDetailValues(
       DetailValuesFactory.assertNumber(values?.['regimen']),
-      DetailValuesFactory.assertNumber(values?.['location'])
+      DetailValuesFactory.assertString(values?.['cycle'])
     );
   }
 
