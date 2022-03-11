@@ -22,8 +22,7 @@ interface EventLogProps {
 export default function EventLog(props: EventLogProps) {
   const [events, setEvents] = useState<{ [key: number]: DBPatientEvent[] }>({});
 
-  const { config, patients, user }: GlobalValues = useGlobalContext();
-  const g = useGlobalContext();
+  const { config, patients }: GlobalValues = useGlobalContext();
   // const [
   //   treatmentTypeFilters, 
   //   toggleTreatmentTypeFilters, 
