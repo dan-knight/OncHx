@@ -19,7 +19,8 @@ export default class LocalStoragePatientEventImporter {
       DetailValuesFactory.createDetails(treatmentType, localStorage.details),
       localStorage.date,
       treatmentType,
-      strictlyParseInt(localStorage.cancerType)
+      strictlyParseInt(localStorage.cancerType),
+      localStorage.institution
     );
   }
 }

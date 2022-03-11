@@ -63,6 +63,7 @@ export default function NewTreatment() {
       <Select name='treatmentType' label='Treatment Type' options={treatmentTypeOptions} 
         displayValue={treatmentTypeIndex(values.treatmentType)?.treatmentName ?? ''} />
       <DateField name='date' label='Date' />
+      <TextField name='institutionName' label='Institution Name' filled={values.institutionName} />
       <DetailFields />
       <TextField name='notes' filled={Boolean(values.notes)} label='Notes' />
       <div className='button'>
