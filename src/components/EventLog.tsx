@@ -13,6 +13,7 @@ import PatientEventFilter from "../types/utility/Filter/PatientEventFilter/Patie
 import Patient from "../types/Patient/Patient";
 import useSetToggle from "../hooks/useSetToggle";
 import EventFilters from "./EventFilters";
+import EventDetails from "./EventDetails";
 
 interface EventLogProps {
   allEvents: DBPatientEvent[],
@@ -116,7 +117,7 @@ function EventYear(props: EventYearProps) {
       <ul className={show ? 'expanded' : undefined}>
         {show ? props.events.map((e: DBPatientEvent, i: number) => (
           <LogEvent key={i} date={e.date} details={e.details} 
-            treatmentType={treatmentTypeIndex(e.treatmentType)?.treatmentName ?? ''} 
+            treatmentTypeName={treatmentTypeIndex(e.treatmentType)?.treatmentName ?? ''}
             cancerType={cancerTypeIndex(e.cancerType)?.cancerName ?? ''} />)) : undefined}
       </ul>
     </div>
@@ -124,28 +125,21 @@ function EventYear(props: EventYearProps) {
 };
 
 interface LogEventProps {
-  treatmentType: string,
+  treatmentTypeName: string,
   cancerType: string,
   date: Date,
   details: EventDetailValues
 }
 
 function LogEvent(props: LogEventProps) {
-  const [show, setShow] = useState<boolean>(false);
-
-  function toggleShow() {
-    setShow(!show);
-  }
-
   return (
     <li>
       <h5>
-        {props.treatmentType}
+        {props.treatmentTypeName}
         <span>{props.cancerType}</span>
       </h5>  
       <h4>{props.date.toDateString()}</h4>
-      <h6>Details <span onClick={toggleShow}>{`(${show ? 'Hide' : 'Show'})`}</span></h6>
-      <p className={show ? 'expanded' : undefined}>{JSON.stringify(props.details)}</p>
+      <EventDetails details={props.details} />
     </li>
   );
 };

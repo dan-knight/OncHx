@@ -1,15 +1,20 @@
-import React, { ReactNode } from "react";
+import React from "react";
 
-import { TreatmentTypeName } from "../config/TreatmentTypeName";
 import { EventDetailValues } from "../types/PatientEvent/Details/EventDetailValues";
+import { ChemotherapyDetailValues } from "../types/PatientEvent/Details/EventTypes/ChemotherapyDetails";
+import DetailValuesWrapper from "./EventDetails/DetailValues/DetailValuesWrapper";
+import ChemotherapyDetails from "./EventDetails/DetailValues/EventTypes/ChemotherapyDetails";
 
-export default function EventDetails(treatmentType: number, details: EventDetailValues) {
-  const components: Record<number, JSX.Element> = {
-    0: <React.Fragment />,
-    1: <React.Fragment />,
-    2: <React.Fragment />,
-    3: <React.Fragment />
-  };
+interface EventDetailsProps {
+  details: EventDetailValues
+}
 
-  return components[treatmentType] ?? null;
+export default function EventDetails(props: EventDetailsProps) {
+  let DetailComponent: JSX.Element | undefined = undefined;
+
+  return (
+    <DetailValuesWrapper>
+      {DetailComponent}
+    </DetailValuesWrapper>
+  );
 }

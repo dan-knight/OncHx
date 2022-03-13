@@ -145,12 +145,6 @@ form div .error {
 .event-log h3 {
   text-align: left;
 }
-.event-log ul, .event-log p {
-  display: none;
-}
-.event-log ul.expanded, .event-log p.expanded {
-  display: inherit;
-}
 .event-log li {
   margin: 0.5rem;
   border-bottom: 0.0125rem solid #1b0058;
@@ -166,6 +160,9 @@ form div .error {
 .event-log li button {
   border: none;
   font-size: 1rem;
+}
+.event-log div.hidden {
+  display: none;
 }
 
 button {
