@@ -1,15 +1,15 @@
 import React, { useMemo } from "react";
 import { FormikValues, useFormikContext } from "formik";
 
-import { Select } from "../form/FilterSelect";
-import TextField from "../form/TextField";
-import { useGlobalContext } from "../../contexts/GlobalContext";
-import { GlobalValues } from "../../types/Global";
+import { Select } from "../../form/FilterSelect";
+import TextField from "../../form/TextField";
+import { useGlobalContext } from "../../../contexts/GlobalContext";
+import { GlobalValues } from "../../../types/Global";
 
-import DetailFieldsFactory from "../../types/PatientEvent/Details/DetailFieldsFactory";
-import { SurgeryDetailFields as SurgeryDetailFieldConfig } from "../../types/PatientEvent/Details/EventTypes/SurgeryDetails";
+import DetailFieldsFactory from "../../../types/PatientEvent/Details/DetailFieldsFactory";
+import { SurgeryDetailFields as SurgeryDetailFieldConfig } from "../../../types/PatientEvent/Details/EventTypes/SurgeryDetails";
 
-import { safelyParseInt } from "../../utility/parseNumber";
+import { safelyParseInt } from "../../../utility/parseNumber";
 import prependDetailFieldName from "./prependDetailFieldName";
 
 export default function SurgeryDetailFields() {

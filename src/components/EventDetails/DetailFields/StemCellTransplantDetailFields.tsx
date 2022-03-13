@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
 import { FormikValues, useFormikContext } from "formik";
 
-import TextField from "../form/TextField";
-import { useGlobalContext } from "../../contexts/GlobalContext"
-import { GlobalValues } from "../../types/Global"
+import TextField from "../../form/TextField";
+import { useGlobalContext } from "../../../contexts/GlobalContext"
+import { GlobalValues } from "../../../types/Global"
 
-import { StemCellTransplantDetailFields as StemCellTransplantDetailFieldConfig } from "../../types/PatientEvent/Details/EventTypes/StemCellTransplantDetails";
-import DetailFieldsFactory from "../../types/PatientEvent/Details/DetailFieldsFactory";
+import { StemCellTransplantDetailFields as StemCellTransplantDetailFieldConfig } from "../../../types/PatientEvent/Details/EventTypes/StemCellTransplantDetails";
+import DetailFieldsFactory from "../../../types/PatientEvent/Details/DetailFieldsFactory";
 
 import prependDetailFieldName from "./prependDetailFieldName";
 

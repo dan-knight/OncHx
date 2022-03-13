@@ -1,10 +1,12 @@
 import { FunctionComponent, useMemo } from "react";
 import { FormikValues, useFormikContext } from "formik";
+
+import ChemotherapyDetailFields from "./EventDetails/DetailFields/ChemotherapyDetailFields";
+import RadiationDetailFields from "./EventDetails/DetailFields/RadiationDetailFields";
+import SurgeryDetailFields from "./EventDetails/DetailFields/SurgeryDetailFields";
+import StemCellTransplantDetailFields from "./EventDetails/DetailFields/StemCellTransplantDetailFields";
+
 import { safelyParseInt } from "../utility/parseNumber";
-import ChemotherapyDetailFields from "./EventDetails/ChemotherapyDetailFields";
-import RadiationDetailFields from "./EventDetails/RadiationDetailFields";
-import SurgeryDetailFields from "./EventDetails/SurgeryDetailFields";
-import StemCellTransplantDetailFields from "./EventDetails/StemCellTransplantDetailFields";
 
 export default function DetailFields() {
   const { values }: FormikValues = useFormikContext();
