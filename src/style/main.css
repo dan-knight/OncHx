@@ -142,6 +142,9 @@ form div .error {
 .event-log h6 span, .event-log h3 {
   cursor: pointer;
 }
+.event-log h6 {
+  margin: 0.75rem 0;
+}
 .event-log h3 {
   text-align: left;
 }
@@ -160,6 +163,13 @@ form div .error {
 .event-log li button {
   border: none;
   font-size: 1rem;
+}
+.event-log .detail {
+  margin-bottom: 0.75rem;
+}
+.event-log .detail div {
+  font-size: 0.75rem;
+  color: #888;
 }
 .event-log div.hidden {
   display: none;

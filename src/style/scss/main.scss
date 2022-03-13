@@ -183,6 +183,10 @@ form {
     cursor: pointer;
   }
 
+  h6 {
+    margin: 0.75rem 0;
+  }
+
   h3 {
     text-align: left;
   }
@@ -205,6 +209,15 @@ form {
     button {
       border: none;
       font-size: 1rem;
+    }
+  }
+
+  .detail {
+    margin-bottom: 0.75rem;
+
+    div {
+      font-size: 0.75rem;
+      color: #888;
     }
   }
 

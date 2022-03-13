@@ -5,9 +5,9 @@ interface DetailValueProps {
 
 export default function DetailValue(props: DetailValueProps) {
   return (
-    <span className='detail-value'>
-      <span>{props.name}</span>
+    <div className='detail'>
+      <div>{props.name}</div>
       {props.value}
-    </span>
+    </div>
   );
 }
