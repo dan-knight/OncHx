@@ -1,22 +1,14 @@
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 
 interface DetailValuesWrapperProps {
+  show: boolean,
   children?: ReactNode | ReactNode[];
 }
 
-export default function DetailValuesWrapper(props: DetailValuesWrapperProps) { 
-  const [show, setShow] = useState<boolean>(false);
-  
-  function toggleShow() {
-    setShow(!show);
-  }
-
+export default function DetailValuesWrapper(props: DetailValuesWrapperProps) {
   return (
-    <div>
-      <h6>Details <span onClick={toggleShow}>{`(${show ? 'Hide' : 'Show'})`}</span></h6>
-      <div className={!show ? 'hidden' : undefined }>
+    <div className={!props.show ? 'hidden' : undefined}>
         {props.children}
-      </div>
     </div>
   );
 }
