@@ -1,0 +1,78 @@
+@use "sass:map";
+@use "sass:list";
+
+body { 
+  font-family: 'Manrope', 'Helvetica', 'sans-serif';
+}
+
+$font-sizes: (
+  6: 5.875rem,
+  5: 3.6875rem,
+  4: 2.9375rem,
+  3: 2.125rem,
+  2: 1.5rem,
+  1: 1.25rem,
+  0: 1rem,
+  -1: 0.875rem,
+  -2: 0.75rem
+);
+
+$font-weights: (
+  extra-light: 200,
+  light: 300,
+  regular: 400,
+  medium: 500,
+  semi-bold: 600,
+  bold: 700,
+  extra-bold: 800
+);
+
+$text-styles: 
+  "headline-1", 
+  "headline-2", 
+  "headline-3", 
+  "headline-4", 
+  "headline-5", 
+  "headline-6",
+  "subtitle-1",
+  "subtitle-2",
+  "body-1",
+  "body-2",
+  "caption";
+
+@mixin text-style($style) {
+  @if not list.index($text-styles, $style) {
+    @error "#{$style} is not a valid text style. Expected one of #{$text-styles}.";
+  }
+
+  $sizes: (
+    "headline-1": 6,
+    "headline-2": 5,
+    "headline-3": 4,
+    "headline-4": 3,
+    "headline-5": 2,
+    "headline-6": 1,
+    "subtitle-1": 0,
+    "subtitle-2": -1,
+    "body-1": 0,
+    "body-2": -1,
+    "caption": -2
+  );
+
+  $weights: (
+    "headline-1": "light",
+    "headline-2": "light",
+    "headline-3": "regular",
+    "headline-4": "regular",
+    "headline-5": "regular",
+    "headline-6": "medium",
+    "subtitle-1": "regular",
+    "subtitle-2": "medium",
+    "body-1": "regular",
+    "body-2": "regular",
+    "caption": "regular"
+  );
+
+  font-size: map.get($font-sizes, map.get($sizes, $style));
+  font-weight: map.get($font-weights, map.get($weights, $style));
+};
