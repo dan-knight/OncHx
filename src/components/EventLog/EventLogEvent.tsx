@@ -1,23 +1,23 @@
 import EventDetails from "./EventDetails/EventDetails";
 
-import { EventDetailValues } from "../../types/PatientEvent/Details/EventDetailValues";
+import DBPatientEvent from "../../types/PatientEvent/DBPatientEvent";
+import { GlobalValues } from "../../types/Global";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 interface EventLogEventProps {
-  treatmentTypeName: string,
-  cancerType: string,
-  date: Date,
-  details: EventDetailValues
+  event: DBPatientEvent
 }
 
 export default function EventLogEvent(props: EventLogEventProps) {
+  const { treatmentTypeIndex, cancerTypeIndex }: GlobalValues = useGlobalContext();
   return (
     <li>
       <h5>
-        {props.treatmentTypeName}
-        <span>{props.cancerType}</span>
+        {treatmentTypeIndex(props.event.treatmentType)?.treatmentName ?? ''}
+        <span>{cancerTypeIndex(props.event.cancerType)?.cancerName ?? ''}</span>
       </h5>  
-      <h4>{props.date.toDateString()}</h4>
-      <EventDetails details={props.details} />
+      <h4>{props.event.date.toDateString()}</h4>
+      <EventDetails details={props.event.details} />
     </li>
   );
 };

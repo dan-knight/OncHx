@@ -23,10 +23,9 @@ export default function EventYear(props: EventYearProps) {
     <div>
       <h3 onClick={toggleShow}>{props.year}</h3>
       <ul className={show ? 'expanded' : undefined}>
-        {show ? props.events.map((e: DBPatientEvent, i: number) => (
-          <EventLogEvent key={i} date={e.date} details={e.details} 
-            treatmentTypeName={treatmentTypeIndex(e.treatmentType)?.treatmentName ?? ''}
-            cancerType={cancerTypeIndex(e.cancerType)?.cancerName ?? ''} />)) : undefined}
+        {show ? props.events.map((e: DBPatientEvent) => (
+          <EventLogEvent event={e} key={e.eventID} />
+        )) : undefined}
       </ul>
     </div>
   );
