@@ -1,7 +1,7 @@
 import DetailValue from "../DetailValue";
 import DetailValuesProps from "../DetailValuesProps";
 
-import { ChemotherapyDetailValues } from "../../../../types/PatientEvent/Details/EventTypes/ChemotherapyDetails";
+import { ChemotherapyDetailValues } from "../../../../../types/PatientEvent/Details/EventTypes/ChemotherapyDetails";
 import React from "react";
 
 export default function ChemotherapyDetails(props: DetailValuesProps<ChemotherapyDetailValues>) {

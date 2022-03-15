@@ -2,10 +2,10 @@ import React from "react";
 
 import DetailValue from "../DetailValue";
 import DetailValuesProps from "../DetailValuesProps";
-import { useGlobalContext } from "../../../../contexts/GlobalContext";
-import { GlobalValues } from "../../../../types/Global";
+import { useGlobalContext } from "../../../../../contexts/GlobalContext";
+import { GlobalValues } from "../../../../../types/Global";
 
-import { RadiationDetailValues } from "../../../../types/PatientEvent/Details/EventTypes/RadiationDetails";
+import { RadiationDetailValues } from "../../../../../types/PatientEvent/Details/EventTypes/RadiationDetails";
 
 export default function RadiationDetails(props: DetailValuesProps<RadiationDetailValues>) {
   const { treatmentLocationIndex }: GlobalValues = useGlobalContext();

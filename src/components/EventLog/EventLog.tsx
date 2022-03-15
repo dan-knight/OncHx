@@ -1,19 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import PatientInfo from "./PatientInfo/PatientInfo";
-import { GlobalValues } from "../types/Global";
-import { useGlobalContext } from "../contexts/GlobalContext";
+import EventYear from "./EventLogYear";
+import PatientInfo from "../PatientInfo/PatientInfo";
+import { GlobalValues } from "../../types/Global";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
-import DBPatientEvent from "../types/PatientEvent/DBPatientEvent";
-import PatientEvent from "../types/PatientEvent/PatientEvent";
-import TreatmentType from "../types/DB/Config/TreatmentType";
-import { EventDetailValues } from "../types/PatientEvent/Details/EventDetailValues";
-import PatientEventFilter from "../types/utility/Filter/PatientEventFilter/PatientEventFilter";
-import Patient from "../types/Patient/Patient";
-import useSetToggle from "../hooks/useSetToggle";
-import EventFilters from "./EventFilters";
-import EventDetails from "./EventDetails";
+import DBPatientEvent from "../../types/PatientEvent/DBPatientEvent";
+import PatientEvent from "../../types/PatientEvent/PatientEvent";
+import PatientEventFilter from "../../types/utility/Filter/PatientEventFilter/PatientEventFilter";
+import Patient from "../../types/Patient/Patient";
+import EventFilters from "../EventFilters";
 
 interface EventLogProps {
   allEvents: DBPatientEvent[],
@@ -95,51 +92,5 @@ export default function EventLog(props: EventLogProps) {
         </div>
       </div>
     </React.Fragment>
-  );
-};
-
-interface EventYearProps {
-  year: number,
-  events: DBPatientEvent[]
-}
-
-function EventYear(props: EventYearProps) {
-  const { treatmentTypeIndex, cancerTypeIndex }: GlobalValues = useGlobalContext();
-  const [show, setShow] = useState<boolean>(false);
-
-  function toggleShow() {
-    setShow(!show);
-  }
-
-  return (
-    <div>
-      <h3 onClick={toggleShow}>{props.year}</h3>
-      <ul className={show ? 'expanded' : undefined}>
-        {show ? props.events.map((e: DBPatientEvent, i: number) => (
-          <LogEvent key={i} date={e.date} details={e.details} 
-            treatmentTypeName={treatmentTypeIndex(e.treatmentType)?.treatmentName ?? ''}
-            cancerType={cancerTypeIndex(e.cancerType)?.cancerName ?? ''} />)) : undefined}
-      </ul>
-    </div>
-  );
-};
-
-interface LogEventProps {
-  treatmentTypeName: string,
-  cancerType: string,
-  date: Date,
-  details: EventDetailValues
-}
-
-function LogEvent(props: LogEventProps) {
-  return (
-    <li>
-      <h5>
-        {props.treatmentTypeName}
-        <span>{props.cancerType}</span>
-      </h5>  
-      <h4>{props.date.toDateString()}</h4>
-      <EventDetails details={props.details} />
-    </li>
   );
 };
