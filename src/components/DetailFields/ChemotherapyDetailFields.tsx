@@ -1,16 +1,16 @@
 import React, { useMemo } from "react";
 import { FormikValues, useFormikContext } from "formik";
 
-import { Select } from "../../form/FilterSelect";
-import { GlobalValues } from "../../../types/Global";
-import { useGlobalContext } from "../../../contexts/GlobalContext";
+import { Select } from "../form/FilterSelect";
+import { GlobalValues } from "../../types/Global";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
-import { ChemotherapyDetailFields as ChemotherapyDetailFieldConfig } from "../../../types/PatientEvent/Details/EventTypes/ChemotherapyDetails";
-import DetailFieldsFactory from "../../../types/PatientEvent/Details/DetailFieldsFactory";
+import { ChemotherapyDetailFields as ChemotherapyDetailFieldConfig } from "../../types/PatientEvent/Details/EventTypes/ChemotherapyDetails";
+import DetailFieldsFactory from "../../types/PatientEvent/Details/DetailFieldsFactory";
 
-import { safelyParseInt } from "../../../utility/parseNumber";
+import { safelyParseInt } from "../../utility/parseNumber";
 import prependDetailFieldName from "./prependDetailFieldName";
-import TextField from "../../form/TextField";
+import TextField from "../form/TextField";
 
 export default function ChemotherapyDetailFields() {
   const { config, chemotherapyRegimenIndex, treatmentLocationIndex }: GlobalValues = useGlobalContext();
