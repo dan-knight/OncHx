@@ -53,7 +53,8 @@ form div input, form div select, form div.select > div {
   border: 0.1rem solid #A0A0A0;
   border-radius: 0.25rem;
   transition: border 300ms;
-  font-size: 0.8rem;
+  font-size: 1rem;
+  font-weight: 400;
   font-family: inherit;
 }
 form div input:focus, form div select:focus, form div.select > div:focus {
@@ -84,7 +85,8 @@ form div.select ul {
 form div.select ul li {
   padding: 0.25rem 0.5rem;
   padding-right: 2rem;
-  font-size: 0.8rem;
+  font-size: 1rem;
+  font-weight: 400;
   cursor: pointer;
   transition: background-color 200ms;
 }
@@ -116,8 +118,8 @@ form div select {
 }
 form div label {
   color: #505050;
-  font-size: 0.75rem;
-  font-weight: 500;
+  font-size: 0.875rem;
+  font-weight: 400;
   position: absolute;
   top: 0;
   left: 0;
@@ -128,7 +130,8 @@ form div input + label, form div select + label {
   cursor: text;
 }
 form div :focus + label, form div label.filled, form div select + label {
-  font-size: 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 400;
   transform: translate3d(0, -25%, 0);
   opacity: 1;
   cursor: default;
@@ -136,7 +139,8 @@ form div :focus + label, form div label.filled, form div select + label {
 form div .error {
   margin: 0 0.5rem;
   color: darkred;
-  font-size: 0.625rem;
+  font-size: 0.75rem;
+  font-weight: 400;
 }
 
 .event-log h4, .event-log h5, .event-log p {
@@ -172,10 +176,12 @@ form div .error {
 }
 .event-log li p {
   font-size: 1rem;
+  font-weight: 400;
 }
 .event-log li button {
   border: none;
   font-size: 1rem;
+  font-weight: 400;
 }
 .event-log li svg {
   color: #707070;
@@ -185,9 +191,12 @@ form div .error {
   margin: 0 0.5rem;
   padding: 0.75rem 0;
   border-top: solid 0.0125rem #EEEEEE;
+  font-size: 1rem;
+  font-weight: 400;
 }
 .event-log .detail div {
   font-size: 0.75rem;
+  font-weight: 400;
   color: #888;
 }
 .event-log div.hidden {
@@ -200,6 +209,7 @@ button {
   border: 0.03125rem #505050 solid;
   border-radius: 2rem;
   font-size: 1rem;
+  font-weight: 400;
   letter-spacing: 0.03125rem;
   cursor: pointer;
   transition: border-color 0.5s, color 0.5s;
@@ -239,8 +249,8 @@ li {
   align-items: center;
   justify-content: space-between;
   text-align: left;
-  font-size: 0.825rem;
-  font-weight: 600;
+  font-size: 1rem;
+  font-weight: 400;
   color: #888;
   padding-bottom: 0.325rem;
   margin-bottom: 0.625rem;
@@ -253,7 +263,8 @@ li {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
-  font-size: 0.925rem;
+  font-size: 0.875rem;
+  font-weight: 400;
 }
 .filters .content > span {
   text-align: left;
@@ -263,6 +274,7 @@ li {
 }
 .filters .content > span > div {
   font-size: 0.75rem;
+  font-weight: 400;
 }
 
 /*# sourceMappingURL=main.css.map */
