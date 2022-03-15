@@ -142,23 +142,30 @@ form div .error {
 .event-log h6 span, .event-log h3 {
   cursor: pointer;
 }
+.event-log h6 {
+  margin: 0.75rem 0;
+}
 .event-log h3 {
   text-align: left;
 }
-.event-log ul, .event-log p {
-  display: none;
-}
-.event-log ul.expanded, .event-log p.expanded {
-  display: inherit;
-}
 .event-log li {
   margin: 0.5rem;
-  border-bottom: 0.0125rem solid #1b0058;
+  border-radius: 0.375rem;
   text-align: left;
 }
-.event-log li span {
+.event-log li:hover {
+  background: #F6F6F6;
+}
+.event-log li .event-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+.event-log li h5 span {
+  color: #909090;
   margin-left: 0.75rem;
-  color: #505050;
 }
 .event-log li p {
   font-size: 1rem;
@@ -166,6 +173,22 @@ form div .error {
 .event-log li button {
   border: none;
   font-size: 1rem;
+}
+.event-log li svg {
+  color: #707070;
+  margin: 0.5rem;
+}
+.event-log .detail {
+  margin: 0 0.5rem;
+  padding: 0.75rem 0;
+  border-top: solid 0.0125rem #EEEEEE;
+}
+.event-log .detail div {
+  font-size: 0.75rem;
+  color: #888;
+}
+.event-log div.hidden {
+  display: none;
 }
 
 button {

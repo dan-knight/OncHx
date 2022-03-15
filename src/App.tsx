@@ -3,7 +3,7 @@ import { FormikValues } from 'formik';
 import { BrowserRouter as Switch, Route, Redirect, HashRouter, BrowserRouter } from 'react-router-dom';
 
 import TreatmentInput from './components/TreatmentInput';
-import EventLog from './components/EventLog';
+import EventLog from './components/EventLog/EventLog';
 import PatientInfo from './components/PatientInfo/PatientInfo';
 import Login from './components/Login';
 import { GlobalValues } from './types/Global';
