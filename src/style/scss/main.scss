@@ -1,11 +1,7 @@
 @use "sass:map";
 
 @use 'font';
-
-html {
-  width: 100vw;
-  height: 100vh;
-}
+@use 'layout';
 
 $grey-0: #ffffff;
 $grey-1: #F0F0F0;
@@ -14,21 +10,11 @@ $grey-3: #A0A0A0;
 
 body {
   background: $grey-1;
-  text-align: center;
-
   color: #1b0058;
-}
-
-* {
-  box-sizing: border-box;
 }
 
 .app {
   background: $grey-0;
-  
-  max-width: 30rem;
-  margin: 0 auto;
-  padding: 1rem 2rem;
   border-radius: 0.5rem;
 }
 
@@ -62,7 +48,7 @@ form {
       width: 100%;
       padding: 1.5rem 0.625rem 0.5rem;
       background: none;
-      border: 0.1rem solid $grey-3;
+      border: layout.$border-width solid $grey-3;
       border-radius: 0.25rem;
       transition: border 300ms;
       @include font.text-style("body-1");
@@ -92,7 +78,7 @@ form {
         
         z-index: 2;
         background: $grey-0;
-        border: 0.1rem solid $grey-3;
+        border: layout.$border-width solid $grey-3;
         border-radius: 0.25rem;
 
         max-height: 6rem;
@@ -238,7 +224,7 @@ form {
     margin: 0 0.5rem;
     padding: 0.75rem 0;
 
-    border-top: solid 0.0125rem #EEEEEE;
+    border-top: solid layout.$border-width #EEEEEE;
     @include font.text-style("body-1");
 
     div {
@@ -256,7 +242,7 @@ button {
   background: none;
   padding: 0.5rem 1.5rem;
 
-  border: 0.03125rem #505050 solid;
+  border: layout.$border-width #505050 solid;
   border-radius: 2rem;
 
   @include font.text-style("body-1");
@@ -318,7 +304,7 @@ $avatar-spacing: 0.125rem;
 
     padding-bottom: 0.325rem;
     margin-bottom: 0.625rem;
-    border-bottom: #DFDFDF solid 0.0125rem;
+    border-bottom: #DFDFDF solid layout.$border-width;
 
     &:hover {
       cursor: pointer;
