@@ -124,7 +124,7 @@ form div select {
 }
 form div label {
   color: #505050;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 400;
   position: absolute;
   top: 0;
@@ -136,7 +136,7 @@ form div input + label, form div select + label {
   cursor: text;
 }
 form div :focus + label, form div label.filled, form div select + label {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 400;
   transform: translate3d(0, -25%, 0);
   opacity: 1;
@@ -145,7 +145,7 @@ form div :focus + label, form div label.filled, form div select + label {
 form div .error {
   margin: 0 0.5rem;
   color: darkred;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 400;
 }
 
@@ -201,7 +201,7 @@ form div .error {
   font-weight: 400;
 }
 .event-log .detail div {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 400;
   color: #888;
 }
@@ -269,7 +269,7 @@ li {
   display: flex;
   justify-content: space-between;
   margin-bottom: 2rem;
-  font-size: 0.875rem;
+  font-size: 0.9rem;
   font-weight: 400;
 }
 .filters .content > span {
@@ -279,7 +279,7 @@ li {
   cursor: pointer;
 }
 .filters .content > span > div {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 400;
 }
 
