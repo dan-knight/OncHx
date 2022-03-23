@@ -1,0 +1,149 @@
+@use "colour";
+@use "font";
+@use "layout";
+@use "utility/scale";
+
+
+.form {
+  h3 {
+    font-weight: 500;
+  }
+
+  .exit {
+    text-align: left;
+
+    a {
+      text-decoration: none;
+    }
+  }
+}
+
+form {
+  text-align: left;
+
+  div {
+    position: relative;
+    display: block;
+    margin: scale.scale(1) 0;
+
+    &.button {
+      text-align: center;
+    }
+
+    input, select, &.select > div {
+      width: 100%;
+      padding: scale.scale(3) scale.scale(-4) scale.scale(-5);
+      background: none;
+      border: layout.$border-width solid colour.$grey-3;
+      border-radius: 0.25rem;
+      transition: border 300ms;
+      @include font.text-style("body-1");
+      font-family: inherit;
+
+      &:focus {
+        outline: none;
+        border-color: #2d88ff;
+      }
+    }
+
+    > div {
+      overflow-y: hidden;
+      cursor: pointer;
+    }
+
+    &.select {
+      position: relative;
+
+      ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+
+        margin: scale.scale(-15) 0 0;
+        max-width: 100%;
+        
+        z-index: 2;
+        background: colour.$grey-0;
+        border: layout.$border-width solid colour.$grey-3;
+        border-radius: 0.25rem;
+
+        max-height: 6rem;
+        overflow-y: scroll;
+
+        display: none;
+
+        li {
+          padding: scale.scale(-10) scale.scale(-5);
+          padding-right: scale.scale(5);
+          @include font.text-style("body-1");
+          cursor: pointer;
+          
+          &:first-child {
+            cursor: text;
+          }
+
+          transition: background-color 200ms;
+
+          &:hover {
+            background: colour.$grey-1;
+          }
+
+          input {
+            border: none;
+            margin: 0;
+            padding: 0;
+          }
+
+          &.filter {
+            display: flex;
+            align-content: space-between;
+            align-items: center;
+
+            svg {
+              margin-right: scale.scale(-5);
+            }
+          }
+        }
+        
+        &.open {
+          display: inherit;
+        }
+      }
+    }
+
+    select {
+      -webkit-appearance: none;
+      -moz-appearance : none; 
+    }
+
+    label {
+      color: #505050;
+      @include font.text-style("body-2");
+      position: absolute;
+      top: 0;
+      left: 0;
+      padding: scale.scale(1) scale.scale(-3) 0;
+      transition: all 250ms;
+    }
+
+    input, select {
+      & + label {
+        cursor: text;
+      }
+    }
+
+    :focus + label, label.filled, select + label {
+      @include font.text-style("caption");
+      transform: translate3d(0, -25%, 0);
+      opacity: 1;
+      cursor: default;
+    }
+
+    .error {
+      margin: 0 scale.scale(-5);
+      
+      color: darkred;
+      @include font.text-style("caption");
+    }
+  }
+}

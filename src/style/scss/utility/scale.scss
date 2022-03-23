@@ -1,0 +1,25 @@
+@use 'sass:math';
+@use 'sass:map';
+
+@use "convert";
+
+
+@function -calcScaledValue($n, $subdivisions) {
+  $octave: math.floor($n / $subdivisions);
+  $remainder: $n % $subdivisions;
+
+  @return math.pow(2, $octave) + (math.pow(2, $octave) / $subdivisions * $remainder);
+}
+
+$-scaleCache: ();
+
+@function scale($n) {
+  @if map-has-key($-scaleCache, $n) {
+    @return map-get($-scaleCache, $n);
+  } @else {
+    $value: convert.asRem(-calcScaledValue($n, 5));
+
+    $-scaleCache: map.merge($-scaleCache, ($n: $value));
+    @return $value;
+  }
+}

@@ -1,0 +1,22 @@
+@use 'utility/scale.scss';
+
+html {
+  width: 100vw;
+  height: 100vh;
+}
+
+body {
+  text-align: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.app {
+  max-width: 30rem;
+  margin: 0 auto;
+  padding: scale.scale(0) scale.scale(5);
+}
+
+$border-width: 0.0125rem;

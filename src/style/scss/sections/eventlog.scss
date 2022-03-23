@@ -1,0 +1,80 @@
+@use "../font";
+@use "../layout";
+@use "../utility/scale.scss";
+
+
+.event-log {
+  h4, h5, p {
+    margin: scale.scale(-10);
+  }
+
+  h6 span, h3 {
+    cursor: pointer;
+  }
+
+  h6 {
+    margin: scale.scale(-2) 0;
+  }
+
+  h3 {
+    text-align: left;
+  }
+
+  li {
+    margin: scale.scale(-5);
+    border-radius: scale.scale(-7);
+
+    text-align: left;
+
+    &:hover {
+      background: #F6F6F6;
+    }
+
+    .event-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: scale.scale(-5);;
+
+      cursor: pointer;
+    }
+
+    h5 {
+      span {
+        color: #909090;
+        margin-left: scale.scale(-2);
+      }
+    }
+
+    p {
+      @include font.text-style("body-1");
+    }
+
+    button {
+      border: none;
+      @include font.text-style("body-1");
+    }
+
+    svg {
+      color: #707070;
+      margin: scale.scale(-5);
+    }
+  }
+
+  .detail {
+    margin: 0 scale.scale(-5);
+    padding: scale.scale(-2) 0;
+
+    border-top: solid layout.$border-width #EEEEEE;
+    @include font.text-style("body-1");
+
+    div {
+      @include font.text-style("caption");
+      color: #888;
+    }
+  }
+
+  div.hidden {
+    display: none;
+  }
+}
