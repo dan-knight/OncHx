@@ -1,22 +1,22 @@
 @use "sass:map";
 @use "sass:list";
 
-@use "utility";
+@use "utility/scale";
 
 body { 
   font-family: 'Manrope', 'Helvetica', 'sans-serif';
 }
 
 $font-sizes: (
-  6: utility.scale(11),
-  5: utility.scale(9),
-  4: utility.scale(7),
-  3: utility.scale(5),
-  2: utility.scale(3),
-  1: utility.scale(1),
-  0: utility.scale(0),
-  -1: utility.scale(-1),
-  -2: utility.scale(-2)
+  6: scale.scale(11),
+  5: scale.scale(9),
+  4: scale.scale(7),
+  3: scale.scale(5),
+  2: scale.scale(3),
+  1: scale.scale(1),
+  0: scale.scale(0),
+  -1: scale.scale(-1),
+  -2: scale.scale(-2)
 );
 
 $font-weights: (

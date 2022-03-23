@@ -1,4 +1,4 @@
-@use 'utility';
+@use 'utility/scale.scss';
 
 html {
   width: 100vw;
@@ -16,7 +16,7 @@ body {
 .app {
   max-width: 30rem;
   margin: 0 auto;
-  padding: utility.scale(0) utility.scale(5);
+  padding: scale.scale(0) scale.scale(5);
 }
 
 $border-width: 0.0125rem;

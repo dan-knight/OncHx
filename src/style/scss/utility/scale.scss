@@ -1,6 +1,8 @@
 @use 'sass:math';
 @use 'sass:map';
 
+@use "convert";
+
 
 @function -calcScaledValue($n, $subdivisions) {
   $octave: math.floor($n / $subdivisions);
@@ -15,13 +17,9 @@ $-scaleCache: ();
   @if map-has-key($-scaleCache, $n) {
     @return map-get($-scaleCache, $n);
   } @else {
-    $value: asRem(-calcScaledValue($n, 5));
+    $value: convert.asRem(-calcScaledValue($n, 5));
 
     $-scaleCache: map.merge($-scaleCache, ($n: $value));
     @return $value;
   }
-}
-
-@function asRem($n) {
-  @return #{$n}rem;
 }

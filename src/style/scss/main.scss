@@ -2,7 +2,7 @@
 
 @use 'font';
 @use 'layout';
-@use 'utility';
+@use 'utility/scale';
 
 $grey-0: #ffffff;
 $grey-1: #F0F0F0;
@@ -39,7 +39,7 @@ form {
   div {
     position: relative;
     display: block;
-    margin: utility.scale(1) 0;
+    margin: scale.scale(1) 0;
 
     &.button {
       text-align: center;
@@ -47,7 +47,7 @@ form {
 
     input, select, &.select > div {
       width: 100%;
-      padding: utility.scale(3) utility.scale(-4) utility.scale(-5);
+      padding: scale.scale(3) scale.scale(-4) scale.scale(-5);
       background: none;
       border: layout.$border-width solid $grey-3;
       border-radius: 0.25rem;
@@ -74,7 +74,7 @@ form {
         top: 100%;
         left: 0;
 
-        margin: utility.scale(-15) 0 0;
+        margin: scale.scale(-15) 0 0;
         max-width: 100%;
         
         z-index: 2;
@@ -88,8 +88,8 @@ form {
         display: none;
 
         li {
-          padding: utility.scale(-10) utility.scale(-5);
-          padding-right: utility.scale(5);
+          padding: scale.scale(-10) scale.scale(-5);
+          padding-right: scale.scale(5);
           @include font.text-style("body-1");
           cursor: pointer;
           
@@ -115,7 +115,7 @@ form {
             align-items: center;
 
             svg {
-              margin-right: utility.scale(-5);
+              margin-right: scale.scale(-5);
             }
           }
         }
@@ -137,7 +137,7 @@ form {
       position: absolute;
       top: 0;
       left: 0;
-      padding: utility.scale(1) utility.scale(-3) 0;
+      padding: scale.scale(1) scale.scale(-3) 0;
       transition: all 250ms;
     }
 
@@ -155,7 +155,7 @@ form {
     }
 
     .error {
-      margin: 0 utility.scale(-5);
+      margin: 0 scale.scale(-5);
       
       color: darkred;
       @include font.text-style("caption");
@@ -165,7 +165,7 @@ form {
 
 .event-log {
   h4, h5, p {
-    margin: utility.scale(-10);
+    margin: scale.scale(-10);
   }
 
   h6 span, h3 {
@@ -173,7 +173,7 @@ form {
   }
 
   h6 {
-    margin: utility.scale(-2) 0;
+    margin: scale.scale(-2) 0;
   }
 
   h3 {
@@ -181,8 +181,8 @@ form {
   }
 
   li {
-    margin: utility.scale(-5);
-    border-radius: utility.scale(-7);
+    margin: scale.scale(-5);
+    border-radius: scale.scale(-7);
 
     text-align: left;
 
@@ -194,7 +194,7 @@ form {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: utility.scale(-5);;
+      padding: scale.scale(-5);;
 
       cursor: pointer;
     }
@@ -202,7 +202,7 @@ form {
     h5 {
       span {
         color: #909090;
-        margin-left: utility.scale(-2);
+        margin-left: scale.scale(-2);
       }
     }
 
@@ -217,13 +217,13 @@ form {
 
     svg {
       color: #707070;
-      margin: utility.scale(-5);
+      margin: scale.scale(-5);
     }
   }
 
   .detail {
-    margin: 0 utility.scale(-5);
-    padding: utility.scale(-2) 0;
+    margin: 0 scale.scale(-5);
+    padding: scale.scale(-2) 0;
 
     border-top: solid layout.$border-width #EEEEEE;
     @include font.text-style("body-1");
@@ -241,13 +241,13 @@ form {
 
 button {
   background: none;
-  padding: utility.scale(-5) utility.scale(2);
+  padding: scale.scale(-5) scale.scale(2);
 
   border: layout.$border-width #505050 solid;
   border-radius: 2rem;
 
   @include font.text-style("body-1");
-  letter-spacing: utility.scale(-25);
+  letter-spacing: scale.scale(-25);
 
   cursor: pointer;
 
@@ -267,8 +267,8 @@ li {
   list-style: none;
 }
 
-$avatar-size: utility.scale(11);
-$avatar-spacing: utility.scale(-20);
+$avatar-size: scale.scale(11);
+$avatar-spacing: scale.scale(-20);
 
 .user-avatar {
   height: $avatar-size;
@@ -281,7 +281,7 @@ $avatar-spacing: utility.scale(-20);
   background: #F0F0F0;
   border-radius: $avatar-size;
 
-  font-size: utility.scale(5);;
+  font-size: scale.scale(5);;
   font-weight: 600;
   letter-spacing: $avatar-spacing;
 
