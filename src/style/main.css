@@ -21,16 +21,6 @@ body {
   padding: 1rem 2rem;
 }
 
-body {
-  background: #F0F0F0;
-  color: #1b0058;
-}
-
-.app {
-  background: #ffffff;
-  border-radius: 0.5rem;
-}
-
 .form h3 {
   font-weight: 500;
 }
@@ -207,6 +197,16 @@ form div .error {
 }
 .event-log div.hidden {
   display: none;
+}
+
+body {
+  background: #F0F0F0;
+  color: #1b0058;
+}
+
+.app {
+  background: #ffffff;
+  border-radius: 0.5rem;
 }
 
 button {
