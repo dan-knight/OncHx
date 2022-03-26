@@ -61,7 +61,7 @@ export default function NewTreatment() {
       <FilterSelect name='cancerType' label='Cancer Type' options={cancerTypeOptions} 
         displayValue={cancerTypeIndex(values.cancerType)?.cancerName ?? ''} />
       <Select name='treatmentType' label='Treatment Type' options={treatmentTypeOptions} 
-        displayValue={treatmentTypeIndex(values.treatmentType)?.treatmentName ?? ''} />
+        displayValue={treatmentTypeIndex(values.treatmentType.toString())?.treatmentName ?? ''} />
       <DateField name='date' label='Date' />
       <TextField name='institutionName' label='Institution Name' filled={values.institutionName} />
       <DetailFields />

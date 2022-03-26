@@ -25,8 +25,8 @@ export default function EventLogEvent(props: EventLogEventProps) {
       <div className='event-header' onClick={toggleShowDetails}>
         <span>
           <h5>
-            {treatmentTypeIndex(props.event.treatmentType)?.treatmentName ?? ''}
-            <span>{cancerTypeIndex(props.event.cancerType)?.cancerName ?? ''}</span>
+            {treatmentTypeIndex(props.event.treatmentType?.toString())?.treatmentName ?? ''}
+            <span>{cancerTypeIndex(props.event.cancerType?.toString())?.cancerName ?? ''}</span>
           </h5>  
           <h4>{props.event.date.toDateString()}</h4>
         </span>

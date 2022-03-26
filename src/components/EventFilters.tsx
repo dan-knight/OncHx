@@ -32,7 +32,7 @@ export default function EventFilters(props: EventFiltersProps) {
         <DropdownFilter 
           label='Treatment Type' 
           options={treatmentTypeOptions} 
-          displayValue={props.treatmentTypeFilterValue !== undefined ? treatmentTypeIndex(props.treatmentTypeFilterValue)?.treatmentName : ''}
+          displayValue={props.treatmentTypeFilterValue !== undefined ? treatmentTypeIndex(props.treatmentTypeFilterValue.toFixed())?.treatmentName : ''}
         />
         <DateFilter 
           label='Start Date' 
