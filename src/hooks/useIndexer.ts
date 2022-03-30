@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import Indexer from "../types/Indexer/Indexer";
+import Indexer from "../types/utility/Indexer/Indexer";
 
 export default function useIndexer<T>(values: T[], indexFunc: (x: T) => string): [
   (key: string | undefined) => T | undefined,
