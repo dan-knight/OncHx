@@ -62,6 +62,7 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
   const [getTreatmentLocation] = useIndexer<TreatmentLocation>(treatmentLocations, dbIndexFunc);
 
   const patients: Patient[] = useMemo(() => defaultPatients(), []);
+  const [getPatient, getPatientIndex] = useIndexer<Patient>(patients, (x: Patient) => x.email);
   
   const [user, setUser] = useState<number | undefined>(undefined);
   const login: (value: number | undefined) => void = setUser;
@@ -74,6 +75,8 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
       getChemotherapyRegimen,
       getTreatmentLocation,
       patients,
+      getPatient,
+      getPatientIndex,
       user,
       login
     }}>

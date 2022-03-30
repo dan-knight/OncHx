@@ -1,4 +1,4 @@
-import { GetValueFunc } from "../hooks/useIndexer";
+import { GetIndexFunc, GetValueFunc } from "../hooks/useIndexer";
 import Config from "./Config";
 
 import CancerType from "./DB/Config/CancerType";
@@ -13,7 +13,9 @@ export interface GlobalValues {
   getCancerType: GetValueFunc<CancerType>,
   getChemotherapyRegimen: GetValueFunc<ChemotherapyRegimen>,
   getTreatmentLocation: GetValueFunc<TreatmentLocation>,
+  patients: Patient[],
+  getPatient: GetValueFunc<Patient>,
+  getPatientIndex: GetIndexFunc,
   user: number | undefined,
   login: (value: number | undefined) => void,
-  patients: Patient[]
 }
