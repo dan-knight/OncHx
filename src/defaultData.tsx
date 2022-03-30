@@ -51,6 +51,7 @@ export const defaultPatients = (): Patient[] => [
       zip: '90001'
     },
     email: 'patient@example.com',
+    password: 'patient',
     phone: '818-123-4567',
     birthday: new Date(1980, 10, 2)
   },
@@ -65,6 +66,7 @@ export const defaultPatients = (): Patient[] => [
       zip: '90001'
     },
     email: 'example@test.com',
+    password: 'example',
     phone: '818-456-7890',
     birthday: new Date(1976, 3, 3)
   }

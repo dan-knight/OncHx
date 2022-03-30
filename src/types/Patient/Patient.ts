@@ -6,6 +6,7 @@ export default interface Patient {
   lastName: string,
   address: Address,
   email: string,
+  password: string,
   phone: string,
   birthday: Date
 }
