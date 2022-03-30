@@ -12,7 +12,7 @@ interface EventLogEventProps {
 }
 
 export default function EventLogEvent(props: EventLogEventProps) {
-  const { treatmentTypeIndex, cancerTypeIndex }: GlobalValues = useGlobalContext();
+  const { getTreatmentType, getCancerType }: GlobalValues = useGlobalContext();
 
   const [showDetails, setShowDetails] = useState<boolean>(false);
 
@@ -25,8 +25,8 @@ export default function EventLogEvent(props: EventLogEventProps) {
       <div className='event-header' onClick={toggleShowDetails}>
         <span>
           <h5>
-            {treatmentTypeIndex(props.event.treatmentType?.toString())?.treatmentName ?? ''}
-            <span>{cancerTypeIndex(props.event.cancerType?.toString())?.cancerName ?? ''}</span>
+            {getTreatmentType(props.event.treatmentType?.toString())?.treatmentName ?? ''}
+            <span>{getCancerType(props.event.cancerType?.toString())?.cancerName ?? ''}</span>
           </h5>  
           <h4>{props.event.date.toDateString()}</h4>
         </span>

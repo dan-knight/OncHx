@@ -56,10 +56,10 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
 
   const dbIndexFunc: (x: DBElement) => string = useCallback((x: DBElement) => x.id.toString(), []);
   
-  const treatmentTypeIndex = useIndexer<TreatmentType>(treatmentTypes, dbIndexFunc);
-  const cancerTypeIndex = useIndexer<CancerType>(cancerTypes, dbIndexFunc);
-  const chemotherapyRegimenIndex = useIndexer<ChemotherapyRegimen>(chemotherapyRegimens, dbIndexFunc);
-  const treatmentLocationIndex = useIndexer<TreatmentLocation>(treatmentLocations, dbIndexFunc);
+  const [getTreatmentType] = useIndexer<TreatmentType>(treatmentTypes, dbIndexFunc);
+  const [getCancerType] = useIndexer<CancerType>(cancerTypes, dbIndexFunc);
+  const [getChemotherapyRegimen] = useIndexer<ChemotherapyRegimen>(chemotherapyRegimens, dbIndexFunc);
+  const [getTreatmentLocation] = useIndexer<TreatmentLocation>(treatmentLocations, dbIndexFunc);
 
   const patients: Patient[] = useMemo(() => defaultPatients(), []);
   
@@ -69,10 +69,10 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
   return (
     <GlobalContext.Provider value={{
       config,
-      treatmentTypeIndex,
-      cancerTypeIndex,
-      chemotherapyRegimenIndex,
-      treatmentLocationIndex,
+      getTreatmentType,
+      getCancerType,
+      getChemotherapyRegimen,
+      getTreatmentLocation,
       patients,
       user,
       login

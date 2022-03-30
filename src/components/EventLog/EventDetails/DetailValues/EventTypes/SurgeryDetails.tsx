@@ -8,9 +8,9 @@ import { GlobalValues } from "../../../../../types/Global";
 import { SurgeryDetailValues } from "../../../../../types/PatientEvent/Details/EventTypes/SurgeryDetails";
 
 export default function SurgeryDetails(props: DetailValuesProps<SurgeryDetailValues>) {
-  const { treatmentLocationIndex }: GlobalValues = useGlobalContext();
+  const { getTreatmentLocation }: GlobalValues = useGlobalContext();
 
-  const location: string | undefined = treatmentLocationIndex(props.details.location)?.locationName;
+  const location: string | undefined = getTreatmentLocation(props.details.location?.toString())?.locationName;
 
   return (
     <React.Fragment>
