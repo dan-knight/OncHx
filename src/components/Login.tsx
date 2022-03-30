@@ -14,16 +14,16 @@ const treatmentSchema = Yup.object().shape({
 export default function Login() {
   const { getPatientIndex, patients, login }: GlobalValues = useGlobalContext();
 
-  function handleLogin(values: LoginValues, { setFieldError, setValues }: FormikValues) {
+  function handleLogin(values: LoginValues, { setErrors, resetForm }: FormikValues) {
+    resetForm();
+
     const userIndex: number | undefined = getPatientIndex(values.email);
 
     if (userIndex !== undefined && values.password === patients?.[userIndex].password) {
       login(userIndex);
     } else {
-      setFieldError('email', 'Invalid email/password combination');
+      setErrors({ email: 'Invalid email/password combination' });
     }
-
-    setValues({ email: '', password: '' })
   }
 
   return (
@@ -34,7 +34,9 @@ export default function Login() {
           email: '',
           password: ''}}
         onSubmit={handleLogin}
-        validationSchema={treatmentSchema}>
+        validationSchema={treatmentSchema}
+        validateOnBlur={false}
+      >
         {({ errors, values }) => (
           <Form>
             <TextField label='Email' name='email' filled={Boolean(values.email)} />
