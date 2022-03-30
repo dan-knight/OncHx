@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useMemo, useState } from "react";
+import { createContext, ReactNode, useCallback, useContext, useMemo, useState } from "react";
 
 import TreatmentType from "../types/DB/Config/TreatmentType";
 import CancerType from "../types/DB/Config/CancerType";
@@ -17,9 +17,10 @@ import CancerTypes from '../config/cancerTypes.json';
 import TreatmentLocations from '../config/treatmentLocations.json';
 import ChemotherapyRegimens from '../config/chemotherapyRegimens.json';
 import Config from "../types/Config";
-import useDBIndex from "../hooks/useDBIndex";
+import useIndexer from "../hooks/useIndexer";
 import StrictJSONImporter from "../types/DB/JSON/Importer/StrictJSONImporter";
 import { defaultPatients } from "../defaultData";
+import DBElement from "../types/DB/DBElement";
 
 const GlobalContext = createContext<GlobalValues | null>(null);
 
@@ -53,12 +54,15 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
     chemotherapyRegimens: chemotherapyRegimens
   }
 
-  const treatmentTypeIndex = useDBIndex<TreatmentType>(treatmentTypes);
-  const cancerTypeIndex = useDBIndex<CancerType>(cancerTypes);
-  const chemotherapyRegimenIndex = useDBIndex<ChemotherapyRegimen>(chemotherapyRegimens);
-  const treatmentLocationIndex = useDBIndex<TreatmentLocation>(treatmentLocations);
+  const dbIndexFunc: (x: DBElement) => string = useCallback((x: DBElement) => x.id.toString(), []);
+  
+  const [getTreatmentType] = useIndexer<TreatmentType>(treatmentTypes, dbIndexFunc);
+  const [getCancerType] = useIndexer<CancerType>(cancerTypes, dbIndexFunc);
+  const [getChemotherapyRegimen] = useIndexer<ChemotherapyRegimen>(chemotherapyRegimens, dbIndexFunc);
+  const [getTreatmentLocation] = useIndexer<TreatmentLocation>(treatmentLocations, dbIndexFunc);
 
   const patients: Patient[] = useMemo(() => defaultPatients(), []);
+  const [getPatient, getPatientIndex] = useIndexer<Patient>(patients, (x: Patient) => x.email);
   
   const [user, setUser] = useState<number | undefined>(undefined);
   const login: (value: number | undefined) => void = setUser;
@@ -66,11 +70,13 @@ export function GlobalContextProvider(props: { children?: ReactNode | ReactNode[
   return (
     <GlobalContext.Provider value={{
       config,
-      treatmentTypeIndex,
-      cancerTypeIndex,
-      chemotherapyRegimenIndex,
-      treatmentLocationIndex,
+      getTreatmentType,
+      getCancerType,
+      getChemotherapyRegimen,
+      getTreatmentLocation,
       patients,
+      getPatient,
+      getPatientIndex,
       user,
       login
     }}>

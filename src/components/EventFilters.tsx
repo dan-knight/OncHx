@@ -14,7 +14,7 @@ interface EventFiltersProps {
 }
 
 export default function EventFilters(props: EventFiltersProps) {
-  const { config, treatmentTypeIndex }: GlobalValues = useGlobalContext();
+  const { config, getTreatmentType }: GlobalValues = useGlobalContext();
   
   const treatmentTypeOptions: DropdownOption<number>[] = useMemo(() => (
     config.treatmentTypes.map((treatmentType: TreatmentType) => (
@@ -32,7 +32,7 @@ export default function EventFilters(props: EventFiltersProps) {
         <DropdownFilter 
           label='Treatment Type' 
           options={treatmentTypeOptions} 
-          displayValue={props.treatmentTypeFilterValue !== undefined ? treatmentTypeIndex(props.treatmentTypeFilterValue)?.treatmentName : ''}
+          displayValue={props.treatmentTypeFilterValue !== undefined ? getTreatmentType(props.treatmentTypeFilterValue.toFixed())?.treatmentName : ''}
         />
         <DateFilter 
           label='Start Date' 

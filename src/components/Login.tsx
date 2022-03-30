@@ -1,37 +1,48 @@
-import { Formik, Form, Field, FormikValues } from "formik";
+import { Formik, Form, FormikValues } from "formik";
+import { useState } from "react";
 import * as Yup from 'yup';
 import { useGlobalContext } from "../contexts/GlobalContext";
 import { GlobalValues } from "../types/Global";
-import { safelyParseInt } from "../utility/parseNumber";
+import LoginValues from "../types/Login";
 import TextField from "./form/TextField";
 
 const treatmentSchema = Yup.object().shape({
-  username: Yup.string().required('Required'),
+  email: Yup.string().required('Required').email(),
   password: Yup.string().required('Required')
 });
 
-interface LoginProps {
-  onLogin: (value: number | undefined) => void
-}
+export default function Login() {
+  const { getPatientIndex, patients, login }: GlobalValues = useGlobalContext();
 
-export default function Login(props: LoginProps) {
+  function handleLogin(values: LoginValues, { setErrors, resetForm }: FormikValues) {
+    resetForm();
 
-  function handleLogin(values: { username: string, password: string }) {
-    props.onLogin(safelyParseInt(values.username));
+    const userIndex: number | undefined = getPatientIndex(values.email);
+
+    if (userIndex !== undefined && values.password === patients?.[userIndex].password) {
+      login(userIndex);
+    } else {
+      setErrors({ email: 'Invalid email/password combination' });
+    }
   }
+
   return (
     <div className='form'>
       <h3>Login</h3>
       <Formik
         initialValues={{
-          username: '',
+          email: '',
           password: ''}}
         onSubmit={handleLogin}
-        validationSchema={treatmentSchema}>
-        {({ errors, values }) => (
+        validationSchema={treatmentSchema}
+        validateOnBlur={false}
+      >
+        {({ values, errors, touched, dirty }) => (
           <Form>
-            <TextField label='Username' name='username' filled={Boolean(values.username)} />
-            <TextField label='Password' name='password' type='password' filled={Boolean(values.password)} />
+            <TextField label='Email' name='email' filled={Boolean(values.email)} 
+              errors={errors.email} touched={!dirty || touched.email} />
+            <TextField label='Password' name='password' type='password' filled={Boolean(values.password)} 
+              errors={errors.password} touched={touched.password} />
             <div className='button'>
               <button type='submit'>Login</button>
             </div>

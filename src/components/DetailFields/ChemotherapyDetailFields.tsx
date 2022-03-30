@@ -13,7 +13,7 @@ import prependDetailFieldName from "./prependDetailFieldName";
 import TextField from "../form/TextField";
 
 export default function ChemotherapyDetailFields() {
-  const { config, chemotherapyRegimenIndex, treatmentLocationIndex }: GlobalValues = useGlobalContext();
+  const { config, getChemotherapyRegimen }: GlobalValues = useGlobalContext();
   const { values }: FormikValues = useFormikContext();
 
   const fields: ChemotherapyDetailFieldConfig = useMemo(() => (
@@ -23,7 +23,7 @@ export default function ChemotherapyDetailFields() {
   return (
     <React.Fragment>
       <Select name={prependDetailFieldName('regimen')} label={fields.regimen.label} 
-        displayValue={chemotherapyRegimenIndex(safelyParseInt(values.details?.regimen))?.regimenName ?? ''} 
+        displayValue={getChemotherapyRegimen(safelyParseInt(values.details?.regimen)?.toString())?.regimenName ?? ''} 
         options={fields.regimen.options} filter={fields.regimen.filter} />
       <TextField name={prependDetailFieldName('cycle')} label={fields.cycle.label} filled={Boolean(values.details.cycle)} />
     </React.Fragment>

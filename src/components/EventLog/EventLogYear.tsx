@@ -12,7 +12,6 @@ interface EventYearProps {
 }
 
 export default function EventYear(props: EventYearProps) {
-  const { treatmentTypeIndex, cancerTypeIndex }: GlobalValues = useGlobalContext();
   const [show, setShow] = useState<boolean>(false);
 
   function toggleShow() {

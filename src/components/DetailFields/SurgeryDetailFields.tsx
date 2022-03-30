@@ -13,7 +13,7 @@ import { safelyParseInt } from "../../utility/parseNumber";
 import prependDetailFieldName from "./prependDetailFieldName";
 
 export default function SurgeryDetailFields() {
-  const { config, treatmentLocationIndex }: GlobalValues = useGlobalContext();
+  const { config, getTreatmentLocation }: GlobalValues = useGlobalContext();
   const { values }: FormikValues = useFormikContext();
 
   const fields: SurgeryDetailFieldConfig = useMemo(() => (
@@ -24,7 +24,7 @@ export default function SurgeryDetailFields() {
     <React.Fragment>
       <TextField name={prependDetailFieldName('surgeryType')} label={fields.surgeryType.label} filled={values.details?.surgeryType} /> 
       <Select name={prependDetailFieldName('location')} label={fields.location.label} options={fields.location.options} 
-        displayValue={treatmentLocationIndex(safelyParseInt(values.details?.location))?.locationName ?? ''}
+        displayValue={getTreatmentLocation(safelyParseInt(values.details?.location)?.toString())?.locationName ?? ''}
         filter={fields.location.filter} />
       <TextField name={prependDetailFieldName('surgeon')} label={fields.surgeon.label} filled={values.details?.surgeon} />
       <TextField name={prependDetailFieldName('complications')} label={fields.complications.label} filled={values.details?.complications} />
