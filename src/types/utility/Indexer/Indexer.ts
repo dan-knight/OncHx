@@ -1,5 +1,5 @@
 export default class Indexer<T> {
-  values: Record<string, number>;
+  private values: Record<string, number>;
 
   constructor(elements: T[], indexFunc: (x: T) => string) {
     this.values = {};
