@@ -70,7 +70,7 @@ $avatar-spacing: scale.scale(-20);
 
   > * {
     // Account for letter-spacing when centering text
-    margin-right: calc($avatar-spacing * -1);
+    margin-right: calc(#{$avatar-spacing} * -1);
   }
 }
 
