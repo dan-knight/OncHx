@@ -27,6 +27,10 @@ function SelectWrapper(props: SelectWrapperProps) {
     setOpen(!open);
   }
 
+  function close() {
+    setOpen(false);
+  }
+
   function handleClickOption(event: MouseEvent, value: string | number) {
     event.stopPropagation();
 
@@ -35,7 +39,7 @@ function SelectWrapper(props: SelectWrapperProps) {
   }
 
   return (
-    <div className='select'>
+    <div className='select' onBlur={close} tabIndex={0}>
       <div onClick={handleOpen} id={props.name}>
         {(props.displayValue) || '\u00a0'}
       </div>
