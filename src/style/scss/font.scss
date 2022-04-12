@@ -80,3 +80,7 @@ $text-styles:
   font-size: map.get($font-sizes, map.get($sizes, $style));
   font-weight: map.get($font-weights, map.get($weights, $style));
 };
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: map-get($font-weights, "light");
+}
